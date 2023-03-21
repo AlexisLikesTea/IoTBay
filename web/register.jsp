@@ -14,7 +14,7 @@
 
     </head>
     <body>
-        <form action="welcom.jsp" method = "POST">
+        <form action="welcome.jsp" method = "POST">
             
             <table>
                 <tr>

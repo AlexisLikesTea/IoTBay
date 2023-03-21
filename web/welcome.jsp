@@ -34,11 +34,5 @@
         
         <!--<p>Your Password is $ {param.password</p>-->
         
-        
-        <style>
-            .welcome{
-                background: <%=favColor%>;
-            }
-        </style>
     </body>
 </html>

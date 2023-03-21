@@ -1,21 +1,64 @@
+<%-- 
+    Document   : register.jsp
+    Created on : 14/03/2023, 2:11:59 PM
+    Author     : aliaghajafari
+--%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <link rel="stylesheet" type="text/css" href="newcss.css">
+
     </head>
     <body>
-        <h1>Hello World!</h1>
-        <form>
-            <label for="fname">First name:</label><br>
-            <input type="text" id="fname" name="fname"><br>
-            <label for="lname">Last name:</label><br>
-            <input type="text" id="lname" name="lname"><br>
-            <label for="password">Password: </label><br>
-            <input type="password" id="password" name="password"><br>
-            <input type="checkbox" id="gender1" name="gender">
-            <label for="gender">Male: </label><br>
-          </form>
+        <form action="welcom.jsp" method = "POST">
+            
+            <table>
+                <tr>
+                    <td><h1>Registration form</h1></td>
+                </tr>
+                <tr>
+                    <td><label for = "email">Email:</label></td>
+                    <td><input type = "email" id = "email" name = "email" ></td>
+                </tr>
+                <tr>
+                    <td><label for = "name">Name: </label></td>
+                    <td><input id = "name" type = "text" name = "name"></td>
+                </tr>
+                <tr>
+                    <td><label for = "password">Password: </label></td>
+                    <td><input type = "password" id = "password" name ="password" ></td>
+                </tr>
+                <tr>
+                    <td><label for="gender">Gender: </label></td>
+                    <td>
+                        <select for = "gender"  name = "gender" id = "gender">
+                            <option value = "male">Male</option>
+                            <option value = "female">Female</option>
+                            <option value = "other">other</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for = "favColoro">FavColor: </label></td>
+                    <td><input type="color" id="color-picker" name="color-picker" value="#ff0000">
+                    </td>
+                </tr>
+                <tr>
+                    
+                    <td><label for = "tos">Tos:</label></td>
+
+                </tr>
+                <tr>
+                    <td><button>next Page</button></td>
+                </tr>
+
+
+            </table>
+
+        </form>
     </body>
 </html>

@@ -1,7 +1,7 @@
 <%-- 
-    Document   : register.jsp
-    Created on : 14/03/2023, 2:11:59 PM
-    Author     : aliaghajafari
+    Document   : login
+    Created on : 28 Mar 2023, 11:20:35 am
+    Author     : Jack
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Register</title>
+        <title>Login</title>
         <link rel="stylesheet" type="text/css" href="style.css">
 
     </head>
@@ -18,15 +18,15 @@
 
         <div class="topnav">
             <a href="index.html"> Home </a>
-            <a class="active" href="register.jsp"> Register </a>
-            <a href ="login.jsp">Login </a>
+            <a href="register.jsp"> Register </a>
+            <a class="active" href ="login.jsp">Login </a>
         </div>
         <div class="contentcontainer">
         <br>
             <form action="welcome.jsp" method = "POST">  
             <table>
                 <tr>
-                    <h1 id="underlineandcenter">Registration form</h1>
+                    <h1 id="underlineandcenter">Login</h1>
                 </tr>
                 <tr>
                     <td><label for = "email">Email:</label></td>
@@ -61,7 +61,7 @@
 
                 </tr>
                 <tr>
-                    <td><button>Register</button></td>
+                    <td><button>Login</button></td>
                 </tr>
             </table>
         </form>

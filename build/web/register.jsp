@@ -9,16 +9,24 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Register</title>
         <link rel="stylesheet" type="text/css" href="style.css">
 
     </head>
     <body>
-        <form action="welcome.jsp" method = "POST">
-            
+        <div class="topbanner"></div>
+
+        <div class="topnav">
+            <a href="index.html"> Home </a>
+            <a class="active" href="register.jsp"> Register </a>
+            <a href ="login.jsp">Login </a>
+        </div>
+        <div class="contentcontainer">
+        <br>
+            <form action="welcome.jsp" method = "POST">  
             <table>
                 <tr>
-                    <td><h1>Registration form</h1></td>
+                    <h1 id="underlineandcenter">Registration form</h1>
                 </tr>
                 <tr>
                     <td><label for = "email">Email:</label></td>
@@ -48,17 +56,16 @@
                     </td>
                 </tr>
                 <tr>
-                    
-                    <td><label for = "tos">Tos:</label></td>
+                    <td><label for = "tos">Terms of Service: </label></td> 
+                    <td> <input type="checkbox" id="tosAgree" name="tosAgree" value="Agreed">I Agree</td>  
 
                 </tr>
                 <tr>
-                    <td><button>next Page</button></td>
+                    <td><button>Register</button></td>
                 </tr>
-
-
             </table>
-
         </form>
+        <br>
+    </div>
     </body>
 </html>

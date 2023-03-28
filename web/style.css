@@ -52,13 +52,27 @@ body {
     width: 100%;
     height: 100px;
     position: static;
-    background-image: url(webassignmentbanner.jpg);
+    background-image: url(media/IotBaybanner.png);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: left;
 }
 
 /* ↓↓↓ Text formatting classess and ID's ↓↓↓ */
+
+.button {
+    background-color: orangered;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-family: Verdana, Geneva, Tahoma, sans-serif; 
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
 
 h1 {
      font-size: 35px;
@@ -76,7 +90,7 @@ h3 {
      font-size: 20px;
      font-family: Verdana, Geneva, Tahoma, sans-serif; 
      text-align: left;
-     text-decoration: underline;
+     text-decoration: none;
      font-weight: 700;
 }
 
@@ -94,6 +108,11 @@ p{
 }
 #underline{
     text-decoration: underline;
+}
+
+#underlineandcenter{
+    text-decoration: underline;
+    text-align: center;
 }
 
 #bold{
@@ -122,6 +141,7 @@ ul{
 
 table {
     border: 1px solid black;
+    background: white;
     width: 80%;
     margin-left: auto;
     margin-right: auto;
@@ -135,41 +155,7 @@ th, td {
     padding: 8px;
 }
 
-#colorimage{
-    width: 60%;
-    max-width: 700px;
-    height: auto;
-    display: block;
-    margin-right: auto;
-    margin-left: auto; 
-}
-
-#carimage{
-    width: 70%;
-    height: auto;
-    display: block;
-    margin-right: auto;
-    margin-left: auto; 
-}
-
-#futureimage{
-    width: 70%;
-    max-width: 900px;
-    height: auto;
-    display: block;
-    margin-right: auto;
-    margin-left: auto; 
-}
-
-#fightstickimage{
-    width: 70%;
-    max-width: 700px;
-    height: auto;
-    display: block;
-    margin-right: auto;
-    margin-left: auto; 
-    padding-top: 25px;
-}
+tr:hover {background-color: coral;}
 
 #contentcontainerimage{
     width: 70%;
@@ -180,12 +166,4 @@ th, td {
     margin-left: auto; 
 }
 
-#layoutimage{
-    width: 75%;
-    max-width: 1200px;
-    height: auto;
-    display: block;
-    margin-right: auto;
-    margin-left: auto; 
-}
 /* ↑↑↑ formatting classess and ID's ↑↑↑ */

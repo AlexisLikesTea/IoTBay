@@ -14,10 +14,11 @@
         <link rel="stylesheet" type="text/css" href="style.css">
     </head>
     <body>
-        <div class="topbanner">
-            <a>   </a>
-        </div>
-        <div class="topnav"></div>
+        <div class="topbanner"></div>
+        <div class="topnav">
+            <a href="index.html" >Home</a> 
+            <a class="active" href="logout.jsp" >Logout</a>
+         </div>
         <div class="contentcontainer">
             <h3>You have been logged out, click here to go back to the home page</h3>
             <a href="index.html" class="button" >Home</a>

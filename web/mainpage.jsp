@@ -10,7 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="style.css">
-        <title>Welcome</title>
+        <title>Main Page</title>
     </head>
     
     
@@ -18,12 +18,14 @@
         <%
             Customer customer = (Customer)session.getAttribute("customer");
         %>
+
         <div class="topbanner"></div>
 
         <div class="topnav">
            <a href="index.html"> Home </a>
             <a href="register.jsp"> Register </a>
-            <a> Login </a>                     <!-- This is the top nav bar code-->
+            <a href="login.jsp"> Login </a>                     <!-- This is the top nav bar code-->
+            <a class="active" href="mainpage.jsp" >Main Page</a>
         </div>
 
         <div class="contentcontainer">

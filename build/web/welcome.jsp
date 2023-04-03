@@ -21,7 +21,7 @@
             <a href="mainpage.jsp"> Main Page </a>
         </div>
 
-        
+        <div class="contentcontainer">
              <%
             String name = request.getParameter("name");
             String email = request.getParameter("email");

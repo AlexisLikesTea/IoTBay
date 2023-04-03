@@ -17,9 +17,26 @@
             Customer customer = (Customer)session.getAttribute("customer");
             String updated = request.getParameter("Updated");
         %>
+
+        <div class="topbanner"></div>
+
+        <div class="topnav">
+            <a href="index.html"> Home </a>
+            <a href="register.jsp"> Register </a>
+            <a> Login </a>                     <!-- This is the top nav bar code-->
+        </div>
+
+
         <div class="contentcontainer">
             <br>
-            <h1>Edit your current details<span><%= (updated != null) ? "Update was successful":""%></span></h1>
+            <!-- 
+            This is also to be tested and gotten working to give a prompt when the details are edited
+                <% if (updated == null) { %>
+                <h1>Edit your current details</h1>
+            <% } else { %>
+                <h1>Update was successful</h1>
+            <% } %> --> 
+            <h1 id="center">Edit your current details</h1>
                 <form action="edit.jsp" method = "POST">  
                 <table>
                     <tr>
@@ -55,8 +72,9 @@
                     <tr><td></td>
                         <td>
                             <a href="mainpage.jsp" class="button"> Main</a>
-                            <input class="button" type="submit" value="Update">
                             <input type="hidden" name="updated" id="updated">
+                            <input class="button" type="submit" value="Update">
+                            
                         
                         
                         </td>

@@ -1,4 +1,16 @@
 # IoTBay
 UTS AUT 2023 IoTBay ISD Assignment
 
-This project is currently in it's first prototype form, with the main focus of this prototype being to implement the basic features needed to model the registration and login functionality that the final site will have.
+1. Unzip the file into a file location you can easily find in the file directory
+
+2. Open Netbeans 
+
+3. Navigate to the file button in the top right corner
+
+4. Select open project folder
+
+5. Select the folder that the project has been unzipped into
+
+6. Ensure you are running Glassfish 7.0.0
+
+7. Select run and use the website

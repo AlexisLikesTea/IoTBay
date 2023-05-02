@@ -1,0 +1,57 @@
+Create Table USERS(
+    user_id varchar(10),
+    user_name VARCHAR(50),
+    user_email VARCHAR(50),
+    user_age int,
+    user_DOB date,
+    user_state varchar(20),
+    user_postCode varchar(4),
+    user_address varchar(150),
+    PRIMARY KEY (user_id)
+);
+
+Create Table ITEMS(
+    item_id varchar(10),
+    item_name varchar(50),
+    item_price float,
+    item_inventory int,
+    item_description varchar(200),
+    PRIMARY KEY (item_id)
+);
+
+create table STAFF(
+    staff_id varchar(10),
+    staff_name VARCHAR(50),
+    staff_email VARCHAR(50),
+    staff_age int,
+    staff_DOB date,
+    staff_state varchar(20),
+    staff_postCode varchar(4),
+    staff_address varchar(150),
+    PRIMARY KEY (staff_id)
+);
+
+insert into USERS (user_id,user_name,user_email,user_age,user_DOB,user_state,user_postCode,user_address)
+VALUES
+('U1','John Doe','john@example.com',25,'1998-06-10','NSW','2000','1 Main St'),
+('U2','Jane Smith','jane@example.com',35,'1988-03-15','NSW','2000','2 George St'),
+('U3','Bob Johnson','bob@example.com',42,'1981-12-05','NSW','2000','3 King St'),
+('U4','Alice Brown','alice@example.com',28,'1995-01-20','NSW','2000','4 Queen St'),
+('U5','David Lee','david@example.com',31,'1992-09-12','NSW','2000','5 High St');
+
+insert into STAFF (staff_id,staff_name,staff_email,staff_age,staff_DOB,staff_state,staff_postCode,staff_address)
+Values
+('ST1','Mark Johnson','mark@example.com',28,'1995-01-20','NSW','2000','6 Oxford St'),
+('ST2','Sarah Lee','sarah@example.com',31,'1992-09-12','NSW','2000','7 Pitt St'),
+('ST3','Chris Brown','chris@example.com',25,'1998-06-10','NSW','2000','8 York St'),
+('ST4','Mary Smith','mary@example.com',35,'1988-03-15','NSW','2000','9 Sussex St'),
+('ST5','Jason Chan','jason@example.com',42,'1981-12-05','NSW','2000','10 Bridge St');
+
+insert into ITEMS (item_id,item_name,item_price,item_inventory,item_description)
+Values
+('IT1','Humidity & Temp',99.99,50,'IOT device for monitoring temperature and humidity'),
+('IT2','Air Quality sensor',149.99,75,'IOT device for monitoring air quality and CO2 levels'),
+('IT3','Movement Sensor',199.99,90,'IOT device for tracking movement and position'),
+('IT4','Noise Sensor',79.99,25,'IOT device for measuring sound and noise levels'),
+('IT5','Water Quality sensor',249.99,80,'IOT device for monitoring water usage and quality'),
+('IT6','KW/H reader',129.99,60,'IOT device for tracking energy consumption');

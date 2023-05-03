@@ -15,8 +15,8 @@ import java.sql.SQLException;
  */
 public class DBConnector {
     
-    //Your database MUST be on port 1527 with the name 'IOTBAY DB' 
-    private static final String URL = "jdbc:derby://localhost:1527/IOTBAY DB";
+    //Your database MUST be on port 1527 with the name 'IOTBAY' 
+    private static final String URL = "jdbc:derby://localhost:1527/IOTBAY";
         //When you make your DB make sure your USERNAME is 'isduser'
     private static final String USERNAME = "isduser";
         //And make sure your password is 'admin'

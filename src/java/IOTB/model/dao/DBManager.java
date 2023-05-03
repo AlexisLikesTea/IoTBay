@@ -14,6 +14,7 @@ import IOTB.model.beans.Device;
 import IOTB.model.beans.Payment;
 import IOTB.model.beans.Order;
 import IOTB.model.beans.OrderLine;
+import java.math.BigInteger;
 
 /**
  * Each BEAN has a DataBase manager function associated with it such that 
@@ -43,7 +44,7 @@ public class DBManager {
     
     public Customer findCustomer(String email, String password) throws SQLException{
         
-        String fetch = "select * from ISDUSER where EMAIL = '" + email + "'and PASSWORD ='" + password + "'";
+        String fetch = "select * from CUSTOMER_T where CUSTOMEREMAIL = '" + email + "'and CUSTOMERPASSWORD ='" + password + "'";
         //results go into a result set
         ResultSet rs = st.executeQuery(fetch);
         //Result set rs is a singly linked list with next. 
@@ -71,47 +72,42 @@ public class DBManager {
         return null;
     }
     
-    public void addCustomer(String firstName, String lastName, String DOB,String customerEmail,String phoneNum, String street, String suburb, String postCode, String userName, String customerPassWord) throws SQLException{
+    public void addCustomer(String firstName, String lastName, String DOB,String email,String phoneNum, String street, String suburb, String state, String postCode, String userName, String passWord) throws SQLException{
         //Have to find a unique Customer id first 
         ResultSet maxIdRs = st.executeQuery("SELECT MAX(CUSTOMERID) FROM CUSTOMER_T");
-        
         //Always finds the highest customer ID and + 1's it. Not the most incredible solution but yeah.
-        int freshID;
+        int IDLEN = 15;
+        BigInteger freshID;
+        String customerID = null;
+        
         if(maxIdRs.next()){
-            String maxIDStr = maxIdRs.getString(1);
-            int maxID = Integer.parseInt(maxIDStr);
-            freshID = maxID + 1;
-            
-            System.out.println("Max ID was " + maxIDStr + " new ID is " + freshID + "inserting new customer into cusotomer T");
-            
+            freshID =  new BigInteger(maxIdRs.getString(1));
+            freshID = freshID.add(BigInteger.ONE);
+            customerID = freshID.toString();
         } else {
-            freshID = 1;
-            
-            System.out.println( "First ID int Customer_T " + freshID + " inserting new customer into cusotomer T");
+            customerID = "1";
         }
-        
-        String customerID = Integer.toString(freshID);
-        
+        // Add a bunch of zeros
+        while(customerID.length() < IDLEN){
+            customerID += "0";
+        }
         //Secure databse entry statement 
-        String query = "INSERT INTO ISDUSER.CUSTOMER_T VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO ISDUSER.CUSTOMER_T VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement statement = connect.prepareStatement(query)) {
             statement.setString(1, customerID);
             statement.setString(2, firstName);
             statement.setString(3, lastName);
             statement.setString(4, DOB);
-            statement.setString(5, customerEmail);
+            statement.setString(5, email);
             statement.setString(6, phoneNum);
             statement.setString(7, street);
             statement.setString(8, suburb);
-            statement.setString(9, postCode);
-            statement.setString(10, userName);
-            statement.setString(11, customerPassWord);
+            statement.setString(9, state);
+            statement.setString(10, postCode);
+            statement.setString(11, userName);
+            statement.setString(12, passWord);
             statement.executeUpdate();
         }
-        
-        //This is a backup statement if the fancy one goes titsup.
-        //st.executeUpdate("INSERT INTO ISDUSER.CUSTOMER_T " + "VALUES ('" + customerID + "', '" + firstName + "', '"  + lastName + "', '" + DOB + "', '"  + customerEmail + "', '" + phoneNum + "', '" + street + "', '" + suburb + "', '"  + postCode+ "', '" + userName + "', '"  + customerPassWord + "')" );
-      
     }
     
     //update, Requires a valid customerId, You can update any field you like but you cannot update customer ID!. 

@@ -39,15 +39,14 @@
         
 
        @Override //Create and instance of DBConnector for the deployment session
-
-       public void init() {
-               db = new DBConnector();
+       public void init(){
+               db = new DBConnector();    
+               System.out.println("Db connection ");
        }
 
       
 
        @Override //Add the DBConnector, DBManager, Connection instances to the session
-
        protected void doGet(HttpServletRequest request, HttpServletResponse response)
 
                throws ServletException, IOException {
@@ -78,7 +77,9 @@
 
            //export the DB manager to the view-session (JSPs)
 
-           session.setAttribute("manager", manager);           
+           session.setAttribute("manager", manager); 
+           
+           System.out.println("Session attribute set Manager, connection established.");
 
        }   
 

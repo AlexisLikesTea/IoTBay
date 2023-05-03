@@ -1,3 +1,14 @@
+<%-- 
+    Document   : index
+    Created on : 03/05/2023, 2:57:12 PM
+    Author     : kyler
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<%@page import="IOTB.model.dao.*"%>
+<%@page import="IOTB.model.beans.*"%>
+
 <!DOCTYPE html>
 <!--
 Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -28,5 +39,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
             <h4 id="center">If you are a returning customer you may select the login option instead.</h4>
               
         </div>
+        <jsp:include page ="/ConnServlet" flush ="true" />
     </body>
 </html>

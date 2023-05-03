@@ -36,6 +36,7 @@
             <h3> Your Password is <%=password%></h3>
             <h3> Your gender is <%=gender%></h3>
             <h3> Your favourite Color is <%=favColor%></h3>
+            
             <h3>Use this button to access the main page: </h3><a href="mainpage.jsp" class="button" >Main Page</a>
          <% } else { %>
             <h1 id="underlineandcenter">Sorry, you must agree to the terms of service.</h1><br>

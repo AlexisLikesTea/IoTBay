@@ -26,7 +26,7 @@
             <a> Login </a>                     <!-- This is the top nav bar code-->
         </div>
 
-
+   <!--This page and all others need to be updated to include all the new fields in the customer BEAN -->
         <div class="contentcontainer">
             <br>
             <!-- 
@@ -92,5 +92,6 @@
             %>
             <br>
         </div>
+               <!--This page and all others need to be updated to include all the new fields in the customer BEAN -->
     </body>
 </html>

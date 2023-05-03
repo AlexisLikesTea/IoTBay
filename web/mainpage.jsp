@@ -13,6 +13,7 @@
         <title>Main Page</title>
     </head>
     
+       <!--This page and all others need to be updated to include all the new fields in the customer BEAN -->
     
     <body class = "welcome">
         <%
@@ -27,6 +28,8 @@
             <a href="login.jsp"> Login </a>                     <!-- This is the top nav bar code-->
             <a class="active" href="mainpage.jsp" >Main Page</a>
         </div>
+        
+           <!--This page and all others need to be updated to include all the new fields in the customer BEAN -->
 
         <div class="contentcontainer">
             <h1>You are logged in as "${customer.name}"</h1> 

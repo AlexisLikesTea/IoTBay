@@ -28,6 +28,8 @@
                 <tr>
                     <h1 id="underlineandcenter">Login</h1>
                 </tr>
+                
+                   <!--This page and all others need to be updated to include all the new fields in the customer BEAN -->
                 <tr>
                     <td><label for = "email">Email:</label></td>
                     <td><input type = "email" id = "email" name = "email" ></td>
@@ -55,6 +57,8 @@
                     <td><input type="color" id="color-picker" name="color-picker" value="#ff0000">
                     </td>
                 </tr>
+                
+                   <!--This page and all others need to be updated to include all the new fields in the customer BEAN -->
                 <tr>
                     <td><label for = "tos">Terms of Service: </label></td> 
                     <td> <input type="checkbox" id="tosAgree" name="tosAgree" value="Agreed">I Agree</td>  

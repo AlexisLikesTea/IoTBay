@@ -1,8 +1,8 @@
-Tue May 02 14:57:50 AEST 2023 : Apache Derby Network Server - 10.10.2.0 - (1582446) started and ready to accept connections on port 1527
+Wed May 03 09:58:52 AEST 2023 : Apache Derby Network Server - 10.10.2.0 - (1582446) started and ready to accept connections on port 1527
 ----------------------------------------------------------------
-Tue May 02 14:57:50 AEST 2023:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): instance a816c00e-0187-dad2-f01f-ffff8d55f980 
-on database directory D:\Uni Folder ALL\2023\Software Development\IoTBay\IOTBay DB with class loader sun.misc.Launcher$AppClassLoader@1d44bcfa 
+Wed May 03 09:58:52 AEST 2023:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): instance a816c00e-0187-dee7-985b-ffff8d55f980 
+on database directory D:\Uni Folder ALL\2023\Software Development\IoTBay\IOTBAY DB with class loader sun.misc.Launcher$AppClassLoader@1d44bcfa 
 Loaded from file:/C:/Users/kyler/GlassFish_Server/javadb/lib/derby.jar
 java.vendor=Oracle Corporation
 java.runtime.version=1.8.0_202-b08
@@ -13,13 +13,13 @@ os.version=10.0
 derby.system.home=D:\Uni Folder ALL\2023\Software Development\IoTBay
 Database Class Loader started - derby.database.classpath=''
 ----------------------------------------------------------------
-Tue May 02 14:57:51 AEST 2023:
-Shutting down instance a816c00e-0187-dad2-f01f-ffff8d55f980 on database directory D:\Uni Folder ALL\2023\Software Development\IoTBay\IOTBay DB with class loader sun.misc.Launcher$AppClassLoader@1d44bcfa 
-Tue May 02 14:57:51 AEST 2023 Thread[DRDAConnThread_2,5,main] (DATABASE = IOTBay DB), (DRDAID = {2}), Database 'IOTBay DB' shutdown.
+Wed May 03 09:58:53 AEST 2023:
+Shutting down instance a816c00e-0187-dee7-985b-ffff8d55f980 on database directory D:\Uni Folder ALL\2023\Software Development\IoTBay\IOTBAY DB with class loader sun.misc.Launcher$AppClassLoader@1d44bcfa 
+Wed May 03 09:58:53 AEST 2023 Thread[DRDAConnThread_2,5,main] (DATABASE = IOTBAY DB), (DRDAID = {2}), Database 'IOTBAY DB' shutdown.
 ----------------------------------------------------------------
-Tue May 02 14:57:56 AEST 2023:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): instance 560740aa-0187-dad2-f01f-ffff8d55f980 
-on database directory D:\Uni Folder ALL\2023\Software Development\IoTBay\IOTBay DB with class loader sun.misc.Launcher$AppClassLoader@1d44bcfa 
+Wed May 03 09:58:56 AEST 2023:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): instance 560740aa-0187-dee7-985b-ffff8d55f980 
+on database directory D:\Uni Folder ALL\2023\Software Development\IoTBay\IOTBAY DB with class loader sun.misc.Launcher$AppClassLoader@1d44bcfa 
 Loaded from file:/C:/Users/kyler/GlassFish_Server/javadb/lib/derby.jar
 java.vendor=Oracle Corporation
 java.runtime.version=1.8.0_202-b08

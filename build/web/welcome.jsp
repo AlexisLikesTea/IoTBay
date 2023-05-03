@@ -3,7 +3,7 @@
     Created on : 14/03/2023, 2:37:25 PM
     Author     : aliaghajafari
 --%>
-<%@page import="Customer.Info.Customer"%>
+<%@page import="IOTB.model.beans.Customer"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

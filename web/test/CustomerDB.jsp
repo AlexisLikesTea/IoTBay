@@ -16,10 +16,8 @@
     <body>
         <%
             // Establish database connection
-            DBConnector db = new DBConnector();
-            Connection conn = db.openConnection();
 
-            DBManager manager = new DBManager(conn);
+            DBManager manager = (DBManager) session.getAttribute("manager");
 
 
         %>

@@ -29,3 +29,37 @@ os.arch=amd64
 os.version=10.0
 derby.system.home=D:\Uni Folder ALL\2023\Software Development\IoTBay
 Database Class Loader started - derby.database.classpath=''
+----------------------------------------------------------------
+Wed May 03 18:43:50 AEST 2023:
+Shutting down instance 560740aa-0187-dee7-985b-ffff8d55f980 on database directory D:\Uni Folder ALL\2023\Software Development\IoTBay\IOTBAY DB with class loader sun.misc.Launcher$AppClassLoader@1d44bcfa 
+Wed May 03 18:43:50 AEST 2023 Thread[DRDAConnThread_5,5,main] (DATABASE = IOTBAY DB), (DRDAID = {22}), Database 'IOTBAY DB' shutdown.
+----------------------------------------------------------------
+Wed May 03 18:44:20 AEST 2023:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): instance 26388f35-0187-dee7-985b-ffff8d55f980 
+on database directory D:\Uni Folder ALL\2023\Software Development\IoTBay\IOTBAY DB with class loader sun.misc.Launcher$AppClassLoader@1d44bcfa 
+Loaded from file:/C:/Users/kyler/GlassFish_Server/javadb/lib/derby.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.8.0_202-b08
+user.dir=C:\Users\kyler\GlassFish_Server\javadb
+os.name=Windows 10
+os.arch=amd64
+os.version=10.0
+derby.system.home=D:\Uni Folder ALL\2023\Software Development\IoTBay
+Database Class Loader started - derby.database.classpath=''
+----------------------------------------------------------------
+Wed May 03 18:44:20 AEST 2023:
+Shutting down instance 26388f35-0187-dee7-985b-ffff8d55f980 on database directory D:\Uni Folder ALL\2023\Software Development\IoTBay\IOTBAY DB with class loader sun.misc.Launcher$AppClassLoader@1d44bcfa 
+Wed May 03 18:44:20 AEST 2023 Thread[DRDAConnThread_5,5,main] (DATABASE = IOTBAY DB), (DRDAID = {24}), Database 'IOTBAY DB' shutdown.
+----------------------------------------------------------------
+Wed May 03 18:44:23 AEST 2023:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): instance c31a0fd1-0187-dee7-985b-ffff8d55f980 
+on database directory D:\Uni Folder ALL\2023\Software Development\IoTBay\IOTBAY DB with class loader sun.misc.Launcher$AppClassLoader@1d44bcfa 
+Loaded from file:/C:/Users/kyler/GlassFish_Server/javadb/lib/derby.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.8.0_202-b08
+user.dir=C:\Users\kyler\GlassFish_Server\javadb
+os.name=Windows 10
+os.arch=amd64
+os.version=10.0
+derby.system.home=D:\Uni Folder ALL\2023\Software Development\IoTBay
+Database Class Loader started - derby.database.classpath=''

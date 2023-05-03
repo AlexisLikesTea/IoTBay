@@ -11,7 +11,6 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>DataBase Test page </title>
-        <link rel="stylesheet" type="text/css" href="./style.css">
 
     </head><!-- comment -->
     <body>
@@ -65,24 +64,24 @@
         <%    ArrayList<Customer> customers = manager.fetchCustomers();
             // Output customer information in a table
             out.println("<table border='1'>");
-            out.println("<tr><th>ID</th><th>Name</th><th>Email</th><th>Phone</th></tr>");
-            for (Customer customer : customers) {
+            out.println("<tr><th>ID</th><th>Name</th><th>Email</th><th>Pass</th></tr>");
+            for (int i = 1; i <= 10; i++) {
                 out.println("<tr>");
-                out.println("<td>" + customer.getCustomerId() + "</td>");
-                out.println("<td>" + customer.getFirstName() + " " + customer.getLastName() + "</td>");
-                out.println("<td>" + customer.getEmail() + "</td>");
-                out.println("<td>" + customer.getPhoneNum() + "</td>");
+                out.println("<td>" + customers.get(i).getCustomerId() + "</td>");
+                out.println("<td>" + customers.get(i).getFirstName() + " " + customers.get(i).getLastName() + "</td>");
+                out.println("<td>" + customers.get(i).getEmail() + "</td>");
+                out.println("<td>" + customers.get(i).getPassword()+ "</td>");
                 out.println("</tr>");
             }
             out.println("</table>");
 
         %>
 
-        <H1>findCustomer("cpinnicka@bluehost.com", "n5ZAQkX")</H1>
+        <H1>findCustomer("cburnside3@army.mil", "tamOIEJHk")</H1>
 
         <%        // Execute the findCustomer method
             Customer customer = null;
-            customer = manager.findCustomer("cpinnicka@bluehost.com", "n5ZAQkX");
+            customer = manager.findCustomer("ahicks4@instagram.com", "tamOIEJHk");
 
             // Close the database connection
             if (customer == null) {
@@ -131,6 +130,40 @@
         %>
 
         <h1> All customer DB tests complete! </h1>
+
+
+
+        <h1> staff </h1>
+
+        <% ArrayList<Staff> staff = manager.fetchStaff();
+            // Output customer information in a table
+            out.println("<table border='1'>");
+            out.println("<tr><th>ID</th><th>Name</th><th>Email</th><th>Pass</th></tr>");
+            for (int i = 1; i <= 10; i++) {
+                out.println("<tr>");
+                out.println("<td>" + staff.get(i).getStaffID() + "</td>");
+                out.println("<td>" + staff.get(i).getStaffFirstName() + " " + staff.get(i).getStaffLastName() + "</td>");
+                out.println("<td>" + staff.get(i).getStaffEmail() + "</td>");
+                out.println("<td>" + staff.get(i).getStaffPassword() + "</td>");
+                out.println("</tr>");
+            }
+            out.println("</table>");
+
+        %>
+        <h1> find Staff </h1>
+
+        <%                
+            Staff testStaff = manager.findStaff("tbockin0@usnews.com", "P59H1lzI");
+
+            if (testStaff == null) {
+                out.println("no such staff my dude");
+            } else {
+                out.println("staff Found: " + testStaff.getStaffFirstName() + testStaff.getStaffLastName());
+            }
+
+
+        %>
+
 
 
     </body>

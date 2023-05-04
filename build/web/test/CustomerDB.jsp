@@ -243,7 +243,7 @@
              
              <%
                 ArrayList<AccessLog> log = manager.fetchAccessLogs();
-            // Output customer information in a table
+             //Output customer information in a table
             out.println("<table border='1'>");
             out.println("<tr><th>ID</th><th>Name</th><th>Email</th><th>Pass</th></tr>");
             for (int i = 1; i <= 10; i++) {
@@ -261,9 +261,18 @@
             <%
                 
                 //Call using LOGID for 1 specific log, Call using either staff and Cust for all of their accesslogs
+                
+                String ID = manager.addAccessLog("674447000000000");
+                
+                ArrayList<AccessLog> logSearch = manager.findAccessLogs("674447000000000");
+                
+            manager.updateAccessLog(ID);
+   
             
-                ArrayList<AccessLog> logSearch = manager.findAccessLogs("887916000000000");
-            // Output customer information in a table
+            
+            manager.updateAccessLog(ID);
+            
+         // Output customer information in a table
             out.println("<table border='1'>");
             out.println("<tr><th>ID</th><th>ID's</th><th>Sign in </th><th>Sign off</th></tr>");
             for (AccessLog logs : logSearch) {
@@ -276,9 +285,6 @@
             }
             out.println("</table>");
              
-            
-            
-            manager.updateAccessLog("429879123453767");
             %>
     </body>
 </html>

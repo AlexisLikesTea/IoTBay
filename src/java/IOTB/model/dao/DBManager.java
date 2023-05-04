@@ -345,27 +345,28 @@ public class DBManager {
         
         //get max ID
         String LOGID = nextLogId();
-        if(checkCust == null){
+        if(checkStaff != null){
             String query = "INSERT INTO ACCESSLOG_T VALUES (?, ?, ?, ?, ?)";
             try (PreparedStatement statement = connect.prepareStatement(query)) {
                 statement.setString(1, LOGID);
-                statement.setString(2, null);
+                statement.setString(2, "000000000000000");
                 statement.setString(3, checkStaff.getStaffID());
-                statement.setTime(4, new Time(System.currentTimeMillis()/1000));
-                statement.setTime(5, null);
+                statement.setTimestamp(4, new Timestamp(System.currentTimeMillis()));
+                statement.setTimestamp(5, new Timestamp(System.currentTimeMillis()));
+                //return LOGID;
             }
-        } else {
+        } else if(checkCust != null){
             String query = "INSERT INTO ACCESSLOG_T VALUES (?, ?, ?, ?, ?)";
             try (PreparedStatement statement = connect.prepareStatement(query)) {
                 statement.setString(1, LOGID);
                 statement.setString(2, checkCust.getCustomerId());
-                statement.setString(3, null);
-                statement.setTime(4, new Time(System.currentTimeMillis()/1000));
-                statement.setTime(5, null);
+                statement.setString(3, "000000000000000");
+                statement.setTimestamp(4, new Timestamp(System.currentTimeMillis()));
+                statement.setTimestamp(5, new Timestamp(System.currentTimeMillis()));
+                //return LOGID;
             }
         }
-        
-        return LOGID;
+            return null;
         
     }
     

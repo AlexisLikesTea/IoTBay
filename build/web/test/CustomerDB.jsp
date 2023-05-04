@@ -106,7 +106,7 @@
 
         %>
 
-        <H1>manager.findCustomerNew("esemor0@naver.com","esemor0", "oQFPvYNDX");</H1>
+        <H1>manager.findCustomer("esemor0@naver.com","esemor0", "oQFPvYNDX");</H1>
 
         <%        // Execute the findCustomer method
             Customer customer = null;

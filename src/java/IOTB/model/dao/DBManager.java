@@ -325,13 +325,11 @@ public class DBManager {
                 while (rs.next()) {
                     result.add(new AccessLog(rs.getString(1), rs.getString(2), rs.getString(3), rs.getTimestamp(4), rs.getTimestamp(5)));
                 }
-
-                if (!result.isEmpty()) {
-                    return result;
-                }
+                
+                return result;
             }
         }
-        return null;
+        return result;
     }
     //neets testing
     

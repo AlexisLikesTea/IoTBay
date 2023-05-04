@@ -11,9 +11,13 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>DataBase Test page </title>
+        <link href="../style.css" rel="stylesheet" type="text/css"/>
 
     </head><!-- comment -->
     <body>
+         <div class="topbanner"></div>
+         <div class="topnav"><a>Welcome to the test suite</a></div>
+         <form>
         <%
             // Establish a DB manager for the page and get going!
             DBManager manager = (DBManager) session.getAttribute("manager");
@@ -258,40 +262,45 @@
             %>
             <h4>Find specific logs id "887916000000000" </h4>
             <h5> Refresh page to see time stamp updates in action </h5>
+            <form>
+            <table><tr><td><input id = "addLog" type = "text" name = "addLog" value ='887916000000000' ></td></tr></table>
+            </form>
             <%
                 
+               
                 //Call using LOGID for 1 specific log, Call using either staff and Cust for all of their accesslogs
                 
-                String ID = manager.addAccessLog("989000000000000");
+                String ID = manager.addAccessLog(request.getParameter("addLog"));
                 
-                ArrayList<AccessLog> logSearch = manager.findAccessLogs("989000000000000");
+                    ArrayList<AccessLog> logSearch = manager.findAccessLogs(request.getParameter("addLog"));
+              
                 
-            manager.updateAccessLog(ID);
-   
-            
-            
-            manager.updateAccessLog(ID);
-            
-         // Output customer information in a table
-            out.println("<table border='1'>");
-            out.println("<tr><th>ID</th><th>ID's</th><th>Sign in </th><th>Sign off</th></tr>");
-            for (AccessLog logs : logSearch) {
-                out.println("<tr>");
-                out.println("<td>" + logs.getLogID()+ "</td>");
-                out.println("<td>" +  logs.getStaffID() + " " +  logs.getCustomerID() + "</td>");
-                out.println("<td>" +  logs.getLogLogin() + "</td>");
-                out.println("<td>" +  logs.getLogLogout()+ "</td>");
-                out.println("</tr>");
-            }
-            out.println("</table>");
+                    manager.updateAccessLog(ID);
+
+
+
+
+                 // Output customer information in a table
+                    out.println("<table border='1'>");
+                    out.println("<tr><th>ID</th><th>ID's</th><th>Sign in </th><th>Sign off</th></tr>");
+                    
+                    for (AccessLog logs : logSearch) {
+                        out.println("<tr>");
+                        out.println("<td>" + logs.getLogID()+ "</td>");
+                        out.println("<td>" +  logs.getStaffID() + " " +  logs.getCustomerID() + "</td>");
+                        out.println("<td>" +  logs.getLogLogin() + "</td>");
+                        out.println("<td>" +  logs.getLogLogout()+ "</td>");
+                        out.println("</tr>");
+                    }
+                    out.println("</table>");
              
             %>
             
             <H1>Device Testing! </H1>
             <h4>Query that returns like name type and brand, testing "Laptop"</h4>
-            
+            <table><tr><td><input id = "deviceSearch" type = "text" name = "deviceSearch"></td></tr></table>
             <% 
-                ArrayList<Device> DeviceSearchResults = manager.findDevice("Laptop");
+                ArrayList<Device> DeviceSearchResults = manager.findDevice(request.getParameter("deviceSearch"));
                 
          // Output customer information in a table
             out.println("<table border='1'>");
@@ -310,5 +319,6 @@
                 
                 
                 %>
+            </form>
     </body>
 </html>

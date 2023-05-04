@@ -262,9 +262,9 @@
                 
                 //Call using LOGID for 1 specific log, Call using either staff and Cust for all of their accesslogs
                 
-                String ID = manager.addAccessLog("674447000000000");
+                String ID = manager.addAccessLog("989000000000000");
                 
-                ArrayList<AccessLog> logSearch = manager.findAccessLogs("674447000000000");
+                ArrayList<AccessLog> logSearch = manager.findAccessLogs("989000000000000");
                 
             manager.updateAccessLog(ID);
    
@@ -286,5 +286,29 @@
             out.println("</table>");
              
             %>
+            
+            <H1>Device Testing! </H1>
+            <h4>Query that returns like name type and brand, testing "Laptop"</h4>
+            
+            <% 
+                ArrayList<Device> DeviceSearchResults = manager.findDevice("Laptop");
+                
+         // Output customer information in a table
+            out.println("<table border='1'>");
+            out.println("<tr><th>NAME</th><th>Price</th><th>IMAGE</th><th>DESCRIPTION</th><th>Type</th><th>brand</th></tr>");
+            for (Device dev : DeviceSearchResults) {
+                out.println("<tr>");
+                out.println("<td>" + dev.getDeviceName()+ "</td>");
+                out.println("<td>" +"$ " + dev.getDeviceCurrentPrice() + "</td>");
+                out.println("<td>" +  "<img src ='"+dev.getDeviceImage() +"'> " + "</td>");
+                out.println("<td>" +  dev.getDeviceDescription()+ "</td>");
+                 out.println("<td>" +  dev.getDeviceType()+ "</td>");
+                 out.println("<td>" +  dev.getDeviceBrand()+ "</td>");
+                out.println("</tr>");
+            }
+            out.println("</table>");
+                
+                
+                %>
     </body>
 </html>

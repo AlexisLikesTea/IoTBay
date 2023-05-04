@@ -304,7 +304,7 @@ public class DBManager {
     }
     
       /////////////////////////////////////////////////////////////////////////
-     //                Accesslog section untested                           //
+     //                Accesslog section tested!                            //
     /////////////////////////////////////////////////////////////////////////
     
     //tested
@@ -339,6 +339,8 @@ public class DBManager {
     // takes either table ID as parameter. 
     //returns the unique LOGID to be stored in session so update can be called 
     //which sets the logout time. 
+    // So this works real well but its possible a staff id and cust id will be equal 
+    // so i will add a boolean if this becomes a concern
     public String addAccessLog(String anyID) throws SQLException{
         Staff checkStaff = findStaffID(anyID);
         Customer checkCust = findCustomerID(anyID);
@@ -349,21 +351,23 @@ public class DBManager {
             String query = "INSERT INTO ACCESSLOG_T VALUES (?, ?, ?, ?, ?)";
             try (PreparedStatement statement = connect.prepareStatement(query)) {
                 statement.setString(1, LOGID);
-                statement.setString(2, "000000000000000");
+                statement.setString(2, null);
                 statement.setString(3, checkStaff.getStaffID());
                 statement.setTimestamp(4, new Timestamp(System.currentTimeMillis()));
                 statement.setTimestamp(5, new Timestamp(System.currentTimeMillis()));
-                //return LOGID;
+                statement.executeUpdate();
+                return LOGID;
             }
         } else if(checkCust != null){
             String query = "INSERT INTO ACCESSLOG_T VALUES (?, ?, ?, ?, ?)";
             try (PreparedStatement statement = connect.prepareStatement(query)) {
                 statement.setString(1, LOGID);
                 statement.setString(2, checkCust.getCustomerId());
-                statement.setString(3, "000000000000000");
+                statement.setString(3, null);
                 statement.setTimestamp(4, new Timestamp(System.currentTimeMillis()));
                 statement.setTimestamp(5, new Timestamp(System.currentTimeMillis()));
-                //return LOGID;
+                statement.executeUpdate();
+                return LOGID;
             }
         }
             return null;
@@ -424,9 +428,50 @@ public class DBManager {
         return logs;
     }
    
-    //Devices Section 
-
+    
+      /////////////////////////////////////////////////////////////////////////
+     //                Devices section Unwritten                            //
+    /////////////////////////////////////////////////////////////////////////
+    
+    //My intuition here will be, return an array list where the search results 
+    //are a wildcard  %like% based on name
+    //Returns an arraylist of devices with the right name or Type
+    public ArrayList<Device> findDevice(String Input) throws SQLException{
+        String[] querys = {
+            "SELECT * FROM DEVICE_T WHERE DEVICENAME LIKE ?",
+            "SELECT * FROM DEVICE_T WHERE DEVICETYPE LIKE ?",
+            "SELECT * FROM DEVICE_T WHERE DEVICEBRAND LIKE ?"
+        };
+        
+        ArrayList<Device> SearchResult = new ArrayList<>();
+        
+        for(String query : querys){
+            try(PreparedStatement statement = connect.prepareStatement(query)){
+                statement.setString(1, "%" + Input + "%");
+                ResultSet rs = statement.executeQuery();
+                while(rs.next()){
+                    SearchResult.add(new Device(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getFloat(8),rs.getFloat(9),rs.getString(10), rs.getInt(11), rs.getString(12)));
+                }
+            }
+        }
+        
+        return SearchResult;
+    }
+    
+    public ArrayList<Device> fetchDevices() throws SQLException{
+        ArrayList<Device> allDevices = new ArrayList<>();
+        
+        ResultSet rs = st.executeQuery("SELECT * FROM DEVICE_T");
+        
+        while(rs.next()){
+            allDevices.add(new Device(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getFloat(8),rs.getFloat(9),rs.getString(10), rs.getInt(11), rs.getString(12)));
+        }
+        
+        return allDevices;
+    }
     //Order Section 
+    
     //OrderLine Section 
+    
     //Payment Section
 }

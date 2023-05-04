@@ -267,6 +267,7 @@ public class DBManager {
         }
     }
 
+    //untested
     public void updateStaff(String staffID, String staffFirstName, String staffLastName, String staffEmail, String staffUserName, String staffPassword ) throws SQLException {
         
         String qurey = "UPDATE ISDUSER.STAFF_T SET STAFFFIRSTNAME=?, STAFFLASTNAME=?, STAFFEMAIL=?, STAFFUSERNAME=?, STAFFPASSWORD=? WHERE STAFFID =?";
@@ -297,14 +298,7 @@ public class DBManager {
         ArrayList<Staff> allStaff = new ArrayList<>();
 
         while (rs.next()) {
-            String staffId = rs.getString(1);
-            String staffFirstName = rs.getString(2);
-            String staffLastName = rs.getString(3);
-            String staffEmail = rs.getString(4);
-            String staffUserName = rs.getString(5);
-            String staffPassword = rs.getString(6);
-
-            allStaff.add(new Staff(staffId, staffFirstName, staffLastName, staffEmail, staffUserName, staffPassword));
+            allStaff.add(new Staff(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6)));
         }
         return allStaff;
     }
@@ -312,6 +306,8 @@ public class DBManager {
       /////////////////////////////////////////////////////////////////////////
      //                Accesslog section untested                           //
     /////////////////////////////////////////////////////////////////////////
+    
+    //tested
     public ArrayList<AccessLog> findAccessLogs(String ANY) throws SQLException {
         ArrayList<AccessLog> result = new ArrayList<>();
 
@@ -400,7 +396,7 @@ public class DBManager {
         String query = "UPDATE ISDUSER.ACCESSLOG_T SET LOGLOGOUT = ? WHERE LOGID = ?";
         
         try(PreparedStatement statement = connect.prepareStatement(query)){
-            statement.setTime(1, new Time(System.currentTimeMillis()/1000));
+            statement.setTimestamp(1, new Timestamp(System.currentTimeMillis()));
             statement.setString(2, logID);
             statement.executeUpdate();
         }
@@ -412,6 +408,19 @@ public class DBManager {
             statement.setString(1, logID);
             statement.executeUpdate();
         }
+    }
+    
+    //tested
+    public ArrayList<AccessLog> fetchAccessLogs() throws SQLException {
+        ArrayList<AccessLog> logs = new ArrayList<>();
+        
+        String query = "SELECT * FROM ACCESSLOG_T";
+        ResultSet rs = st.executeQuery(query);
+        
+        while(rs.next()){
+            logs.add(new AccessLog(rs.getString(1), rs.getString(2), rs.getString(3),rs.getTimestamp(4), rs.getTimestamp(5)));
+        }
+        return logs;
     }
    
     //Devices Section 

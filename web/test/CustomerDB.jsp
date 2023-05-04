@@ -241,6 +241,44 @@
              
              <h3> update staff test </h3>
              
-
+             <%
+                ArrayList<AccessLog> log = manager.fetchAccessLogs();
+            // Output customer information in a table
+            out.println("<table border='1'>");
+            out.println("<tr><th>ID</th><th>Name</th><th>Email</th><th>Pass</th></tr>");
+            for (int i = 1; i <= 10; i++) {
+                out.println("<tr>");
+                out.println("<td>" + log.get(i).getLogID()+ "</td>");
+                out.println("<td>" + log.get(i).getStaffID() + " " + log.get(i).getCustomerID() + "</td>");
+                out.println("<td>" + log.get(i).getLogLogin() + "</td>");
+                out.println("<td>" + log.get(i).getLogLogout()+ "</td>");
+                out.println("</tr>");
+            }
+            out.println("</table>");
+            %>
+            <h4>Find specific logs id "887916000000000" </h4>
+            <h5> Refresh page to see time stamp updates in action </h5>
+            <%
+                
+                //Call using LOGID for 1 specific log, Call using either staff and Cust for all of their accesslogs
+            
+                ArrayList<AccessLog> logSearch = manager.findAccessLogs("887916000000000");
+            // Output customer information in a table
+            out.println("<table border='1'>");
+            out.println("<tr><th>ID</th><th>ID's</th><th>Sign in </th><th>Sign off</th></tr>");
+            for (AccessLog logs : logSearch) {
+                out.println("<tr>");
+                out.println("<td>" + logs.getLogID()+ "</td>");
+                out.println("<td>" +  logs.getStaffID() + " " +  logs.getCustomerID() + "</td>");
+                out.println("<td>" +  logs.getLogLogin() + "</td>");
+                out.println("<td>" +  logs.getLogLogout()+ "</td>");
+                out.println("</tr>");
+            }
+            out.println("</table>");
+             
+            
+            
+            manager.updateAccessLog("429879123453767");
+            %>
     </body>
 </html>

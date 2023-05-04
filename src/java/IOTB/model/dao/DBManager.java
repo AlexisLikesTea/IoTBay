@@ -17,10 +17,12 @@ import java.math.BigInteger;
 
 /**
  * Each BEAN has a DataBase manager function associated with it such that you
- * can Find* -> returns a single bean add* -> adds directly to db update* ->
- * updates directly to DB delete* -> deletes directly to DB fetch* -> returns an
- * ArrayList<Type> of beans
- *
+ * can 
+ * Find* -> returns a single bean 
+ * add* -> adds directly to db 
+ * update* -> updates directly to DB 
+ * delete* -> deletes directly to DB 
+ * fetch* -> returns an ArrayList<Type> of beans
  *
  * @author kyler
  */
@@ -37,40 +39,36 @@ public class DBManager {
     }
 
     //Customer Section 
-    public Customer findCustomer(String email, String password) throws SQLException {
 
-        String query= "select * from CUSTOMER_T where CUSTOMEREMAIL= ? and CUSTOMERPASSWORD= ?";
-      
-        try (PreparedStatement statement = connect.prepareStatement(query)) {
-            statement.setString(1, email);
+    public Customer findCustomer(String EmailOrUsername, String password) throws SQLException {
+
+        String query1= "select * from CUSTOMER_T where CUSTOMEREMAIL= ? and  CUSTOMERPASSWORD= ?";
+        String query2= "select * from CUSTOMER_T where CUSTOMERUSERNAME=? and CUSTOMERPASSWORD= ?";
+       
+        try (PreparedStatement statement = connect.prepareStatement(query1)) {
+            statement.setString(1, EmailOrUsername);
             statement.setString(2, password);
-        
             ResultSet rs = statement.executeQuery();
-            
-              //Result set rs is a singly linked list with next. 
             while (rs.next()) {
                 String customerEmail = rs.getString(5);  //Do not change the relative position of Customer columns
                 String customerPassWord = rs.getString(12); //if you do we need to change this
-
-                if (customerEmail.equals(email) && customerPassWord.equals(password)) {
-                    //this return statement returns a cusomter BEAN that exactly matches the Database
-                    String customerId = rs.getString(1);
-                    String firstName = rs.getString(2);
-                    String lastName = rs.getString(3);
-                    String DOB = rs.getString(4);
-                    String phoneNum = rs.getString(6);
-                    String street = rs.getString(7);
-                    String suburb = rs.getString(8);
-                    String state = rs.getString(9);
-                    String postCode = rs.getString(10);
-                    String userName = rs.getString(11);
-                    //There it is in the form to get this output you would need a jsp 
-                    //like: Customer SessionC = DBManager.findCustomer(thisGuy,thisPass);
-                    return new Customer(customerId, firstName, lastName, DOB, customerEmail, phoneNum, street, suburb, state, postCode, userName, customerPassWord);
+                if (customerEmail.equals(EmailOrUsername) && customerPassWord.equals(password)) {
+                    return new Customer(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getString(11), rs.getString(12));
                 }
             }
-            return null;
+        } try (PreparedStatement statement = connect.prepareStatement(query2)) {
+            statement.setString(1, EmailOrUsername);
+            statement.setString(2, password);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                String customerUsername = rs.getString(11); 
+                String customerPassWord = rs.getString(12); 
+                if (customerUsername.equals(EmailOrUsername) && customerPassWord.equals(password)) {
+                    return new Customer(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getString(11), rs.getString(12));
+                }
+            }
         }
+        return null;
     }
 
     public void addCustomer(String firstName, String lastName, String DOB, String email, String phoneNum, String street, String suburb, String state, String postCode, String userName, String passWord) throws SQLException {
@@ -176,33 +174,89 @@ public class DBManager {
     }
 
     //Staff Section 
-    public Staff findStaff(String email, String password) throws SQLException {
-        String query = "SELECT * FROM ISDUSER.STAFF_T WHERE STAFFEMAIL =? and STAFFPASSWORD =?";
-        
-        
-        try (PreparedStatement statement = connect.prepareStatement(query)) {
-            statement.setString(1, email);
+    public Staff findStaff(String EmailOrUsername, String password) throws SQLException {
+        String query1 = "SELECT * FROM ISDUSER.STAFF_T WHERE STAFFEMAIL =? and STAFFPASSWORD =?";
+        String query2 = "SELECT * FROM ISDUSER.STAFF_T WHERE STAFFUSERNAME =? and STAFFPASSWORD =?";
+        try (PreparedStatement statement = connect.prepareStatement(query1)) {
+            statement.setString(1, EmailOrUsername);
             statement.setString(2, password);
-        
             ResultSet rs = statement.executeQuery();
 
             while (rs.next()) {
-                String staffEmail = rs.getString(4);
-                String staffPassword = rs.getString(6);
+                //where4 and 6 refer to email and password in staff_t
+                if (rs.getString(4).equals(EmailOrUsername) && rs.getString(6).equals(password)) { 
+                    return new Staff(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6));
+                }
+            }
+        }
+        try (PreparedStatement statement = connect.prepareStatement(query2)) {
+            statement.setString(1, EmailOrUsername);
+            statement.setString(2, password);
+            ResultSet rs = statement.executeQuery();
 
-                if (staffEmail.equals(email) && staffPassword.equals(password)) {
-                    String staffId = rs.getString(1);
-                    String staffFirstName = rs.getString(2);
-                    String staffLastName = rs.getString(3);
-                    String staffUserName = rs.getString(5);
-
-                    return new Staff(staffId, staffFirstName, staffLastName, staffEmail, staffUserName, staffPassword);
+            while (rs.next()) {
+                //where5 and 6 refer to username and password in staff_t
+                if (rs.getString(5).equals(EmailOrUsername) && rs.getString(6).equals(password)) { 
+                    return new Staff(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6));
                 }
             }
         }
         return null;
     }
+    
+    public void addStaff(String staffFirstName, String staffLastName, String staffEmail, String staffUserName, String staffPassword) throws SQLException{
+        
+        ResultSet maxIdRs = st.executeQuery("SELECT MAX(STAFFID) FROM STAFF_T");
+        int IDLEN = 15;
+        BigInteger freshID;
+        String staffID = null;
 
+        if (maxIdRs.next()) {
+            freshID = new BigInteger(maxIdRs.getString(1));
+            freshID = freshID.add(BigInteger.ONE);
+            staffID = freshID.toString();
+        } else {
+            staffID = "1";
+        }
+        while (staffID.length() < IDLEN) {
+            staffID += "0";
+        }
+        
+        String qurey = "INSERT INTO ISDUSER.STAFF_T VALUES (?,?,?,?,?,?)";
+        try(PreparedStatement statement = connect.prepareStatement(qurey)){
+            statement.setString(1, staffID);
+            statement.setString(2, staffFirstName);
+            statement.setString(3, staffLastName);
+            statement.setString(4, staffEmail);
+            statement.setString(5, staffUserName);
+            statement.setString(6, staffPassword);
+            statement.executeUpdate();
+        }
+    }
+
+    public void updateStaff(String staffID, String staffFirstName, String staffLastName, String staffEmail, String staffUserName, String staffPassword ) throws SQLException {
+        
+        String qurey = "UPDATE ISDUSER.STAFF_T SET STAFFFIRSTNAME=?, STAFFLASTNAME=?, STAFFEMAIL=?, STAFFUSERNAME=?, STAFFPASSWORD=? WHERE STAFFID =?";
+        
+        try(PreparedStatement statement = connect.prepareStatement(qurey)){
+            statement.setString(1, staffFirstName);
+            statement.setString(2, staffLastName);
+            statement.setString(3, staffEmail);
+            statement.setString(4, staffUserName);
+            statement.setString(5, staffPassword);
+            statement.setString(6, staffID);
+            statement.executeUpdate();
+        }
+    }
+       
+    public void deleteStaff(String staffID) throws SQLException{
+        String qurey = "DELETE FROM ISDUSER.STAFF_T WHERE STAFFID=?";
+        try(PreparedStatement statement = connect.prepareStatement(qurey)){
+            statement.setString(1, staffID);
+            statement.executeUpdate();
+        }
+    }
+    
     public ArrayList<Staff> fetchStaff() throws SQLException {
         String query = "SELECT * FROM ISDUSER.STAFF_T";
         ResultSet rs = st.executeQuery(query);

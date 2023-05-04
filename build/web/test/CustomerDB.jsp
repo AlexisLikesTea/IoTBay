@@ -15,11 +15,8 @@
     </head><!-- comment -->
     <body>
         <%
-            // Establish database connection
-
+            // Establish a DB manager for the page and get going!
             DBManager manager = (DBManager) session.getAttribute("manager");
-
-
         %>
 
         <H1> Add customer example  </H1>
@@ -38,8 +35,42 @@
                 String passWord = "ABC123";
 
                 manager.addCustomer(firstName, lastName, DOB, email, phoneNum, street, suburb, state, postCode, userName, passWord);
-
+                
                 out.println("Customer added " + firstName + " " + lastName + " " + userName);
+                %>
+        <h4> unique email example  </h4>
+                <%
+                ArrayList<Customer> emailCheck = manager.fetchCustomers();
+                
+                firstName = "Johnson2";
+                lastName = "YERTVA2";
+                DOB = "1996-05-05";
+                email = "lmacritchie2@sphinn.com";
+                out.println("testing "+ email + ": ");
+                phoneNum = "997-9973";
+                street = "13 Yert Street2";
+                suburb = "Yertington";
+                state = "YER";
+                postCode = "3383";
+                userName = "IAmYERTVA";
+                passWord = "ABC123";
+                
+                boolean Mailcheck = false;
+                for(Customer cust : emailCheck){
+                    if(cust.getEmail().equals(email) ){
+                        Mailcheck = true;
+                        out.println("this email already exists my dude");
+                    }
+                }
+                if(Mailcheck == false){
+                     manager.addCustomer(firstName, lastName, DOB, email, phoneNum, street, suburb, state, postCode, userName, passWord);
+                      out.println("Customer added " + firstName + " " + lastName + " " + userName);
+                }
+                //out.println("Customer added " + firstName + " " + lastName + " " + userName);
+                
+                %>
+        
+                <%
                 firstName = "Johnson2";
                 lastName = "YERTVA2";
                 DOB = "1996-05-05";
@@ -54,7 +85,7 @@
 
                 manager.addCustomer(firstName, lastName, DOB, email, phoneNum, street, suburb, state, postCode, userName, passWord);
 
-                out.println("Customer added " + firstName + " " + lastName + " " + userName);
+                //out.println("Customer added " + firstName + " " + lastName + " " + userName);
 
             %>
         <h1>CUSTOMER_T dump</h1>
@@ -75,11 +106,11 @@
 
         %>
 
-        <H1>findCustomer("cburnside3@army.mil", "tamOIEJHk")</H1>
+        <H1>manager.findCustomerNew("esemor0@naver.com","esemor0", "oQFPvYNDX");</H1>
 
         <%        // Execute the findCustomer method
             Customer customer = null;
-            customer = manager.findCustomer("ahicks4@instagram.com", "tamOIEJHk");
+            customer = manager.findCustomer("esemor0", "oQFPvYNDX");
 
             // Close the database connection
             if (customer == null) {
@@ -94,7 +125,7 @@
         <%
             //in the application just use the Set functions to change individual fields 
             //then copy paste the update customer line below 
-            customer = manager.findCustomer("Johnny@ye.com.au2", "ABC123");
+            customer = manager.findCustomer( "IAmYERTVA","ABC123");
 
             if (customer != null) {
                 out.println(customer.getFirstName() + "will be altered");
@@ -162,7 +193,54 @@
 
         %>
 
+        <h1> staff insert test <h1> 
+         <%
+              manager.addStaff("Johnney", "Johnson", "john@john.john", "staffboi", "aBAUDbaia");
+                    
+             
+              Staff newBoi = manager.findStaff("john@john.john", "aBAUDbaia");
+            out.println("<table border='1'>");
+            out.println("<tr><th>ID</th><th>Name</th><th>Email</th><th>Pass</th></tr>");
+                out.println("<tr>");
+                out.println("<td>" + newBoi.getStaffID() + "</td>");
+                out.println("<td>" + newBoi.getStaffFirstName() + " " + newBoi.getStaffLastName() + "</td>");
+                out.println("<td>" + newBoi.getStaffEmail() + "</td>");
+                out.println("<td>" + newBoi.getStaffPassword() + "</td>");
+                out.println("</tr>");
+            out.println("</table>");
+            
+            %>
+            <h4>Testing find staff w/ username</h4>
+            <%
+            
+            Staff newBoi2 = manager.findStaff("staffboi", "aBAUDbaia");
+            out.println("<table border='1'>");
+            out.println("<tr><th>ID</th><th>Name</th><th>Email</th><th>Pass</th></tr>");
+                out.println("<tr>");
+                out.println("<td>" + newBoi.getStaffID() + "</td>");
+                out.println("<td>" + newBoi.getStaffFirstName() + " " + newBoi.getStaffLastName() + "</td>");
+                out.println("<td>" + newBoi.getStaffEmail() + "</td>");
+                out.println("<td>" + newBoi.getStaffPassword() + "</td>");
+                out.println("</tr>");
+            out.println("</table>");
+         %>
+         <h1>delete staff test </h1>
+         
+         <%
+             manager.deleteStaff("296103000000000");
+             
+            Staff fSt = manager.findStaff("john@john.john", "aBAUDbaia");
+            if (fSt == null) {
+                out.println("no customer to delete");
+            } else {
+                manager.deleteStaff(fSt.getStaffID());
 
+                out.println("customer delted!");
+            }
+             %>
+             
+             <h3> update staff test </h3>
+             
 
     </body>
 </html>

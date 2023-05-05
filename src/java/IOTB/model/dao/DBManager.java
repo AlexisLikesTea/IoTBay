@@ -505,6 +505,47 @@ public class DBManager {
         
         return allDevices;
     }
+    
+    public void updateAll(String deviceID, String deviceName, String deviceDescription, String deviceBrand, String deviceSupplier, String deviceSpecifications, String deviceWRPolicy, float deviceStandardPrice, float deviceCurrentPrice, String deviceType, int deviceSOH, String deviceImage) throws SQLException{
+      String query =  "UPDATE DEVICET SET deviceName = ? deviceDescription = ? deviceBrand  = ? deviceSupplier  = ? deviceSpecifications = ? deviceWRPolicy  = ? deviceStandardPrice  = ? deviceCurrentPrice  = ? deviceType = ? deviceSOH  = ? deviceImage = ? WHERE deviceID = ?";
+        try(PreparedStatement statement = connect.prepareStatement(query)){
+            statement.setString(1, deviceID);
+            statement.setString(2, deviceName);
+            statement.setString(3, deviceDescription);
+            statement.setString(4, deviceBrand);
+            statement.setString(5, deviceSupplier);
+            statement.setString(6, deviceSpecifications);
+            statement.setString(7, deviceWRPolicy);
+            statement.setFloat(8, deviceStandardPrice);
+            statement.setFloat(9, deviceCurrentPrice);
+            statement.setString(10, deviceType);
+            statement.setInt(11, deviceSOH);
+            statement.setString(12, deviceImage);
+            statement.executeUpdate();
+        }
+    }
+    
+    public void updatePrice(String DeviceID, float newPrice) throws SQLException{
+        String query = "UPDATE DEVICE_T SET DEVICECURRENTPRICE = ? WHERE DEVICEID = ?";
+                
+        try(PreparedStatement statement = connect.prepareStatement(query)){
+            statement.setString(1, DeviceID);
+            statement.setFloat(2, newPrice);
+            statement.executeUpdate();
+        }
+    }
+    //no quantity field in database yet
+    public void updateQuantity(){
+        
+    }
+    public void deleteDevice(String deviceID) throws SQLException{
+        String query = "DELETE FROM DEVICE_T WHERE DEVICEID = ?";
+         
+        try(PreparedStatement statement = connect.prepareStatement(query)){
+            statement.setString(1, deviceID);
+            statement.executeUpdate();
+        }
+    }
     //Order Section 
     
     //OrderLine Section 

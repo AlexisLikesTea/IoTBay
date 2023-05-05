@@ -319,7 +319,27 @@
                 out.println("<td>" +  dev.getDeviceDescription()+ "</td>");
                  out.println("<td>" +  dev.getDeviceType()+ "</td>");
                  out.println("<td>" +  dev.getDeviceBrand()+ "</td>");
-                out.println("</tr>");
+                
+                out.println("<td>");
+
+                // Delete device button
+                    out.println("<form action='DeviceServlet' method='POST'>");
+                    out.println("<input type='hidden' name='action' value='deleteDevice'>");
+                    out.println("<input type='hidden' name='deviceId' value='" + dev.getDeviceID() + "'>");
+                    out.println("<input type='submit' value='Delete'>");
+                    out.println("</form>");
+
+                // Update device price form
+                    out.println("<form action='DeviceServlet' method='POST'>");
+                    out.println("<input type='hidden' name='action' value='updateDevicePrice'>");
+                    out.println("<input type='hidden' name='deviceId' value='" + dev.getDeviceID() + "'>");
+                    out.println("<label for='price_" + dev.getDeviceID() + "'>Price:</label>");
+                    out.println("<input type='number' id='price_" + dev.getDeviceID() + "' name='price' step='0.01'>");
+                    out.println("<input type='submit' value='Update'>");
+                    out.println("</form>");
+
+                    out.println("</td>");
+                     out.println("</tr>");
             }
             out.println("</table>");
                 

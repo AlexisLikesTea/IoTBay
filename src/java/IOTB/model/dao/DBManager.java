@@ -41,7 +41,27 @@ public class DBManager {
      //////////////////////////////////////////////////////////////////////////
     //                CUSTOMER section tested                               //
    //////////////////////////////////////////////////////////////////////////
-
+   //
+   //                     findCustomer 
+   //   Takes EMAIL or USERNAME in a single input + A Valid password 
+   //               returns a CUSTOMER type bean, Used for login
+   //
+   //                     addCustomer 
+   //  Takes Fname, Lname, DOB(1999-12-1 string),Email, Phnum, street,suburb, state, postcode,username and password 
+   //    Inserts a new unique customer into Customer_T
+   //
+   //                     updateCustomer
+   // Takes CustomerId, Fname, Lname, DOB(1999-12-1 string),Email, Phnum, street,suburb, state, postcode,username and password            
+   //    Pass the BEAN values into this, changing whatever field you need to 
+   //   Updates the SQL entry for the specific customer ID
+   //                     
+   //                     deleteCustomer 
+   //   takes Customer ID and removes this entry from the database
+   //
+   //                     fetchCustomers
+   //     VOID: returns an ArrayList of ALL the customers in the DB
+   //
+   /////////////////////////////////////////////////////////////////////////
     public Customer findCustomer(String EmailOrUsername, String password) throws SQLException {
 
         String query1= "select * from CUSTOMER_T where CUSTOMEREMAIL= ? and  CUSTOMERPASSWORD= ?";
@@ -72,7 +92,6 @@ public class DBManager {
         }
         return null;
     }
-    
     
     private Customer findCustomerID(String ID) throws SQLException{
         String query = "SELECT * FROM ISDUSER.CUSTOMER_T WHERE CUSTOMERID=?";
@@ -109,6 +128,7 @@ public class DBManager {
             statement.executeUpdate();
         }
     }
+    
     private String nextCustomerID() throws SQLException {
         ResultSet maxIdRs = st.executeQuery("SELECT MAX(CUSTOMERID) FROM CUSTOMER_T");
         int IDLEN = 15;
@@ -129,9 +149,7 @@ public class DBManager {
         
         return LOGID;
     }
-
-    //update, Requires a valid customerId, You can update any field you like but you cannot update customer ID!. 
-    //requires you to pass in ALL private fields in the accompanying bean!
+    
     public void updateCustomer(String customerId, String firstName, String lastName, String DOB, String customerEmail, String phoneNum, String street, String suburb, String postCode, String userName, String customerPassWord) throws SQLException {
 
         String query = "UPDATE ISDUSER.CUSTOMER_T SET CUSTOMERFIRSTNAME=?, CUSTOMERLASTNAME=?, CUSTOMERDOB=?, CUSTOMEREMAIL=?, CUSTOMERPHONENUMBER=?, CUSTOMERSTREET=?, CUSTOMERSUBURB=?, CUSTOMERPOSTCODE=?, CUSTOMERUSERNAME=?, CUSTOMERPASSWORD=? WHERE CUSTOMERID = ?";
@@ -163,9 +181,8 @@ public class DBManager {
         //st.executeUpdate("'DELETE FROM ISDUSER.CUSTOMER_T WHERE CUSTOMERID='" + customerId + "'");
     }
 
-    //returns ALl the customers in the arraylist as beans, youll have to filter through them locally 
     public ArrayList<Customer> fetchCustomers() throws SQLException {
-        String qurey = "SELECT * FROM ISDUSER.CUSTOMER_T";
+        String qurey = "SELECT * FROM CUSTOMER_T";
         ResultSet rs = st.executeQuery(qurey);
 
         ArrayList<Customer> allCustomers = new ArrayList<>();
@@ -195,8 +212,29 @@ public class DBManager {
     }
 
      //////////////////////////////////////////////////////////////////////////
-    //                STAFF section tested                                  //
+    //                  STAFF section tested                                //
    //////////////////////////////////////////////////////////////////////////
+   //
+   //                     findStaff
+   //   Takes EMAIL or USERNAME in a single input + A Valid password 
+   //               returns a STAFF type bean, Used for login
+   //
+   //                     addStaff
+   //  Takes staffFirstName staffLastName staffEmail staffUserName and staffPassword
+   //    Inserts a new unique Staff into STAFF_T
+   //
+   //                     updateStaff
+   //  Takes staffFirstName staffLastName staffEmail staffUserName and staffPassword      
+   //    Pass the BEAN values into this, changing whatever field you need to 
+   //   Updates the SQL entry for the specific STAFF ID
+   //                     
+   //                     deleteCustomer 
+   //   takes StaffID and removes this entry from the database
+   //
+   //                     fetchCustomers
+   //     VOID: returns an ArrayList of ALL the Staff in the DB
+   //
+   /////////////////////////////////////////////////////////////////////////
     public Staff findStaff(String EmailOrUsername, String password) throws SQLException {
         String query1 = "SELECT * FROM ISDUSER.STAFF_T WHERE STAFFEMAIL =? and STAFFPASSWORD =?";
         String query2 = "SELECT * FROM ISDUSER.STAFF_T WHERE STAFFUSERNAME =? and STAFFPASSWORD =?";
@@ -310,8 +348,28 @@ public class DBManager {
       /////////////////////////////////////////////////////////////////////////
      //                Accesslog section tested!                            //
     /////////////////////////////////////////////////////////////////////////
-    
-    //tested
+    //                    
+    //                          findAccessLogs 
+    //   Takes manditory field CustomerID or StaffID 
+    //   Takes non manditory fields YEAR and MONTH 
+    //      ~~Contains internal error prevention for large inputs.
+    //      Returns an ArrayList of AccessLog that matches  
+    //
+    //                          addAccessLog
+    //   Takes a customer or Staff ID and enters a new log into the DB 
+    //    at the system time. 
+    //              
+    //                          updateAccessLog
+    //  ~USE FOR LOGOUT METHOD 
+    // Takes a staff or Customer ID and updates their logout time to system time
+    //     
+    //                          deleteAccessLog 
+    //  Does what it says it does - Not part of design scope. 
+    //
+    //                          fetchAccessLogs
+    //  Returns and ArrayList for all accesslogs in the DB 
+    //
+    ///////////////////////////////////////////////////////////////////////////
     public ArrayList<AccessLog> findAccessLogs(String ANY, String year, String month) throws SQLException {
         
         ArrayList<AccessLog> result = new ArrayList<>();
@@ -369,14 +427,7 @@ public class DBManager {
         }
         return result;
     }
-    //neets testing
     
-    //Add Accesslog method, adds a new access log for either staff or customer 
-    // takes either table ID as parameter. 
-    //returns the unique LOGID to be stored in session so update can be called 
-    //which sets the logout time. 
-    // So this works real well but its possible a staff id and cust id will be equal 
-    // so i will add a boolean if this becomes a concern
     public String addAccessLog(String anyID) throws SQLException{
         Staff checkStaff = findStaffID(anyID);
         Customer checkCust = findCustomerID(anyID);
@@ -410,7 +461,6 @@ public class DBManager {
         
     }
     
-    //nextLogId returns the next STRING ID in the database AccessLogs
     private String nextLogId() throws SQLException {
         ResultSet maxIdRs = st.executeQuery("SELECT MAX(LOGID) FROM ACCESSLOG_T");
         int IDLEN = 15;
@@ -432,7 +482,6 @@ public class DBManager {
         return LOGID;
     }
     
-    //updateAccessLog should only be used for assigning a logOut Time
     public void updateAccessLog(String logID) throws SQLException {
         String query = "UPDATE ISDUSER.ACCESSLOG_T SET LOGLOGOUT = ? WHERE LOGID = ?";
         
@@ -451,7 +500,6 @@ public class DBManager {
         }
     }
     
-    //tested
     public ArrayList<AccessLog> fetchAccessLogs() throws SQLException {
         ArrayList<AccessLog> logs = new ArrayList<>();
         
@@ -466,12 +514,31 @@ public class DBManager {
    
     
       /////////////////////////////////////////////////////////////////////////
-     //                Devices section Unwritten                            //
+     //                         Devices section                             //
     /////////////////////////////////////////////////////////////////////////
-    
-    //My intuition here will be, return an array list where the search results 
-    //are a wildcard  %like% based on name
-    //Returns an arraylist of devices with the right name or Type
+    //
+    //                      findDevice
+    //  Takes an input string that can reffer to NAME, BRAND or TYPE in DeviceT
+    //  returns an arraylist of type Device that match the input string
+    //
+    //                      fetchDevices
+    //  VOID: Returns an arrayList of Device type for ALL db entries
+    //
+    //                      updateALL
+    //  Takes all 12 manditory input fields and allows manual changes of 
+    //  any field except the DeviceID 
+    //
+    //                      updatePrice 
+    //  Takes arguments DeviceID and FLOAT new price, updates the database 
+    //  entry to reflect the new price 
+    //
+    //                      updateQuantity
+    //      Manditory by spec, not yet included in DB
+    //
+    //                      deleteDevice 
+    //    removes the device from the DB takes input string DeviceID
+    //
+    ///////////////////////////////////////////////////////////////////////////
     public ArrayList<Device> findDevice(String Input) throws SQLException{
         String[] querys = {
             "SELECT * FROM DEVICE_T WHERE DEVICENAME LIKE ?",
@@ -546,7 +613,11 @@ public class DBManager {
             statement.executeUpdate();
         }
     }
-    //Order Section 
+    
+    
+      /////////////////////////////////////////////////////////////////////////
+     //                Order Section cant compile DByet                     //
+    /////////////////////////////////////////////////////////////////////////
     
     //OrderLine Section 
     

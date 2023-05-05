@@ -533,7 +533,8 @@ public class DBManager {
     //  entry to reflect the new price 
     //
     //                      updateQuantity
-    //      Manditory by spec, not yet included in DB
+    //      Takes an id and an Exact quantity value, and updates the database.       
+    //      Quantity calculation to be conducted in the controller.
     //
     //                      deleteDevice 
     //    removes the device from the DB takes input string DeviceID
@@ -592,18 +593,24 @@ public class DBManager {
         }
     }
     
-    public void updatePrice(String DeviceID, float newPrice) throws SQLException{
+    public void updatePrice(String deviceID, float newPrice) throws SQLException{
         String query = "UPDATE DEVICE_T SET DEVICECURRENTPRICE = ? WHERE DEVICEID = ?";
                 
         try(PreparedStatement statement = connect.prepareStatement(query)){
-            statement.setString(1, DeviceID);
+            statement.setString(1, deviceID);
             statement.setFloat(2, newPrice);
             statement.executeUpdate();
         }
     }
-    //no quantity field in database yet
-    public void updateQuantity(){
-        
+    
+    public void updateQuantity(String deviceID, int quant)throws SQLException{
+        String query = "UPDATE DEVICE_T SET DEVICESOH = ? WHERE DEVICEID = ?";
+                
+        try(PreparedStatement statement = connect.prepareStatement(query)){
+            statement.setString(1, deviceID);
+            statement.setFloat(2, quant);
+            statement.executeUpdate();
+        }
     }
     public void deleteDevice(String deviceID) throws SQLException{
         String query = "DELETE FROM DEVICE_T WHERE DEVICEID = ?";

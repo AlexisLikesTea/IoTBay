@@ -22,7 +22,7 @@
             // Establish a DB manager for the page and get going!
             DBManager manager = (DBManager) session.getAttribute("manager");
         %>
-
+        
         <H1> Add customer example  </H1>
             <%     //Customer ID should be auto generated
                 //Should add an if to check it the email exists anywhere using for(Customers cus : customers) method
@@ -262,17 +262,23 @@
             %>
             <h4>Find specific logs id "887916000000000" </h4>
             <h5> Refresh page to see time stamp updates in action </h5>
-            <form>
-            <table><tr><td><input id = "addLog" type = "text" name = "addLog" value ='887916000000000' ></td></tr></table>
-            </form>
+            <table>
+                    <td><input id = "addLog" type = "text" name = "addLog" value = "791000000000000" ></td>
+                
+                    <td><input type="number" id="addYear" name="addYear" value =""></td>
+                    <td><input type="number" id="addMonth" name="addMonth" value ="" ></td>
+                    
+                    <button type="submit">Submit</button>
+                    
+            </table>
             <%
                 
                
                 //Call using LOGID for 1 specific log, Call using either staff and Cust for all of their accesslogs
                 
-                String ID = manager.addAccessLog(request.getParameter("addLog"));
+                    String ID = manager.addAccessLog(request.getParameter("addLog"));
                 
-                    ArrayList<AccessLog> logSearch = manager.findAccessLogs(request.getParameter("addLog"));
+                    ArrayList<AccessLog> logSearch = manager.findAccessLogs(request.getParameter("addLog"), request.getParameter("addYear"),request.getParameter("addMonth"));
               
                 
                     manager.updateAccessLog(ID);
@@ -295,7 +301,7 @@
                     out.println("</table>");
              
             %>
-            
+               
             <H1>Device Testing! </H1>
             <h4>Query that returns like name type and brand, testing "Laptop"</h4>
             <table><tr><td><input id = "deviceSearch" type = "text" name = "deviceSearch"></td></tr></table>
@@ -319,6 +325,7 @@
                 
                 
                 %>
+            
             </form>
     </body>
 </html>

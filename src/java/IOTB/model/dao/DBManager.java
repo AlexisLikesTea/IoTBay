@@ -10,6 +10,9 @@ import java.sql.*;
 import java.util.ArrayList;
 import IOTB.model.beans.*;
 import java.math.BigInteger;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * Each BEAN has a DataBase manager function associated with it such that you
@@ -33,7 +36,8 @@ public class DBManager {
 
         connect = conn;
     }
-
+    
+    
      //////////////////////////////////////////////////////////////////////////
     //                CUSTOMER section tested                               //
    //////////////////////////////////////////////////////////////////////////
@@ -308,18 +312,52 @@ public class DBManager {
     /////////////////////////////////////////////////////////////////////////
     
     //tested
-    public ArrayList<AccessLog> findAccessLogs(String ANY) throws SQLException {
+    public ArrayList<AccessLog> findAccessLogs(String ANY, String year, String month) throws SQLException {
+        
         ArrayList<AccessLog> result = new ArrayList<>();
 
         String[] queries = {
-            "SELECT * FROM ACCESSLOG_T WHERE STAFFID = ?",
-            "SELECT * FROM ACCESSLOG_T WHERE CUSTOMERID = ?",
-            "SELECT * FROM ACCESSLOG_T WHERE LOGID = ?"
+            "SELECT * FROM ACCESSLOG_T WHERE STAFFID = ? AND (YEAR(LOGLOGIN) = ? OR ? IS NULL) AND (MONTH(LOGLOGIN) = ? OR ? IS NULL)",
+            "SELECT * FROM ACCESSLOG_T WHERE CUSTOMERID = ? AND (YEAR(LOGLOGIN) = ? OR ? IS NULL) AND (MONTH(LOGLOGIN) = ? OR ? IS NULL) ",
         };
+
+        int yearValue;
+        if (year == null || year.isEmpty()) {
+            yearValue = 0; 
+        } else {
+            yearValue = Integer.parseInt(year);
+            if (yearValue < 1900 || yearValue > 2023) {
+                yearValue = 2023; 
+            }
+        }
+        
+        int monthValue;
+        if (month == null || month.isEmpty()) {
+            monthValue = 0; 
+        } else {
+            monthValue = Integer.parseInt(month);
+            if (monthValue < 1 || monthValue > 12) {
+                monthValue = 1; 
+            }
+        }
 
         for (String query : queries) {
             try (PreparedStatement statement = connect.prepareStatement(query)) {
                 statement.setString(1, ANY);
+                if (year == null || year.isEmpty()){
+                    statement.setNull(2, java.sql.Types.INTEGER);
+                    statement.setNull(3, java.sql.Types.INTEGER);
+                }else{
+                    statement.setInt(2, yearValue);
+                    statement.setInt(3, yearValue);
+                 }
+                 if (month == null || month.isEmpty()) {
+                    statement.setNull(4, java.sql.Types.INTEGER);
+                    statement.setNull(5, java.sql.Types.INTEGER);
+                } else {
+                    statement.setInt(4, monthValue);
+                    statement.setInt(5, monthValue);
+                } 
                 ResultSet rs = statement.executeQuery();
 
                 while (rs.next()) {

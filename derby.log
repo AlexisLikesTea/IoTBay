@@ -1,7 +1,7 @@
-Thu May 04 13:02:00 AEST 2023 : Apache Derby Network Server - 10.10.2.0 - (1582446) started and ready to accept connections on port 1527
+Fri May 05 10:04:20 AEST 2023 : Apache Derby Network Server - 10.10.2.0 - (1582446) started and ready to accept connections on port 1527
 ----------------------------------------------------------------
-Thu May 04 13:02:00 AEST 2023:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): instance a816c00e-0187-e4b5-9c4c-ffff8d55f980 
+Fri May 05 10:04:21 AEST 2023:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): instance a816c00e-0187-e939-5333-ffff8d55f980 
 on database directory D:\Uni Folder ALL\2023\Software Development\IoTBay\IOTBAY with class loader sun.misc.Launcher$AppClassLoader@1d44bcfa 
 Loaded from file:/C:/Users/kyler/GlassFish_Server/javadb/lib/derby.jar
 java.vendor=Oracle Corporation
@@ -13,12 +13,12 @@ os.version=10.0
 derby.system.home=D:\Uni Folder ALL\2023\Software Development\IoTBay
 Database Class Loader started - derby.database.classpath=''
 ----------------------------------------------------------------
-Thu May 04 13:50:10 AEST 2023:
-Shutting down instance a816c00e-0187-e4b5-9c4c-ffff8d55f980 on database directory D:\Uni Folder ALL\2023\Software Development\IoTBay\IOTBAY with class loader sun.misc.Launcher$AppClassLoader@1d44bcfa 
-Thu May 04 13:50:10 AEST 2023 Thread[DRDAConnThread_4,5,main] (DATABASE = IOTBAY), (DRDAID = {3}), Database 'IOTBAY' shutdown.
+Fri May 05 12:06:05 AEST 2023:
+Shutting down instance a816c00e-0187-e939-5333-ffff8d55f980 on database directory D:\Uni Folder ALL\2023\Software Development\IoTBay\IOTBAY with class loader sun.misc.Launcher$AppClassLoader@1d44bcfa 
+Fri May 05 12:06:05 AEST 2023 Thread[DRDAConnThread_4,5,main] (DATABASE = IOTBAY), (DRDAID = {43}), Database 'IOTBAY' shutdown.
 ----------------------------------------------------------------
-Thu May 04 13:50:27 AEST 2023:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): instance 4c97da1b-0187-e4b5-9c4c-ffff8d55f980 
+Fri May 05 12:06:43 AEST 2023:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): instance 943c9655-0187-e939-5333-ffff8d55f980 
 on database directory D:\Uni Folder ALL\2023\Software Development\IoTBay\IOTBAY with class loader sun.misc.Launcher$AppClassLoader@1d44bcfa 
 Loaded from file:/C:/Users/kyler/GlassFish_Server/javadb/lib/derby.jar
 java.vendor=Oracle Corporation
@@ -30,12 +30,12 @@ os.version=10.0
 derby.system.home=D:\Uni Folder ALL\2023\Software Development\IoTBay
 Database Class Loader started - derby.database.classpath=''
 ----------------------------------------------------------------
-Thu May 04 13:50:27 AEST 2023:
-Shutting down instance 4c97da1b-0187-e4b5-9c4c-ffff8d55f980 on database directory D:\Uni Folder ALL\2023\Software Development\IoTBay\IOTBAY with class loader sun.misc.Launcher$AppClassLoader@1d44bcfa 
-Thu May 04 13:50:27 AEST 2023 Thread[DRDAConnThread_4,5,main] (DATABASE = IOTBAY), (DRDAID = {5}), Database 'IOTBAY' shutdown.
+Fri May 05 12:06:43 AEST 2023:
+Shutting down instance 943c9655-0187-e939-5333-ffff8d55f980 on database directory D:\Uni Folder ALL\2023\Software Development\IoTBay\IOTBAY with class loader sun.misc.Launcher$AppClassLoader@1d44bcfa 
+Fri May 05 12:06:43 AEST 2023 Thread[DRDAConnThread_4,5,main] (DATABASE = IOTBAY), (DRDAID = {45}), Database 'IOTBAY' shutdown.
 ----------------------------------------------------------------
-Thu May 04 13:50:30 AEST 2023:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): instance 12835ab7-0187-e4b5-9c4c-ffff8d55f980 
+Fri May 05 12:06:45 AEST 2023:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): instance 46fe16f1-0187-e939-5333-ffff8d55f980 
 on database directory D:\Uni Folder ALL\2023\Software Development\IoTBay\IOTBAY with class loader sun.misc.Launcher$AppClassLoader@1d44bcfa 
 Loaded from file:/C:/Users/kyler/GlassFish_Server/javadb/lib/derby.jar
 java.vendor=Oracle Corporation

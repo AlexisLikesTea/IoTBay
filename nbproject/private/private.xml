@@ -5,11 +5,14 @@
         <group>
             <file>file:/D:/Uni%20Folder%20ALL/2023/Software%20Development/IoTBay/src/java/IOTB/model/beans/Order.java</file>
             <file>file:/D:/Uni%20Folder%20ALL/2023/Software%20Development/IoTBay/src/java/IOTB/model/dao/DBManager.java</file>
+            <file>file:/D:/Uni%20Folder%20ALL/2023/Software%20Development/IoTBay/web/welcome.jsp</file>
             <file>file:/D:/Uni%20Folder%20ALL/2023/Software%20Development/IoTBay/src/java/IOTB/model/dao/DBConnector.java</file>
+            <file>file:/D:/Uni%20Folder%20ALL/2023/Software%20Development/IoTBay/src/java/IOTB/model/beans/Customer.java</file>
+            <file>file:/D:/Uni%20Folder%20ALL/2023/Software%20Development/IoTBay/src/java/IOTB/model/beans/AccessLog.java</file>
             <file>file:/D:/Uni%20Folder%20ALL/2023/Software%20Development/IoTBay/web/login.jsp</file>
             <file>file:/D:/Uni%20Folder%20ALL/2023/Software%20Development/IoTBay/src/java/IOTB/model/beans/OrderLine.java</file>
-            <file>file:/D:/Uni%20Folder%20ALL/2023/Software%20Development/IoTBay/src/java/IOTB/controller/ConnServlet.java</file>
             <file>file:/D:/Uni%20Folder%20ALL/2023/Software%20Development/IoTBay/web/test/CustomerDB.jsp</file>
+            <file>file:/D:/Uni%20Folder%20ALL/2023/Software%20Development/IoTBay/src/java/IOTB/controller/ConnServlet.java</file>
             <file>file:/D:/Uni%20Folder%20ALL/2023/Software%20Development/IoTBay/web/index.jsp</file>
         </group>
     </open-files>

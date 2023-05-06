@@ -3,7 +3,7 @@
     Created on : 28 Mar 2023, 12:20:35 pm
     Author     : Jack
 --%>
-<%@page import="Customer.Info.Customer"%>
+<%@page import="IOTB.model.beans.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -21,7 +21,7 @@
         <div class="topbanner"></div>
 
         <div class="topnav">
-            <a href="index.html"> Home </a>
+            <a href="index.jsp"> Home </a>
             <a href="register.jsp"> Register </a>
             <a> Login </a>                     <!-- This is the top nav bar code-->
         </div>

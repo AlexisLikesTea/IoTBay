@@ -1,5 +1,5 @@
 body {
-    margin: 0px; 
+   
     background-color: #cccccc;
 }
 
@@ -31,7 +31,6 @@ body {
 
 /* ↑↑↑ Top Navigation Bar ↑↑↑ */
 
-
 .contentcontainer{
     width: 90%;
     height: auto;
@@ -60,19 +59,6 @@ body {
 
 /* ↓↓↓ Text formatting classess and ID's ↓↓↓ */
 
-.button {
-    background-color: orangered;
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    font-family: Verdana, Geneva, Tahoma, sans-serif; 
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-  }
 
 h1 {
      font-size: 35px;
@@ -143,8 +129,7 @@ table {
     border: 1px solid black;
     background: white;
     width: 80%;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 0 auto;
     font-size: 18px;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif ; 
     font-weight: normal;
@@ -165,5 +150,8 @@ tr:hover {background-color: coral;}
     margin-right: auto;
     margin-left: auto; 
 }
+
+
+
 
 /* ↑↑↑ formatting classess and ID's ↑↑↑ */

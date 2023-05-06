@@ -55,7 +55,7 @@ package IOTB.controller;
    
    //These will come in handy for creating a new customer. Use the same attribute names
    public void clear (HttpSession session){
-        session.setAttribute("emailErr", "Enter a valid email");
+        session.setAttribute("credentialErr", "Enter a valid email or username");
         session.setAttribute("passErr", "Enter a valid password");
         session.setAttribute("existErr", "");
         session.setAttribute("userNameErr", "Enter UserName");

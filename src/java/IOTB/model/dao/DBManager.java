@@ -516,8 +516,11 @@ public class DBManager {
       /////////////////////////////////////////////////////////////////////////
      //                         Devices section                             //
     /////////////////////////////////////////////////////////////////////////
-    //
+    //                      
     //                      findDevice
+    //   Takes a string deviceID and returns an exact match to a Device
+    //
+    //                      findDevices
     //  Takes an input string that can reffer to NAME, BRAND or TYPE in DeviceT
     //  returns an arraylist of type Device that match the input string
     //
@@ -540,23 +543,42 @@ public class DBManager {
     //    removes the device from the DB takes input string DeviceID
     //
     ///////////////////////////////////////////////////////////////////////////
-    public ArrayList<Device> findDevice(String Input) throws SQLException{
+    
+    public Device findDevice(String deviceID) throws SQLException {
+        String query = "SELECT * FROM DEVICE_T WHERE DEVICEID =?";
+        try (PreparedStatement statement = connect.prepareStatement(query)) {
+            statement.setString(1, deviceID);
+            ResultSet rs = statement.executeQuery();
+            while(rs.next()){
+                if(rs.getString(1).equals(deviceID)){
+                    return new Device(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getFloat(8),rs.getFloat(9),rs.getString(10), rs.getInt(11), rs.getString(12));
+                }
+            }
+        }
+        return null;
+    }
+    
+    public ArrayList<Device> findDevices(String Input) throws SQLException{
         String[] querys = {
-            "SELECT * FROM DEVICE_T WHERE DEVICENAME LIKE ?",
-            "SELECT * FROM DEVICE_T WHERE DEVICETYPE LIKE ?",
-            "SELECT * FROM DEVICE_T WHERE DEVICEBRAND LIKE ?"
+            "SELECT * FROM DEVICE_T WHERE LOWER(DEVICENAME) LIKE ?",
+            "SELECT * FROM DEVICE_T WHERE LOWER(DEVICETYPE) LIKE ?",
+            "SELECT * FROM DEVICE_T WHERE LOWER(DEVICEBRAND) LIKE ?"
         };
         
         ArrayList<Device> SearchResult = new ArrayList<>();
         
-        for(String query : querys){
-            try(PreparedStatement statement = connect.prepareStatement(query)){
-                statement.setString(1, "%" + Input + "%");
-                ResultSet rs = statement.executeQuery();
-                while(rs.next()){
-                    SearchResult.add(new Device(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getFloat(8),rs.getFloat(9),rs.getString(10), rs.getInt(11), rs.getString(12)));
+        if(Input != null){
+            for(String query : querys){
+                try(PreparedStatement statement = connect.prepareStatement(query)){
+                    statement.setString(1, "%" + Input.toLowerCase() + "%");
+                    ResultSet rs = statement.executeQuery();
+                    while(rs.next()){
+                        SearchResult.add(new Device(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getFloat(8),rs.getFloat(9),rs.getString(10), rs.getInt(11), rs.getString(12)));
+                    }
                 }
             }
+        } else {
+            return fetchDevices();
         }
         
         return SearchResult;

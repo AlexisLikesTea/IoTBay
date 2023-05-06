@@ -23,13 +23,26 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
     </head>
     <body>
         <div class="topbanner"></div>
-
+        
         <div class="topnav">
-           <a class="active" href="index.html"> Home </a>
+            <a  class="active" href="index.jsp"> Home </a>
             <a href="register.jsp"> Register </a>
-            <a href ="login.jsp">Login </a>
-            <a href="mainpage.jsp">Main Page</a>
+            <a href="login.jsp"> Login </a>
+            <% if (session.getAttribute("staff") != null) { %>
+                <a href='CustomerManager.jsp'> Manage Customers</a>
+                <a href ='Catalogue.jsp'> Manage Inventory </a>
+                <a href =''> Manage AccessLogs</a>
+            <% } %>
+
+            <%if (session.getAttribute("staff") == null) { %>
+                <a  href ='Catalogue.jsp'>Catalogue</a>
+            <% }%>
+            <% if (session.getAttribute("staff") != null || session.getAttribute("customer") != null) { %>
+                <a href = 'edit.jsp'> my account </a>
+                <a  href="logout.jsp"  >Logout</a>
+            <% } %> 
         </div>
+    </div>
 
         <div class="contentcontainer">
             <h1 id="underlineandcenter">Welcome to the IoTBay Store Homepage!</h1><br>

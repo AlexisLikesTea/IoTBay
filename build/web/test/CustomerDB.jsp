@@ -306,7 +306,7 @@
             <h4>Query that returns like name type and brand, testing "Laptop"</h4>
             <table><tr><td><input id = "deviceSearch" type = "text" name = "deviceSearch"></td></tr></table>
             <% 
-                ArrayList<Device> DeviceSearchResults = manager.findDevice(request.getParameter("deviceSearch"));
+             ArrayList<Device> DeviceSearchResults = manager.findDevices(request.getParameter("deviceSearch"));
                 
          // Output customer information in a table
             out.println("<table border='1'>");

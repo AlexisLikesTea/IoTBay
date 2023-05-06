@@ -25,16 +25,16 @@
             <a href="register.jsp"> Register </a>
             <a href="login.jsp"> Login </a>
             <% if (session.getAttribute("staff") != null) { %>
-                <a href='CustomerManager.jsp'> Manage Customers</a>
-                <a class="active"  href ='Catalogue.jsp'> Manage Inventory </a>
-                <a href =''> Manage AccessLogs</a>
+            <a href='CustomerManager.jsp'> Manage Customers</a>
+            <a class="active"  href ='Catalogue.jsp'> Manage Inventory </a>
+            <a href =''> Manage AccessLogs</a>
             <% } %>
-            <%if(session.getAttribute("staff") == null){ %>
-                 <a class="active" href ='Catalogue.jsp'>Catalogue</a>
-                <% } %>
+            <%if (session.getAttribute("staff") == null) { %>
+            <a class="active" href ='Catalogue.jsp'>Catalogue</a>
+            <% } %>
             <% if (session.getAttribute("staff") != null || session.getAttribute("customer") != null) { %>
-                <a href = 'edit.jsp'> my account </a>
-                <a  href="logout.jsp"  >Logout</a>
+            <a href = 'edit.jsp'> my account </a>
+            <a  href="logout.jsp"  >Logout</a>
             <% } %> 
         </div>
 

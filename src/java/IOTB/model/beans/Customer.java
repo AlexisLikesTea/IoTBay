@@ -10,10 +10,10 @@ package IOTB.model.beans;
  */
 public class Customer {
     private String customerId;
-    private String firstName;
-    private String lastName;
-    private String DOB;
-    private String email;
+    private String firstName; 
+    private String lastName; 
+    private String DOB; 
+    private String email; 
     private String phoneNum;
     private String street;
     private String suburb;

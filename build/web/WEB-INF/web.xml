@@ -12,6 +12,10 @@
         <servlet-name>editAccount</servlet-name>
         <servlet-class>IOTB.controller.editAccount</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>editCustomer</servlet-name>
+        <servlet-class>IOTB.controller.editCustomer</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ConnServlet</servlet-name>
         <url-pattern>/ConnServlet</url-pattern>
@@ -23,6 +27,10 @@
     <servlet-mapping>
         <servlet-name>editAccount</servlet-name>
         <url-pattern>/editAccount</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>editCustomer</servlet-name>
+        <url-pattern>/editCustomer</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

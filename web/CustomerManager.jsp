@@ -8,6 +8,7 @@
 <%@page import="IOTB.model.beans.*"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -37,29 +38,73 @@
 
             <a  href="logout.jsp" >Logout</a>
         </div>
+            
+ 
+                
+               <%   ///Page Variables
+                   //Customer Editcustomer = (Customer) session.getAttribute("editCustomer");
+                           
+                    String userNameErr = (String) session.getAttribute("userNameErr");
+                    String emailErr = (String) session.getAttribute("emailErr");
+                    String firstNameErr = (String) session.getAttribute("firstNameErr");
+                    String lastNameErr = (String) session.getAttribute("lastNameErr");
+                    String passwordErr = (String) session.getAttribute("passwordErr");
+                    String DOBErr = (String) session.getAttribute("DOBErr");
+                    String phoneNumErr = (String) session.getAttribute("phoneNumErr");
+                    String streetErr = (String) session.getAttribute("streetErr");
+                    String suburbErr = (String) session.getAttribute("suburbErr");
+                    String stateErr = (String) session.getAttribute("stateErr");
+                    String postCodeErr =(String) session.getAttribute("postCodeErr");
+               %> 
 
+              <div style = "display:flex">
+                 
 
-        <div class ="contentcontainer">
-            <br>
-            <h1 id="underlineandcenter">Customer List</h1>
+           <div class ="contentcontainer" >
+                <br>
+                <h1 id="underlineandcenter">Customer List</h1>
+                <form>
+                <input  id = "customerSearch" type = "text" name = "customerSearch" >
+                </form>
+                
 
-            <%
-                DBManager manager = (DBManager) session.getAttribute("manager");
-                ArrayList<Customer> customers = manager.fetchCustomers();
-                // Output customer information in a table
-                out.println("<table border='1'>");
-                out.println("<tr><th>ID</th><th>Name</th><th>Email</th><th>Pass</th></tr>");
-                for (int i = 1; i <= 50; i++) {
-                    out.println("<tr>");
-                    out.println("<td>" + customers.get(i).getCustomerId() + "</td>");
-                    out.println("<td>" + customers.get(i).getFirstName() + " " + customers.get(i).getLastName() + "</td>");
-                    out.println("<td>" + customers.get(i).getEmail() + "</td>");
-                    out.println("<td>" + customers.get(i).getPassword() + "</td>");
-                    out.println("</tr>");
-                }
-                out.println("</table>");
+                <%
+                    DBManager manager = (DBManager) session.getAttribute("manager");
+                    ArrayList<Customer> customers = manager.searchCustomer(request.getParameter("customerSearch"));
 
-            %>
-        </div>
+                    out.println("<table border='1'>");
+                    out.println("<tr><th>ID</th><th>Name</th><th>Email</th><th>Pass</th><th>Edit</th></tr>");
+                    for(Customer cus: customers) {
+                        out.println("<tr>");
+                        out.println("<td>" + cus.getCustomerId() + "</td>");
+                        out.println("<td>" + cus.getFirstName() + " " + cus.getLastName() + "</td>");
+                        out.println("<td>" + cus.getEmail() + "</td>");
+                        out.println("<td>" + cus.getPassword() + "</td>");
+                        out.println("<td>");
+                        out.println("<form method='post' action='editCustomer'>");
+                        out.println("<input type='hidden' id='customerEmail'  name ='customerEmail' value='" + cus.getEmail() + "'/>");
+                        out.println("<input type='hidden' id='customerPass' name='customerPass' value='" + cus.getPassword() + "'/>");
+                        out.println("<input type='submit' value='Edit'/>");
+                        out.println("</td>");
+                        out.println("</tr>");
+                    }
+                    out.println("</table>");
+
+                %>
+                    <table border="1" cellpadding="5">
+                <caption><h2>List of Books</h2></caption>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Pass</th>
+                    <th>Action</th>
+                </tr>
+            </table>
+                
+            </div>
+         
+                </div>
+        </div>  
     </body>
 </html>

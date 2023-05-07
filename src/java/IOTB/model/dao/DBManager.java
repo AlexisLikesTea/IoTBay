@@ -93,8 +93,35 @@ public class DBManager {
         return null;
     }
     
-    private Customer findCustomerID(String ID) throws SQLException{
-        String query = "SELECT * FROM ISDUSER.CUSTOMER_T WHERE CUSTOMERID=?";
+    public ArrayList<Customer> searchCustomer(String Input) throws SQLException{
+        String[] querys = {
+            "SELECT * FROM CUSTOMER_T WHERE LOWER(CUSTOMERFIRSTNAME) LIKE ?",
+            "SELECT * FROM CUSTOMER_T WHERE LOWER(CUSTOMERLASTNAME) LIKE ?",
+            "SELECT * FROM CUSTOMER_T WHERE LOWER(CUSTOMERUSERNAME) LIKE ?"
+        };
+        
+        ArrayList<Customer> SearchResult = new ArrayList<>();
+        
+        if(Input != null){
+            for(String query : querys){
+                try(PreparedStatement statement = connect.prepareStatement(query)){
+                    statement.setString(1, "%" + Input.toLowerCase() + "%");
+                    ResultSet rs = statement.executeQuery();
+                    while(rs.next()){
+                        SearchResult.add(new Customer(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getString(11), rs.getString(12)));
+                    }
+                }
+            }
+        } else {
+            return fetchCustomers();
+        }
+        
+        return SearchResult;
+    }
+    
+    
+    public Customer findCustomerID(String ID) throws SQLException{
+        String query = "SELECT * FROM CUSTOMER_T WHERE CUSTOMERID=?";
         try (PreparedStatement statement = connect.prepareStatement(query)) {
             statement.setString(1, ID);
             ResultSet rs = statement.executeQuery();
@@ -152,7 +179,7 @@ public class DBManager {
     
     public void updateCustomer(String customerId, String firstName, String lastName, String DOB, String customerEmail, String phoneNum, String street, String suburb, String postCode, String userName, String customerPassWord) throws SQLException {
 
-        String query = "UPDATE ISDUSER.CUSTOMER_T SET CUSTOMERFIRSTNAME=?, CUSTOMERLASTNAME=?, CUSTOMERDOB=?, CUSTOMEREMAIL=?, CUSTOMERPHONENUMBER=?, CUSTOMERSTREET=?, CUSTOMERSUBURB=?, CUSTOMERPOSTCODE=?, CUSTOMERUSERNAME=?, CUSTOMERPASSWORD=? WHERE CUSTOMERID = ?";
+        String query = "UPDATE CUSTOMER_T SET CUSTOMERFIRSTNAME=?, CUSTOMERLASTNAME=?, CUSTOMERDOB=?, CUSTOMEREMAIL=?, CUSTOMERPHONENUMBER=?, CUSTOMERSTREET=?, CUSTOMERSUBURB=?, CUSTOMERPOSTCODE=?, CUSTOMERUSERNAME=?, CUSTOMERPASSWORD=? WHERE CUSTOMERID = ?";
         try (PreparedStatement statement = connect.prepareStatement(query)) {
             statement.setString(1, firstName);
             statement.setString(2, lastName);

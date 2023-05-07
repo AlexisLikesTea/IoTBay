@@ -43,7 +43,6 @@
             <a  href="logout.jsp"  >Logout</a>
             <% } %> 
 
-            <a  href="logout.jsp"  >Logout</a>
         </div>
 
         <!--This page and all others need to be updated to include all the new fields in the customer BEAN -->

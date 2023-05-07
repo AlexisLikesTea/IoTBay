@@ -10,8 +10,13 @@ package IOTB.controller;
 
  
    private final String emailPattern = "([a-zA-Z0-9]+)(([._-])([a-zA-Z0-9]+))*(@)([a-z]+)(.)([a-z]{3})((([.])[a-z]{0,2})*)";      
-   private final String namePattern = "([A-Z][a-z]+[\\s])+[A-Z][a-z]*";       
-   private final String passwordPattern = "[a-z0-9]{4,}";       
+   private final String userNamePattern = "[a-zA-Z0-9]{4,}";
+   private final String namePattern = "[a-zA-Z]{2,}";       
+   private final String passwordPattern = "[a-zA-Z0-9]{4,}"; 
+   private final String phoneNumberPattern = "[0-9\\-]+";
+   private final String streetPattern = "\\d+.*\\b\\p{Alpha}+";
+   private final String statePattern = "[A-Za-z]{2,4}";
+   private final String postCodePattern = "[0-9]{2,6}";
               
    public Validator(){    }       
 
@@ -38,6 +43,12 @@ package IOTB.controller;
       return validate(emailPattern,email);   
 
    }
+   
+   public boolean validateUserName(String userName){                       
+
+      return validate(userNamePattern,userName);   
+
+   }
 
        
    public boolean validateName(String name){
@@ -51,21 +62,41 @@ package IOTB.controller;
 
       return validate(passwordPattern,password); 
 
-   }          
+   }  
    
-   //These will come in handy for creating a new customer. Use the same attribute names
+   public boolean validatePhoneNumber(String phoneNumber){
+       return validate(phoneNumberPattern, phoneNumber);
+   }
+   
+   public boolean validateStreet(String street){
+       return validate(streetPattern, street);
+   }
+   
+   public boolean validateState(String state){
+       return validate(statePattern, state);
+   }
+   
+   public boolean validatePostCode(String postCode){
+       return validate(postCodePattern, postCode);
+   }
+   
+   //Add and reset your error messages here! 
    public void clear (HttpSession session){
-        session.setAttribute("credentialErr", "Enter a valid email or username");
-        session.setAttribute("passErr", "Enter a valid password");
+        session.setAttribute("credentialErr", "");
+        session.setAttribute("passErr", "");
+        session.setAttribute("passwordErr", "");
         session.setAttribute("existErr", "");
-        session.setAttribute("userNameErr", "Enter UserName");
-        session.setAttribute("fNameErr", "Enter First Name");
-        session.setAttribute("lNameErr", "Enter Last Name");
-        session.setAttribute("DOBErr", "Enter a DOB in format YYYY-MM-DD");
-        session.setAttribute("phoneNumErr", "Enter a phone number");
-        session.setAttribute("streetErr", "Enter a Street address");
-        session.setAttribute("suburbErr", "Enter a Suburb");
-        session.setAttribute("phoneNumErr", "Enter a phone number");
-        session.setAttribute("postCodeErr", "Enter a postCode");
+        session.setAttribute("userNameErr", "");
+        session.setAttribute("firstNameErr", "");
+        session.setAttribute("lastNameErr", "");
+        session.setAttribute("lNameErr", "");
+        session.setAttribute("DOBErr", "");
+        session.setAttribute("phoneNumErr", "");
+        session.setAttribute("streetErr", "");
+        session.setAttribute("suburbErr", "");
+        session.setAttribute("phoneNumErr", "");
+        session.setAttribute("postCodeErr", "");
+        session.setAttribute("stateErr", "");
+         session.setAttribute("emailErr", "");
    }
 }

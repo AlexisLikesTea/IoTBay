@@ -10,6 +10,7 @@ import IOTB.model.dao.DBManager;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -36,12 +37,13 @@ public class DeleteCustomerServlet extends HttpServlet {
         
                 //Standard out//
         validator.clear(session);
-        
+         
         try {
-            Customer del = (Customer) manager.findCustomerID((String) session.getAttribute("DELcustId"));
-            String Message = ("Customer  has been removed");
-            session.setAttribute("deleteErr", Message);
-            manager.deleteCustomer((String) session.getAttribute("DELcustId"));
+            session.setAttribute("DELcust", "DELcustId");
+            String ID = (String) request.getParameter("DELcustId");
+            session.setAttribute("deleteErr", ID + " was removed from the data base. ");
+            String delete = (String) session.getAttribute("DELcust");
+            manager.deleteCustomer((String) request.getParameter("DELcustId"));
             request.getRequestDispatcher("CustomerManager.jsp").include(request, response);
         } catch (SQLException ex) {
             Logger.getLogger(DeleteCustomerServlet.class.getName()).log(Level.SEVERE, null, ex);

@@ -33,12 +33,14 @@ public class editCustomer extends HttpServlet {
         DBManager manager = (DBManager) session.getAttribute("manager"); 
         // _____________________________________________
                 //Standard out//
-            String customerID = request.getParameter("custId");
+                
             try {
+                
+                String customerID = request.getParameter("custId");
                 Customer editCus = (Customer) manager.findCustomerID(customerID);
                 session.setAttribute("editCus", editCus);
                 System.out.println(customerID);
-                response.sendRedirect("CustomerManagerEdit.jsp");
+                 request.getRequestDispatcher("CustomerManagerEdit.jsp").include(request, response);
             } catch (SQLException ex) {
                 Logger.getLogger(editCustomer.class.getName()).log(Level.SEVERE, null, ex);
             }

@@ -59,12 +59,15 @@
                     String suburbErr = (String) session.getAttribute("suburbErr");
                     String stateErr = (String) session.getAttribute("stateErr");
                     String postCodeErr =(String) session.getAttribute("postCodeErr");
+                    
+                    Customer editCus = (Customer) session.getAttribute("editCus");
                %> 
             
 
             
                <h1 id="underlineandcenter">Edit ${editCus.firstName}</h1>
-            <form action="editCustomerValidate" method = "POST">  
+               <h1> <%=(emailErr != null ? emailErr : "")%>  </h1>
+            <form action="editCustomerValidate" method = "post">  
                 <table>
                     <tr>
                         <td><label for = "editEemail">Email:</label></td>

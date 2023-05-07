@@ -44,7 +44,7 @@
                     DBManager manager = (DBManager) session.getAttribute("manager");
                     ArrayList<Customer> customers = manager.searchCustomer(request.getParameter("customerSearch"));
                     
-                    //Customer Editcustomer = (Customer) session.getAttribute("editCustomer");
+                    Customer Editcustomer = (Customer) session.getAttribute("editCustomer");
                            
                     String userNameErr = (String) session.getAttribute("userNameErr");
                     String emailErr = (String) session.getAttribute("emailErr");
@@ -65,16 +65,18 @@
                  
 
            <div class ="contentcontainer" >
-               <h1> <%=(deleteErr != null ? deleteErr : "")%> </h1>
+              
                 <br>
                 <h1 id="underlineandcenter">Customer List</h1>
-                <form  id="underlineandcenter">
+                <h1 id="underlineandcenter"> <%= (deleteErr != null ? deleteErr : "") %> </h1>
+                <form  id="underlineandcenter" method = "post">
                     <input id="customerSearch"  type="text" name="customerSearch" placeholder="Search Customers By First Name Last Name or Email">                
                 </form>
                 <br>
                   
                     <table border='1'>
                     <tr><th>ID</th><th>Name</th><th>Email</th><th>Action</th></tr>
+                    
                      <%for(Customer cus: customers) { %>
                         <td><%= cus.getCustomerId() %></td>
                         <td><%= cus.getFirstName() %> <%=cus.getLastName()%></td>
@@ -86,7 +88,8 @@
                               <input type="submit" value="Edit">
                              
                            </form>
-                               <form>
+                              <br>
+                               <form action = "DeleteCustomerServlet" method = "post">
                                   <input type="hidden" name="DELcustId" id = "DELcustId" value="<%=cus.getCustomerId()%>">
                                   <input type ="submit" value ="Delete">
                               </form>

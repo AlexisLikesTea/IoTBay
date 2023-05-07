@@ -39,9 +39,15 @@ public class DeleteCustomerServlet extends HttpServlet {
         validator.clear(session);
          
         try {
-            session.setAttribute("DELcust", "DELcustId");
+           
             String ID = (String) request.getParameter("DELcustId");
-            session.setAttribute("deleteErr", ID + " was removed from the data base. ");
+            
+            if(ID != null){
+                 session.setAttribute("DELcust", "DELcustId");
+                 session.setAttribute("deleteErr", ID + " was removed from the data base. ");
+            }
+            
+           
             String delete = (String) session.getAttribute("DELcust");
             manager.deleteCustomer((String) request.getParameter("DELcustId"));
             request.getRequestDispatcher("CustomerManager.jsp").include(request, response);

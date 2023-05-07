@@ -121,9 +121,9 @@ public class DBManager {
     
     
     public Customer findCustomerID(String ID) throws SQLException{
-        String query = "SELECT * FROM CUSTOMER_T WHERE CUSTOMERID=?";
+        String query = "SELECT * FROM CUSTOMER_T WHERE CUSTOMERID = ?";
         try (PreparedStatement statement = connect.prepareStatement(query)) {
-            statement.setString(1, ID);
+            statement.setString(1, ID );
             ResultSet rs = statement.executeQuery();
             while(rs.next()){
                 if(rs.getString(1).equals(ID)){

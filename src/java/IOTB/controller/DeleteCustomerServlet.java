@@ -5,12 +5,11 @@
  */
 package IOTB.controller;
 
-import IOTB.model.dao.*;
-import IOTB.model.beans.*;
+import IOTB.model.beans.Customer;
+import IOTB.model.dao.DBManager;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -23,29 +22,30 @@ import javax.servlet.http.HttpSession;
  *
  * @author kyler
  */
-public class editCustomer extends HttpServlet {
+public class DeleteCustomerServlet extends HttpServlet {
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+             
         //Standard Controller / servlet construction
         HttpSession session = request.getSession();
         Validator validator = new Validator();
         DBManager manager = (DBManager) session.getAttribute("manager"); 
         // _____________________________________________
+        
                 //Standard out//
-            String customerID = request.getParameter("custId");
-            try {
-                Customer editCus = (Customer) manager.findCustomerID(customerID);
-                session.setAttribute("editCus", editCus);
-                System.out.println(customerID);
-                response.sendRedirect("CustomerManagerEdit.jsp");
-            } catch (SQLException ex) {
-                Logger.getLogger(editCustomer.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        validator.clear(session);
         
-
-     
-        
+        try {
+            Customer del = (Customer) manager.findCustomerID((String) session.getAttribute("DELcustId"));
+            String Message = ("Customer  has been removed");
+            session.setAttribute("deleteErr", Message);
+            manager.deleteCustomer((String) session.getAttribute("DELcustId"));
+            request.getRequestDispatcher("CustomerManager.jsp").include(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(DeleteCustomerServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }
 

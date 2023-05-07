@@ -1,5 +1,4 @@
 body {
-   
     background-color: #cccccc;
 }
 
@@ -46,20 +45,6 @@ body {
     padding-left: 10px;  /*this sets the distance between the text and the left of the main container*/
     padding-right: 10px;  /* this sets the distance between the text and the right of the main container*/
 }
-
-.editContainer{
-    height: auto;
-    border: 1px solid black;
-    position: fixed;
-    top: 50%;
-    right: 0;
-    transform: translate(0, -50%);
-    background-color: lightgray;
-    padding: 10px;
-    background-color: #E8E888;
-   
-}
-
 .topbanner{
     width: 100%;
     height: 100px;
@@ -69,6 +54,8 @@ body {
     background-size: cover;
     background-position: left;
 }
+
+
 
 /* ↓↓↓ Text formatting classess and ID's ↓↓↓ */
 
@@ -113,6 +100,14 @@ p{
     text-decoration: underline;
     text-align: center;
 }
+#CenterForm{
+    text-decoration: underline;
+    text-align: center;
+}
+#customerSearch{
+    width: 400px;
+}
+
 
 #bold{
     font-weight: 600;
@@ -161,6 +156,8 @@ tr:hover {background-color: coral;}
     margin-right: auto;
     margin-left: auto; 
 }
+
+
 
 
 

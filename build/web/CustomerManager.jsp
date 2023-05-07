@@ -8,7 +8,6 @@
 <%@page import="IOTB.model.beans.*"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -42,7 +41,10 @@
  
                 
                <%   ///Page Variables
-                   //Customer Editcustomer = (Customer) session.getAttribute("editCustomer");
+                    DBManager manager = (DBManager) session.getAttribute("manager");
+                    ArrayList<Customer> customers = manager.searchCustomer(request.getParameter("customerSearch"));
+                    
+                    //Customer Editcustomer = (Customer) session.getAttribute("editCustomer");
                            
                     String userNameErr = (String) session.getAttribute("userNameErr");
                     String emailErr = (String) session.getAttribute("emailErr");
@@ -55,52 +57,43 @@
                     String suburbErr = (String) session.getAttribute("suburbErr");
                     String stateErr = (String) session.getAttribute("stateErr");
                     String postCodeErr =(String) session.getAttribute("postCodeErr");
+                    
+                   String deleteErr = (String) session.getAttribute("deleteErr");
                %> 
 
               <div style = "display:flex">
                  
 
            <div class ="contentcontainer" >
+               <h1> <%=(deleteErr != null ? deleteErr : "")%> </h1>
                 <br>
                 <h1 id="underlineandcenter">Customer List</h1>
-                <form>
-                <input  id = "customerSearch" type = "text" name = "customerSearch" >
+                <form  id="underlineandcenter">
+                    <input id="customerSearch"  type="text" name="customerSearch" placeholder="Search Customers By First Name Last Name or Email">                
                 </form>
-                
-
-                <%
-                    DBManager manager = (DBManager) session.getAttribute("manager");
-                    ArrayList<Customer> customers = manager.searchCustomer(request.getParameter("customerSearch"));
-
-                    out.println("<table border='1'>");
-                    out.println("<tr><th>ID</th><th>Name</th><th>Email</th><th>Pass</th><th>Edit</th></tr>");
-                    for(Customer cus: customers) {
-                        out.println("<tr>");
-                        out.println("<td>" + cus.getCustomerId() + "</td>");
-                        out.println("<td>" + cus.getFirstName() + " " + cus.getLastName() + "</td>");
-                        out.println("<td>" + cus.getEmail() + "</td>");
-                        out.println("<td>" + cus.getPassword() + "</td>");
-                        out.println("<td>");
-                        out.println("<form method='post' action='editCustomer'>");
-                        out.println("<input type='hidden' id='customerEmail'  name ='customerEmail' value='" + cus.getEmail() + "'/>");
-                        out.println("<input type='hidden' id='customerPass' name='customerPass' value='" + cus.getPassword() + "'/>");
-                        out.println("<input type='submit' value='Edit'/>");
-                        out.println("</td>");
-                        out.println("</tr>");
-                    }
-                    out.println("</table>");
-
-                %>
-                    <table border="1" cellpadding="5">
-                <caption><h2>List of Books</h2></caption>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Pass</th>
-                    <th>Action</th>
-                </tr>
-            </table>
+                <br>
+                  
+                    <table border='1'>
+                    <tr><th>ID</th><th>Name</th><th>Email</th><th>Action</th></tr>
+                     <%for(Customer cus: customers) { %>
+                        <td><%= cus.getCustomerId() %></td>
+                        <td><%= cus.getFirstName() %> <%=cus.getLastName()%></td>
+                         <td><%= cus.getEmail() %></td>
+                        <!-- Add more columns for other attributes -->
+                        <td>
+                           <form action="editCustomer" method="post">
+                              <input type="hidden" name="custId" id = "custId" value="<%=cus.getCustomerId()%>">
+                              <input type="submit" value="Edit">
+                             
+                           </form>
+                               <form>
+                                  <input type="hidden" name="DELcustId" id = "DELcustId" value="<%=cus.getCustomerId()%>">
+                                  <input type ="submit" value ="Delete">
+                              </form>
+                        </td>
+                     </tr>
+                    <%}%>
+             
                 
             </div>
          

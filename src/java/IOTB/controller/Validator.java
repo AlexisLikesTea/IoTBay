@@ -98,5 +98,6 @@ package IOTB.controller;
         session.setAttribute("postCodeErr", "");
         session.setAttribute("stateErr", "");
          session.setAttribute("emailErr", "");
+         session.setAttribute("deleteErr", "");
    }
 }

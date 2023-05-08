@@ -18,36 +18,48 @@
         <div class="topbanner"></div>
 
         <div class="topnav">
-            <a href="mainpage.jsp"> Main Page </a>
-        </div>
-
-        <div class="contentcontainer">
-            <%
-                String name = request.getParameter("name");
-                String email = request.getParameter("email");
-                String password = request.getParameter("password");
-                String gender = request.getParameter("gender");
-                String favColor = request.getParameter("color-picker");
-                String tos = request.getParameter("tosAgree");
-            %>
-            <% if (tos != null) {%>
-            <h1 id="underlineandcenter">Welcome <%=name%> !</h1><br>
-            <h3> Your email is <%=email%></h3>
-            <h3> Your Password is <%=password%></h3>
-            <h3> Your gender is <%=gender%></h3>
-            <h3> Your favourite Color is <%=favColor%></h3>
-
-            <h3>Use this button to access the main page: </h3><a href="mainpage.jsp" class="button" >Main Page</a>
-            <% } else { %>
-            <h1 id="underlineandcenter">Sorry, you must agree to the terms of service.</h1><br>
-            <a href="register.jsp" class="button" >Return to Register page</a>
+            <a  class="active" href="index.jsp"> Home </a>
+            <% if (session.getAttribute("staff") == null && session.getAttribute("customer") == null) { %>
+            <a href="register.jsp"> Register </a>
+            <a href="login.jsp"> Login </a>
+            <% }%> 
+            <% if (session.getAttribute("staff") != null) { %>
+            <a href='CustomerManager.jsp'> Manage Customers</a>
+            <a href ='Catalogue.jsp'> Manage Inventory </a>
+            <a href =''> Manage AccessLogs</a>
             <% } %>
 
-            <%
-                Customer customer = new Customer(name, email, password, gender, favColor);
-                session.setAttribute("customer", customer);
-            %>
+            <%if (session.getAttribute("staff") == null) { %>
+            <a  href ='Catalogue.jsp'>Catalogue</a>
+            <% }%>
+            <% if (session.getAttribute("staff") != null || session.getAttribute("customer") != null) { %>
+            <a href = 'edit.jsp'> my account </a>
+            <a  href="logout.jsp"  >Logout</a>
+            <% }%> 
         </div>
+
+            <div class="contentcontainer">
+                <%
+                    Customer customer = (Customer) session.getAttribute("customer");
+                %>
+
+                <% if (session.getAttribute("staff") == null) { %>
+                <h1 id="underlineandcenter">Welcome ${customer.firstName} !</h1><br>
+                <h3> Your email is ${customer.email}</h3>
+                <h3> And your user name is ${customer.userName}</h3>
+
+                <h3>Use this button to access the main page: </h3><a href="mainpage.jsp" class="button" >Main Page</a>
+                <%
+                } else {
+                    customer = (Customer) session.getAttribute("editCus");
+                %>
+                <h1 id="underlineandcenter"> New staff created!</h1><br>
+                    <a href="register.jsp"> Make another Customer</a>
+                    <a href="CustomerManager.jsp"> Return </a>
+                <% }%>
+
+
+            </div>
 
 
     </body>

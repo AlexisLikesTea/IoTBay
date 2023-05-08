@@ -14,6 +14,18 @@
 
     </head>
     <body>
+        
+        <%  
+            //Page Error variables
+            
+            String userNameErr = (String) session.getAttribute("userNameErr");
+            String emailErr = (String) session.getAttribute("emailErr");
+            String firstNameErr = (String) session.getAttribute("firstNameErr");
+            String lastNameErr = (String) session.getAttribute("lastNameErr");
+            String passwordErr = (String) session.getAttribute("passwordErr");
+            String DOBErr = (String) session.getAttribute("DOBErr");
+            
+        %>
         <div class="topbanner"></div>
 
         <div class="topnav">
@@ -37,51 +49,49 @@
         </div>
 
         <div class="contentcontainer">
+            <% if(session.getAttribute("staff") == null){ %>
+                <h1 id ="underlineandcenter"> To Register: Enter your customer details </h1>
+            <% } else { %>
+                <h1 id ="underlineandcenter"> Register a new customer </h1>
+                    <a href="CustomerManager.jsp"> Return </a>
+            <% } %>
             <br>
-            <form action="welcome.jsp" method = "POST">  
+            <form action="RegisterCustomerController" method = "POST">  
                 <table>
                     <tr>
-                    <h1 id="underlineandcenter">Registration form</h1>
-                    </tr>
-
-                    <!--This page and all others need to be updated to include all the new fields in the customer BEAN -->
-
-                    <tr>
                         <td><label for = "email">Email:</label></td>
-                        <td><input type = "email" id = "email" name = "email" ></td>
+                        
+                        <td><input type = "email" id = "email" name = "email" value=""><h8> <%=(emailErr != null ? emailErr : "")%> </h8></td>
                     </tr>
                     <tr>
-                        <td><label for = "name">Name: </label></td>
-                        <td><input id = "name" type = "text" name = "name"></td>
+                        <td><label for = "userName">User Name: </label></td>
+                        <td><input id = "userName" type = "text" name = "userName" value=""><h8> <%=(userNameErr != null ? userNameErr : "")%> </h8></td>
                     </tr>
+                    <tr>
+                        <td><label for = "firstName">First Name: </label></td>
+                        <td><input id = "firstName" type = "text" name = "firstName" value=""><h8> <%=(firstNameErr != null ? firstNameErr : "")%> </h8></td>
+                    </tr>
+                    <tr>
+                        <td><label for = "lastName">Last Name: </label></td>
+                        <td><input type = "text" id = "lastName" name ="lastName" value=""><h8> <%=(lastNameErr != null ? lastNameErr : "")%> </h8></td>
+                    </tr>
+                    
                     <tr>
                         <td><label for = "password">Password: </label></td>
-                        <td><input type = "password" id = "password" name ="password" ></td>
+                        <td><input type = "password" id = "password" name ="password" value=""><h8> <%=(passwordErr != null ? passwordErr : "")%> </h8></td>
                     </tr>
+                    
+                 
                     <tr>
-                        <td><label for="gender">Gender: </label></td>
+                        <td><label for="DOB">Date Of Birth </label></td>
+                           <td><input type = "date"  onfocus="this.showPicker()" id = "DOB" name ="DOB" value="1995-12-12"><h8> <%=(DOBErr != null ? DOBErr : "")%> </h8></td>
+                    </tr>
+                    
+                    <tr><td></td>
                         <td>
-                            <select for = "gender"  name = "gender" id = "gender">
-                                <option value = "male">Male</option>
-                                <option value = "female">Female</option>
-                                <option value = "other">other</option>
-                            </select>
+                            <input class="button" type="submit" value="Update">
+                            
                         </td>
-                    </tr>
-                    <tr>
-                        <td><label for = "favColoro">FavColor: </label></td>
-                        <td><input type="color" id="color-picker" name="color-picker" value="#ff0000">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><label for = "tos">Terms of Service: </label></td> 
-                        <td> <input type="checkbox" id="tosAgree" name="tosAgree" value="Agreed">I Agree</td>  
-
-                    </tr>
-
-                    <!--This page and all others need to be updated to include all the new fields in the customer BEAN -->
-                    <tr>
-                        <td><button>Register</button></td>
                     </tr>
                 </table>
             </form>

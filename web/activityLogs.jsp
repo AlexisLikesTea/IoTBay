@@ -16,23 +16,12 @@
         <title>Edit</title>
     </head>
     <body>
-        <%
-            
-            //Turn this whole page into a serverlet 
-            Customer customer = (Customer) session.getAttribute("customer");
-            DBManager manager = (DBManager) session.getAttribute("manager");
-            Staff staff = (Staff) session.getAttribute("staff");
-                //Staff updated = request.getParameter("Updated");
-        %>
 
-      
         <div class="topbanner"></div>
 
         <!-- This is the top nav bar code-->
         <div class="topnav">
             <a href="index.jsp"> Home </a>
-            <a href="register.jsp"> Register </a>
-            <a href="login.jsp"> Login </a>
             <% if (session.getAttribute("staff") != null) { %>
             <a href='CustomerManager.jsp'> Manage Customers</a>
             <a  href ='Catalogue.jsp'> Manage Inventory </a>
@@ -51,50 +40,44 @@
         <div class="contentcontainer">
             <br>
             <h1 id = "underlineandcenter">Access Logs</h1>
-            <form method = "post">
-            <table>
+
+            <form action="AccessLogController" method = "post">
+                                    
+                    <div id = "accessTabs">
+                        <span>  |   </span>
+                        <a href="edit.jsp"> Return </a>
+                        <span>  |   </span>
+                    </div>
                 
+                <table>
+
                     <td><input type="number" id="addYear" name="addYear" value ="" placeholder = "Search By sign in Year"></td>
                     <td><input type="number" id="addMonth" name="addMonth" value =""placeholder = "Search By Sign in Month"></td>
                     <td> <button type="submit">Submit</button></td>
-                    <div id = "accessTabs">
-                    <span>  |   </span>
-                    <a href="edit.jsp"> Return </a>
-                    <span>  |   </span>
-                    </div>
-            </table>
-            <form>
-            
-            
-            <%
-                
-               
-                //Call using LOGID for 1 specific log, Call using either staff and Cust for all of their accesslogs
-                
-                    String ID;
-                    if(staff != null){
-                        ID = staff.getStaffID();
-                    } else {
-                        
-                        ID = customer.getCustomerId();
-                    }
-                     ArrayList<AccessLog> logSearch = manager.findAccessLogs(ID, request.getParameter("addYear"),request.getParameter("addMonth"));    
 
-
-                 // Output customer information in a table
-                    out.println("<table border='1'>");
-                    out.println("<tr><th>ID</th><th>ID's</th><th>Sign in </th><th>Sign off</th></tr>");
                     
-                    for (AccessLog logs : logSearch) {
-                        out.println("<tr>");
-                        out.println("<td>" + logs.getLogID()+ "</td>");
-                        out.println("<td>" +  logs.getCustomerID() + " " +  logs.getStaffID() + "</td>");
-                        out.println("<td>" +  logs.getLogLogin() + "</td>");
-                        out.println("<td>" +  logs.getLogLogout()+ "</td>");
-                        out.println("</tr>");
-                    }
-                    out.println("</table>");
-             
+                </table>
+            </form>
+
+
+            <%
+                //Call using LOGID for 1 specific log, Call using either staff and Cust for all of their accesslogs
+                ArrayList<AccessLog> logSearch = (ArrayList<AccessLog>) session.getAttribute("AccessLogList");
+
+                // Output customer information in a table
+                out.println("<table border='1'>");
+                out.println("<tr><th>ID</th><th>ID's</th><th>Sign in </th><th>Sign off</th></tr>");
+
+                for (AccessLog logs : logSearch) {
+                    out.println("<tr>");
+                    out.println("<td>" + logs.getLogID() + "</td>");
+                    out.println("<td>" + (session.getAttribute("customer") != null ? logs.getCustomerID() : logs.getStaffID()) + "</td>");
+                    out.println("<td>" + logs.getLogLogin() + "</td>");
+                    out.println("<td>" + logs.getLogLogout() + "</td>");
+                    out.println("</tr>");
+                }
+                out.println("</table>");
+
             %>         
             <br>
             </form>

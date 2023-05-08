@@ -21,8 +21,6 @@
         <div class="topbanner"></div>
         <div class="topnav">
             <a href="index.jsp"> Home </a>
-            <a href="register.jsp"> Register </a>
-            <a href="login.jsp"> Login </a>
             <% if (session.getAttribute("staff") != null) { %>
             <a class="active" href='CustomerManager.jsp'> Manage Customers</a>
             <a href ='Catalogue.jsp'> Manage Inventory </a>
@@ -68,6 +66,8 @@
               
                 <br>
                 <h1 id="underlineandcenter">Customer List</h1>
+                
+                <a id = "accessTabs" href = "register.jsp"> Register New customers <a/>
                 <h1 id="underlineandcenter"> <%= (deleteErr != null ? deleteErr : "") %> </h1>
                 <form  id="underlineandcenter" method = "post">
                     <input id="customerSearch"  type="text" name="customerSearch" placeholder="Search Customers By First Name Last Name or Email">                

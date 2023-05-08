@@ -28,8 +28,6 @@
         <!-- This is the top nav bar code-->
         <div class="topnav">
             <a href="index.jsp"> Home </a>
-            <a href="register.jsp"> Register </a>
-            <a class="active" href="login.jsp"> Login </a>
             <% if (session.getAttribute("staff") != null) { %>
             <a href='CustomerManager.jsp'> Manage Customers</a>
             <a href ='Catalogue.jsp'> Manage Inventory </a>

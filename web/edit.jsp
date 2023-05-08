@@ -38,8 +38,6 @@
         <!-- This is the top nav bar code-->
         <div class="topnav">
             <a href="index.jsp"> Home </a>
-            <a href="register.jsp"> Register </a>
-            <a href="login.jsp"> Login </a>
             <% if (session.getAttribute("staff") != null) { %>
             <a href='CustomerManager.jsp'> Manage Customers</a>
             <a  href ='Catalogue.jsp'> Manage Inventory </a>
@@ -63,9 +61,11 @@
             
             <!-- Placeholder buttons -->
             <div id = "accessTabs">
-            <a href="activityLogs.jsp"> Access Logs </a>
-            <span>   |   </span>
-            <a> Payment Details  </a>
+                <form action = "AccessLogController" method = "post">
+                    <input type = "submit" value = "Access Logs">
+                </form>
+                <span>   |   </span>
+                <a> Payment Details  </a>
             </div>
             
             <form action="editAccount" method = "POST">  

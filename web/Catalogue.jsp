@@ -22,8 +22,10 @@
         <!-- This is the top nav bar code-->
         <div class="topnav">
             <a href="index.jsp"> Home </a>
-            <a href="register.jsp"> Register </a>
-            <a href="login.jsp"> Login </a>
+            <% if(session.getAttribute("staff") == null && session.getAttribute("customer") == null){ %>
+                <a href="register.jsp"> Register </a>
+                <a href="login.jsp"> Login </a>
+            <% } %>
             <% if (session.getAttribute("staff") != null) { %>
             <a href='CustomerManager.jsp'> Manage Customers</a>
             <a class="active"  href ='Catalogue.jsp'> Manage Inventory </a>

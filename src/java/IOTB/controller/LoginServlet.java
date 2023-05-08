@@ -57,14 +57,14 @@ public class LoginServlet extends HttpServlet {
                 if(customer != null){
                     // Generate a new access log
                     String logID = manager.addAccessLog(customer.getCustomerId());
-                    session.setAttribute("customer", customer);
-                    session.setAttribute("SessionLogId", logID);
+                    session.setAttribute("customer", customer); //Primary Session Attribs
+                    session.setAttribute("SessionLogId", logID); //Primary
                     request.getRequestDispatcher("mainpage.jsp").include(request, response);
                 } else if (staff != null){
                     //generate access log
                      String logID = manager.addAccessLog(staff.getStaffID());
-                     session.setAttribute("SessionLogId", logID);
-                    session.setAttribute("staff", staff);
+                     session.setAttribute("SessionLogId", logID); //Primary Session Attrib
+                    session.setAttribute("staff", staff);      //Primary Session Attribs
                     request.getRequestDispatcher("mainpage.jsp").include(request, response);
                 } else {
                     session.setAttribute("existErr", "Credentials are incorrect or the account does not exist");

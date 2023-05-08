@@ -13,6 +13,19 @@
 <!--
 Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
 Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit this template
+
+PRIMARY SESSION ATTRIBUTE LIST 
+    customer -> holds the current customer BEAN for their session 
+    staff -> holds the current staff BEAN for their session 
+    SessionLogId -> (String) holds the unique ACCESSLOG ID for the current session
+    AccessLogList -> Holds a list of accesslogs related to the customer or staff attribute
+    
+    manager -> holds the DBManager bean for the entire session
+    
+    editCus -> holds a bean for a customer that is to be edited by staff or admin
+    DELcust -> holds a customer BEAN for deletion by staff or admin
+
+    
 -->
 <html>
     <head>
@@ -26,8 +39,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
 
         <div class="topnav">
             <a  class="active" href="index.jsp"> Home </a>
-            <a href="register.jsp"> Register </a>
-            <a href="login.jsp"> Login </a>
+             <% if (session.getAttribute("staff") == null && session.getAttribute("customer") == null) { %>
+                <a href="register.jsp"> Register </a>
+                <a href="login.jsp"> Login </a>
+            <% }%> 
             <% if (session.getAttribute("staff") != null) { %>
             <a href='CustomerManager.jsp'> Manage Customers</a>
             <a href ='Catalogue.jsp'> Manage Inventory </a>

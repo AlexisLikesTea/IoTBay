@@ -50,17 +50,22 @@
         <!--This page and all others need to be updated to include all the new fields in the customer BEAN -->
         <div class="contentcontainer">
             <br>
+            <h1 id = "underlineandcenter">Access Logs</h1>
+            <form method = "post">
             <table>
-                    <td><input id = "addLog" type = "text" name = "addLog" value = "" ></td>
                 
-                    <td><input type="number" id="addYear" name="addYear" value =""></td>
-                    <td><input type="number" id="addMonth" name="addMonth" value ="" ></td>
-                    
-                    <button type="submit">Submit</button>
-                    
+                    <td><input type="number" id="addYear" name="addYear" value ="" placeholder = "Search By sign in Year"></td>
+                    <td><input type="number" id="addMonth" name="addMonth" value =""placeholder = "Search By Sign in Month"></td>
+                    <td> <button type="submit">Submit</button></td>
+                    <div id = "accessTabs">
+                    <span>  |   </span>
+                    <a href="edit.jsp"> Return </a>
+                    <span>  |   </span>
+                    </div>
             </table>
+            <form>
             
-            <h1> ${customer.customerId} </h1>
+            
             <%
                 
                
@@ -74,12 +79,6 @@
                         ID = customer.getCustomerId();
                     }
                      ArrayList<AccessLog> logSearch = manager.findAccessLogs(ID, request.getParameter("addYear"),request.getParameter("addMonth"));    
-                    
-              
-                
-                    //manager.updateAccessLog(ID);
-
-
 
 
                  // Output customer information in a table
@@ -98,6 +97,7 @@
              
             %>         
             <br>
+            </form>
         </div>
         <!--This page and all others need to be updated to include all the new fields in the customer BEAN -->
     </body>

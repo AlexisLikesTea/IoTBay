@@ -62,7 +62,11 @@
             <h1 id="underlineandcenter">Edit your current details</h1>
             
             <!-- Placeholder buttons -->
+            <div id = "accessTabs">
             <a href="activityLogs.jsp"> Access Logs </a>
+            <span>   |   </span>
+            <a> Payment Details  </a>
+            </div>
             
             <form action="editAccount" method = "POST">  
                 <table>

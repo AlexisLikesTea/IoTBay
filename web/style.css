@@ -157,6 +157,11 @@ tr:hover {background-color: coral;}
     margin-left: auto; 
 }
 
+#accessTabs{
+    text-align: right; 
+    margin-right: 15%; 
+    padding: 2%;
+}
 
 
 

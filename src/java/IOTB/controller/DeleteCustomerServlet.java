@@ -5,11 +5,13 @@
  */
 package IOTB.controller;
 
+import IOTB.model.beans.AccessLog;
 import IOTB.model.beans.Customer;
 import IOTB.model.dao.DBManager;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -46,8 +48,14 @@ public class DeleteCustomerServlet extends HttpServlet {
                  session.setAttribute("DELcust", "DELcustId");
                  session.setAttribute("deleteErr", ID + " was removed from the data base. ");
             }
-            
            
+            //logic to remove their access logs first. 
+            ArrayList<AccessLog> Logs = (ArrayList<AccessLog>) manager.findAccessLogs(ID, null, null);
+            
+            for(AccessLog log : Logs){
+                manager.deleteAccessLog(log.getLogID());
+            }
+            
             String delete = (String) session.getAttribute("DELcust");
             manager.deleteCustomer((String) request.getParameter("DELcustId"));
             request.getRequestDispatcher("CustomerManager.jsp").include(request, response);

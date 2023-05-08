@@ -97,7 +97,9 @@ public class DBManager {
         String[] querys = {
             "SELECT * FROM CUSTOMER_T WHERE LOWER(CUSTOMERFIRSTNAME) LIKE ?",
             "SELECT * FROM CUSTOMER_T WHERE LOWER(CUSTOMERLASTNAME) LIKE ?",
-            "SELECT * FROM CUSTOMER_T WHERE LOWER(CUSTOMERUSERNAME) LIKE ?"
+            "SELECT * FROM CUSTOMER_T WHERE LOWER(CUSTOMERUSERNAME) LIKE ?",
+            "SELECT * FROM CUSTOMER_T WHERE LOWER(CUSTOMERID) LIKE ?"
+
         };
         
         ArrayList<Customer> SearchResult = new ArrayList<>();

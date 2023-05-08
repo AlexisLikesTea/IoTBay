@@ -18,10 +18,10 @@
     <body>
         
         <% //logout logic 
-            Customer customer = (Customer) session.getAttribute("customer");
+
             String LogId = (String) session.getAttribute("SessionLogId");
             
-           
+            
             
             DBManager manager = (DBManager) session.getAttribute("manager");
             manager.updateAccessLog(LogId);

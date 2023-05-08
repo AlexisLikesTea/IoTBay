@@ -3,6 +3,8 @@
     Created on : 28 Mar 2023, 11:07:48 am
     Author     : Jack
 --%>
+<%@page import="IOTB.model.beans.*"%>
+<%@page import="IOTB.model.dao.*"%>
 <%@page import="IOTB.model.beans.Customer"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -14,6 +16,17 @@
         <link rel="stylesheet" type="text/css" href="style.css">
     </head>
     <body>
+        
+        <% //logout logic 
+            Customer customer = (Customer) session.getAttribute("customer");
+            String LogId = (String) session.getAttribute("SessionLogId");
+            
+           
+            
+            DBManager manager = (DBManager) session.getAttribute("manager");
+            manager.updateAccessLog(LogId);
+
+            %>
         <div class="topbanner"></div>
         <div class="topnav">
             <a href="index.jsp" >Home</a> 

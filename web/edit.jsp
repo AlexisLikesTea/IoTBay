@@ -60,6 +60,10 @@
 
             
             <h1 id="underlineandcenter">Edit your current details</h1>
+            
+            <!-- Placeholder buttons -->
+            <a href="activityLogs.jsp"> Access Logs </a>
+            
             <form action="editAccount" method = "POST">  
                 <table>
                     <tr>

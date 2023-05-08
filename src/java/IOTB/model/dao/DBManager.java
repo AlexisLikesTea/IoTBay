@@ -404,6 +404,8 @@ public class DBManager {
         String[] queries = {
             "SELECT * FROM ACCESSLOG_T WHERE STAFFID = ? AND (YEAR(LOGLOGIN) = ? OR ? IS NULL) AND (MONTH(LOGLOGIN) = ? OR ? IS NULL)",
             "SELECT * FROM ACCESSLOG_T WHERE CUSTOMERID = ? AND (YEAR(LOGLOGIN) = ? OR ? IS NULL) AND (MONTH(LOGLOGIN) = ? OR ? IS NULL) ",
+            
+           
         };
 
         int yearValue;
@@ -448,8 +450,8 @@ public class DBManager {
                 while (rs.next()) {
                     result.add(new AccessLog(rs.getString(1), rs.getString(2), rs.getString(3), rs.getTimestamp(4), rs.getTimestamp(5)));
                 }
-                
-                return result;
+               
+                  
             }
         }
         return result;

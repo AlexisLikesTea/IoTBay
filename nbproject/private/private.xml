@@ -3,21 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Uni%20Folder%20ALL/2023/Software%20Development/IoTBay/src/java/IOTB/model/dao/DBManager.java</file>
-            <file>file:/D:/Uni%20Folder%20ALL/2023/Software%20Development/IoTBay/src/java/IOTB/controller/editCustomerValidate.java</file>
-            <file>file:/D:/Uni%20Folder%20ALL/2023/Software%20Development/IoTBay/web/edit.jsp</file>
-            <file>file:/D:/Uni%20Folder%20ALL/2023/Software%20Development/IoTBay/src/java/IOTB/model/beans/Customer.java</file>
-            <file>file:/D:/Uni%20Folder%20ALL/2023/Software%20Development/IoTBay/src/java/IOTB/model/beans/Staff.java</file>
-            <file>file:/D:/Uni%20Folder%20ALL/2023/Software%20Development/IoTBay/src/java/IOTB/controller/ConnServlet.java</file>
-            <file>file:/D:/Uni%20Folder%20ALL/2023/Software%20Development/IoTBay/web/style.css</file>
-            <file>file:/D:/Uni%20Folder%20ALL/2023/Software%20Development/IoTBay/src/java/IOTB/controller/DeleteCustomerServlet.java</file>
-            <file>file:/D:/Uni%20Folder%20ALL/2023/Software%20Development/IoTBay/web/Catalogue.jsp</file>
             <file>file:/D:/Uni%20Folder%20ALL/2023/Software%20Development/IoTBay/src/java/IOTB/controller/editCustomer.java</file>
-            <file>file:/D:/Uni%20Folder%20ALL/2023/Software%20Development/IoTBay/src/java/IOTB/controller/Validator.java</file>
-            <file>file:/D:/Uni%20Folder%20ALL/2023/Software%20Development/IoTBay/src/java/IOTB/controller/LoginServlet.java</file>
+            <file>file:/D:/Uni%20Folder%20ALL/2023/Software%20Development/IoTBay/src/java/IOTB/model/dao/DBManager.java</file>
             <file>file:/D:/Uni%20Folder%20ALL/2023/Software%20Development/IoTBay/web/CustomerManager.jsp</file>
             <file>file:/D:/Uni%20Folder%20ALL/2023/Software%20Development/IoTBay/web/CustomerManagerEdit.jsp</file>
+            <file>file:/D:/Uni%20Folder%20ALL/2023/Software%20Development/IoTBay/src/java/IOTB/controller/editCustomerValidate.java</file>
             <file>file:/D:/Uni%20Folder%20ALL/2023/Software%20Development/IoTBay/src/java/IOTB/controller/editAccount.java</file>
+            <file>file:/D:/Uni%20Folder%20ALL/2023/Software%20Development/IoTBay/src/java/IOTB/controller/DeleteCustomerServlet.java</file>
         </group>
     </open-files>
 </project-private>

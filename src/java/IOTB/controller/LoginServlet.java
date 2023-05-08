@@ -55,11 +55,16 @@ public class LoginServlet extends HttpServlet {
                 Customer customer = manager.findCustomer(emailUser, password);
                 Staff staff = manager.findStaff(emailUser, password);
                 if(customer != null){
+                    // Generate a new access log
+                    String logID = manager.addAccessLog(customer.getCustomerId());
                     session.setAttribute("customer", customer);
+                    session.setAttribute("SessionLogId", logID);
                     request.getRequestDispatcher("mainpage.jsp").include(request, response);
                 } else if (staff != null){
+                    //generate access log
+                     String logID = manager.addAccessLog(staff.getStaffID());
+                     session.setAttribute("SessionLogId", logID);
                     session.setAttribute("staff", staff);
-                    //if session.getAttribute("staffLogin") != null. Show some special buttons for them.
                     request.getRequestDispatcher("mainpage.jsp").include(request, response);
                 } else {
                     session.setAttribute("existErr", "Credentials are incorrect or the account does not exist");

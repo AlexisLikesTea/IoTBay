@@ -13,11 +13,20 @@ import java.sql.Timestamp;
  * @author kyler
  */
 public class OrderLine {
+    private String orderlineID;
     private String orderID;
     private String deviceID;
     private Timestamp orderlineDateAdded;
     private int orderlineQuantity;
 
+    public String getOrderLineID() {
+        return orderlineID;
+    }
+
+    public void setOrderLineID(String orderlineID) {
+        this.orderlineID = orderlineID;
+    }
+    
     public String getOrderID() {
         return orderID;
     }

@@ -46,8 +46,8 @@
 
             <!-- THE SECTION BELOW IS PLACEHOLDER -->
             <form method = "POST">
-                <h4 style = "text-align: center"> IOT CATALOG.</h4>
-                <input style ="width:80%;text-align:center; margin-left: 10%" id = "deviceSearch" type = "text" name = "deviceSearch" >
+                <h4 style = "text-align: center">Browse the device catalogue</h4>
+                <input style ="width:60%; text-align:center; margin: 0 20% 10px 20%; height: 30px" id = "deviceSearch" type = "text" name = "deviceSearch" placeholder="Search for a device">
 
             </form>
             <%
@@ -58,7 +58,7 @@
 
                 // Output customer information in a table
                 out.println("<table border='1'>");
-                out.println("<tr><th>NAME</th><th>Price</th><th>IMAGE</th><th>DESCRIPTION</th><th>Type</th><th>brand</th></tr>");
+                out.println("<tr><th>Name</th><th>Price</th><th>Image</th><th>Description</th><th>Type</th><th>Brand</th></tr>");
                 for (Device dev : DeviceSearchResults) {
                     out.println("<tr>");
                     out.println("<td>" + dev.getDeviceName() + "</td>");
@@ -68,25 +68,39 @@
                     out.println("<td>" + dev.getDeviceType() + "</td>");
                     out.println("<td>" + dev.getDeviceBrand() + "</td>");
 
+                 
                     out.println("<td>");
+                    
+                        if (session.getAttribute("staff") != null) {
 
-                    // Delete device button
-                    out.println("<form action='DeviceServlet' method='POST'>");
-                    out.println("<input type='hidden' name='action' value='deleteDevice'>");
-                    out.println("<input type='hidden' name='deviceId' value='" + dev.getDeviceID() + "'>");
-                    out.println("<input type='submit' value='Delete'>");
-                    out.println("</form>");
+                            // Delete device button
+                            out.println("<form action='DeviceServlet' method='POST'>");
+                            out.println("<input type='hidden' name='action' value='deleteDevice'>");
+                            out.println("<input type='hidden' name='deviceId' value='" + dev.getDeviceID() + "'>");
+                            out.println("<input type='submit' value='Delete'>");
+                            out.println("</form>");
 
-                    // Update device price form
-                    out.println("<form action='DeviceServlet' method='POST'>");
-                    out.println("<input type='hidden' name='action' value='updateDevicePrice'>");
-                    out.println("<input type='hidden' name='deviceId' value='" + dev.getDeviceID() + "'>");
-                    out.println("<label for='price_" + dev.getDeviceID() + "'>Price:</label>");
-                    out.println("<input type='number' id='price_" + dev.getDeviceID() + "' name='price' step='0.01'>");
-                    out.println("<input type='submit' value='Update'>");
-                    out.println("</form>");
+                            // Update device price form
+                            out.println("<form action='DeviceServlet' method='POST'>");
+                            out.println("<input type='hidden' name='action' value='updateDevicePrice'>");
+                            out.println("<input type='hidden' name='deviceId' value='" + dev.getDeviceID() + "'>");
+                            out.println("<label for='price_" + dev.getDeviceID() + "'>Price:</label>");
+                            out.println("<input type='number' id='price_" + dev.getDeviceID() + "' name='price' step='0.01'>");
+                            out.println("<input type='submit' value='Update'>");
+                            out.println("</form>");
+                        }
+                        else{
+                            out.println("<form action='DeviceServlet' method='POST'>");
+                            out.println("<input type='hidden' name='action' value='addToCard'>");
+                            out.println("<input type='hidden' name='deviceId' value='" + dev.getDeviceID() + "'>");
+                            out.println("<label for='quantity" + dev.getDeviceID() + "'>Quantity</label>");
+                            out.println("<input type='number' id='quantity_" + dev.getDeviceID() + "' name='quantity'>");
+                            out.println("<input type='submit' value='Add to cart'>");
+                            out.println("</form>");
+                        }    
 
                     out.println("</td>");
+                    
                     out.println("</tr>");
                 }
                 out.println("</table>");

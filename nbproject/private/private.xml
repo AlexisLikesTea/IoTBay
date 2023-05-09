@@ -3,20 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Uni%20Folder%20ALL/2023/Software%20Development/IoTBay/src/java/IOTB/model/dao/DBManager.java</file>
-            <file>file:/D:/Uni%20Folder%20ALL/2023/Software%20Development/IoTBay/src/java/IOTB/controller/RegisterCustomerController.java</file>
-            <file>file:/D:/Uni%20Folder%20ALL/2023/Software%20Development/IoTBay/web/welcome.jsp</file>
-            <file>file:/D:/Uni%20Folder%20ALL/2023/Software%20Development/IoTBay/web/edit.jsp</file>
-            <file>file:/D:/Uni%20Folder%20ALL/2023/Software%20Development/IoTBay/web/login.jsp</file>
-            <file>file:/D:/Uni%20Folder%20ALL/2023/Software%20Development/IoTBay/web/index.jsp</file>
-            <file>file:/D:/Uni%20Folder%20ALL/2023/Software%20Development/IoTBay/src/java/IOTB/controller/DeleteCustomerServlet.java</file>
-            <file>file:/D:/Uni%20Folder%20ALL/2023/Software%20Development/IoTBay/src/java/IOTB/controller/LoginServlet.java</file>
-            <file>file:/D:/Uni%20Folder%20ALL/2023/Software%20Development/IoTBay/web/mainpage.jsp</file>
-            <file>file:/D:/Uni%20Folder%20ALL/2023/Software%20Development/IoTBay/web/logout.jsp</file>
-            <file>file:/D:/Uni%20Folder%20ALL/2023/Software%20Development/IoTBay/web/CustomerManager.jsp</file>
-            <file>file:/D:/Uni%20Folder%20ALL/2023/Software%20Development/IoTBay/web/CustomerManagerEdit.jsp</file>
-            <file>file:/D:/Uni%20Folder%20ALL/2023/Software%20Development/IoTBay/src/java/IOTB/controller/editAccount.java</file>
-            <file>file:/D:/Uni%20Folder%20ALL/2023/Software%20Development/IoTBay/web/register.jsp</file>
+            <file>file:/C:/Users/georg/Documents/.UNIDOWNLOADS/41025/IoTBay/src/java/IOTB/model/dao/DBConnector.java</file>
+            <file>file:/C:/Users/georg/Documents/.UNIDOWNLOADS/41025/IoTBay/src/java/IOTB/model/dao/DBManager.java</file>
+            <file>file:/C:/Users/georg/Documents/.UNIDOWNLOADS/41025/IoTBay/src/java/IOTB/model/beans/OrderLine.java</file>
         </group>
     </open-files>
 </project-private>

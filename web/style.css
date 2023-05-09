@@ -1,5 +1,6 @@
 body {
     background-color: #cccccc;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 /* ↓↓↓ Top Navigation Bar ↓↓↓ */
@@ -139,11 +140,13 @@ table {
     width: 80%;
     margin: 0 auto;
     font-size: 18px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 th, td {
     border: 1px solid black;
     padding: 8px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 tr:hover {background-color: coral;}
@@ -164,7 +167,13 @@ tr:hover {background-color: coral;}
 }
 
 
+input{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
 
 
-
+input[type=submit]{
+    padding: 5px;
+    margin: 5px 0;
+}
 /* ↑↑↑ formatting classess and ID's ↑↑↑ */

@@ -11,6 +11,13 @@ UTS AUT 2023 IoTBay ISD Assignment
 
 5. Select the folder that the project has been unzipped into
 
-6. Ensure you are running Glassfish 7.0.0
+-> GlassFish 4.1
 
-7. Select run and use the website
+Make a Java database in services tab, name the DB IOTBAY, 
+
+Set your username as isduser
+
+pass word admin 
+
+Finally connect to IOTBAY and execute the query found in the main folder 
+

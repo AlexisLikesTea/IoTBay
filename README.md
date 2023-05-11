@@ -19,5 +19,6 @@ Set your username as isduser
 
 pass word admin 
 
-Finally connect to IOTBAY and execute the query found in the main folder 
+Finally connect to IOTBAY and execute the query found in the main folder "Databaselog.txt"
+
 

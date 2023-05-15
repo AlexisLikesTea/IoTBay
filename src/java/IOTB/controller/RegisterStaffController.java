@@ -132,7 +132,7 @@ public class RegisterStaffController extends HttpServlet {
 //                                session.setAttribute("editCus", customer); //Primary Session Attribs
 //                            }
                            
-                            request.getRequestDispatcher("StaffManager.jsp").include(request, response);
+                            request.getRequestDispatcher("registerStaff.jsp").include(request, response);
                         } else {
                              request.getRequestDispatcher("registerStaff.jsp").include(request, response);
                         }

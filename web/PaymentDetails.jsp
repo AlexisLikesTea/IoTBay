@@ -69,6 +69,7 @@
                 <h1 id="underlineandcenter"> Payment Details     </h1>
 
                 <table>
+                     
                     <tr>
                         <td><label for = "phonenum">Card Number: </label></td>
                         <td><input type = "text" id = "phonenum" name = "phonenum" placeholder ="Please add your cards number" value = "${(customer.phoneNum != "" ? customer.phoneNum : null)}"><h8> <%=(phoneNumErr != null ? phoneNumErr : "")%> </h8></td>
@@ -98,6 +99,7 @@
 
 
                 </table>
+                    <span>${payment.paymentCardNumber}</span>
 
                 <% }%> 
             </form>

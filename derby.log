@@ -1,0 +1,14 @@
+Mon May 08 14:12:01 AEST 2023 : Apache Derby Network Server - 10.10.2.0 - (1582446) started and ready to accept connections on port 1527
+----------------------------------------------------------------
+Mon May 08 14:12:06 AEST 2023:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): instance a816c00e-0187-f98f-2a1c-ffff8d55f980 
+on database directory D:\Uni Folder ALL\2023\Software Development\IoTBay\IOTBAY with class loader sun.misc.Launcher$AppClassLoader@1d44bcfa 
+Loaded from file:/C:/Users/kyler/GlassFish_Server/javadb/lib/derby.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.8.0_202-b08
+user.dir=C:\Users\kyler\GlassFish_Server\javadb
+os.name=Windows 10
+os.arch=amd64
+os.version=10.0
+derby.system.home=D:\Uni Folder ALL\2023\Software Development\IoTBay
+Database Class Loader started - derby.database.classpath=''

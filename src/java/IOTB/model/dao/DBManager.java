@@ -356,7 +356,7 @@ public class DBManager {
             staffID += "0";
         }
         
-        String qurey = "INSERT INTO ISDUSER.STAFF_T VALUES (?,?,?,?,?,?,?)";
+        String qurey = "INSERT INTO STAFF_T VALUES (?,?,?,?,?,?,?)";
         try(PreparedStatement statement = connect.prepareStatement(qurey)){
             statement.setString(1, staffID);
             statement.setString(2, staffFirstName);

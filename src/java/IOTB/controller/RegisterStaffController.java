@@ -50,25 +50,20 @@ public class RegisterStaffController extends HttpServlet {
         Admin admin = (Admin) session.getAttribute("admin");
         
         //the logic is like edit customer. 
-            String email = null;
-            String userName = null;
-            String firstName = null;
-            String lastName = null;
-            String password = null;
-            String position = null;
-        
-        try {
-            
-                email = request.getParameter("email");
-                userName = request.getParameter("userName");
-                password = request.getParameter("password");
-                firstName = request.getParameter("firstName");
-                lastName =  request.getParameter("lastName");
-                position = request.getParameter("position");
+                String email = request.getParameter("email");
+                String userName = request.getParameter("userName");
+                String password = request.getParameter("password");
+                String firstName = request.getParameter("firstName");
+                String lastName =  request.getParameter("lastName");
+                String position = request.getParameter("position");
                
                 
                 Boolean ValidForm = true;
         
+        
+        try {
+            
+            //manager.addStaff(firstName, lastName, email, position, userName, password);
                
                         if (!validator.validateEmail(email)){
                             session.setAttribute("emailErr", "Email is invalid");
@@ -137,10 +132,8 @@ public class RegisterStaffController extends HttpServlet {
 //                                session.setAttribute("editCus", customer); //Primary Session Attribs
 //                            }
                            
-                            request.getRequestDispatcher("welcome.jsp").include(request, response);
-                            
+                            request.getRequestDispatcher("StaffManager.jsp").include(request, response);
                         } else {
-                                
                              request.getRequestDispatcher("registerStaff.jsp").include(request, response);
                         }
                     

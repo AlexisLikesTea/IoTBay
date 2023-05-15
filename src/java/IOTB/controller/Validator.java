@@ -82,7 +82,7 @@ package IOTB.controller;
    }
    // test position
    public boolean validatePosition(String position){
-       return position.isEmpty();
+       return validate(namePattern, position);
    }
    
    //Add and reset your error messages here! 

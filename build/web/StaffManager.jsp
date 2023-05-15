@@ -73,7 +73,7 @@
                 <a id = "accessTabs" href = "registerStaff.jsp"> Register New Staff <a/>
                 <h1 id="underlineandcenter"> <%= (deleteErr != null ? deleteErr : "") %> </h1>
                 <form  id="underlineandcenter" method = "post">
-                    <input id="customerSearch"  type="text" name="customerSearch" placeholder="Search Staff By First Name Last Name or Email">                
+                    <input id="staffSearch"  type="text" name="staffSearch" placeholder="Search Staff By First Name Last Name or Email">                
                 </form>
                 <br>
                   

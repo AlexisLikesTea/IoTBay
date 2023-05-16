@@ -47,7 +47,7 @@
         <!--This page and all others need to be updated to include all the new fields in the customer BEAN -->
         <div class="contentcontainer">
             <br>
-            
+
             <!-- Placeholder buttons -->
             <div id = "accessTabs">
                 <form action = "AccessLogController" method = "post">
@@ -57,7 +57,7 @@
                 <a> Payment Details  </a>
             </div>
 
-            <form action="editAccount" method = "POST">  
+            <form action="PaymentManager" method = "POST">  
 
 
                 <!<!-- this whole thing will have to be wrapped in an IF -->
@@ -69,29 +69,25 @@
                 <h1 id="underlineandcenter"> Payment Details     </h1>
 
                 <table>
-                     
-                    <tr>
-                        <td><label for = "phonenum">Card Number: </label></td>
-                        <td><input type = "text" id = "phonenum" name = "phonenum" placeholder ="Please add your cards number" value = "${(customer.phoneNum != "" ? customer.phoneNum : null)}"><h8> <%=(phoneNumErr != null ? phoneNumErr : "")%> </h8></td>
-                    </tr>
-                    <tr>
-                        <td><label for = "street"> Expiry Date: </label></td>
-                        <td><input type = "text" id = "street" name = "street" placeholder ="Your cards Expiry Date" value = "${(customer.street != "" ? customer.street : null)}"><h8> <%=(streetErr != null ? streetErr : "")%> </h8></td>
-                    </tr>
-                    <tr>
-                        <td><label for = "suburb"> CVV: </label></td>
-                        <td><input type = "text" id = "suburb" name = "suburb" placeholder ="Your cards CVV" value = "${(customer.suburb != "" ? customer.suburb : null)}"><h8> <%=(suburbErr != null ? suburbErr : "")%> </h8></td>
-                    </tr>
                     <tr>
                         <td><label for = "state"> Name on card: </label></td>
-                        <td><input type = "text" id = "state" name = "state" placeholder ="Your name on the card"  value = "${(customer.state != "" ? customer.state : null)}"><h8> <%=(stateErr != null ? stateErr : "")%> </h8></td>
+                        <td><input type = "text" id = "cardName" name = "cardName" placeholder ="Your name on the card"  value = "${(customer.state != "" ? customer.state : null)}"><h8> <%=(stateErr != null ? stateErr : "")%> </h8></td>
                     </tr>
                     <tr>
-                        <td><label for = "postCode"> Post Code: </label></td>
-                        <td><input type = "text" id = "postCode" name = "postCode" placeholder ="You need to add a post code"  value = "${(customer.postCode != "" ? customer.postCode : null)}"> <%=(postCodeErr != null ? postCodeErr : "")%> </td>
+                        <td><label for = "phonenum">Card Number: </label></td>
+                        <td><input type = "long" id = "cardNum" name = "cardNum" placeholder ="Please add your cards number" value = "${(customer.phoneNum != "" ? customer.phoneNum : null)}"><h8> <%=(phoneNumErr != null ? phoneNumErr : "")%> </h8></td>
+                    </tr>
+                    <tr>
+                        <td><label for = "CVC"> CVC: </label></td>
+                        <td><input type = "text" id = "CVC" name = "CVC" placeholder ="Your cards CVV" value = "${(customer.suburb != "" ? customer.suburb : null)}"><h8> <%=(suburbErr != null ? suburbErr : "")%> </h8></td>
+                    </tr>
+                    <tr>
+                        <td><label for = "Expiry"> Expiry Date: </label></td>
+                        <td><input type = "date" id = "Expiry" name = "Expiry" placeholder ="Your cards Expiry Date" value = "${(customer.street != "" ? customer.street : null)}"><h8> <%=(streetErr != null ? streetErr : "")%> </h8></td>
                     </tr>
                     <tr><td></td>
                         <td>
+                            <span>${requestScope.payment.paymentCardNumber}</span>
                             <input class="button" type="submit" value="Update">
 
                         </td>
@@ -99,7 +95,7 @@
 
 
                 </table>
-                    <span>${payment.paymentCardNumber}</span>
+                <span>${payment.paymentCardNumber}</span>
 
                 <% }%> 
             </form>

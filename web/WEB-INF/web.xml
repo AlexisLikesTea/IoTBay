@@ -32,6 +32,14 @@
         <servlet-name>RegisterCustomerController</servlet-name>
         <servlet-class>IOTB.controller.RegisterCustomerController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Debug</servlet-name>
+        <servlet-class>IOTB.controller.Debug</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PaymentManager</servlet-name>
+        <servlet-class>IOTB.controller.PaymentManager</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ConnServlet</servlet-name>
         <url-pattern>/ConnServlet</url-pattern>
@@ -63,6 +71,14 @@
     <servlet-mapping>
         <servlet-name>RegisterCustomerController</servlet-name>
         <url-pattern>/RegisterCustomerController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Debug</servlet-name>
+        <url-pattern>/Debug</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PaymentManager</servlet-name>
+        <url-pattern>/PaymentManager</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -3,18 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Alexis/Documents/IoTBay/src/java/IOTB/model/beans/Customer.java</file>
-            <file>file:/C:/Users/Alexis/Documents/IoTBay/src/java/IOTB/controller/AccessLogController.java</file>
             <file>file:/C:/Users/Alexis/Documents/IoTBay/src/java/IOTB/controller/editCustomer.java</file>
             <file>file:/C:/Users/Alexis/Documents/IoTBay/src/java/IOTB/controller/editAccount.java</file>
-            <file>file:/C:/Users/Alexis/Documents/IoTBay/src/java/IOTB/model/dao/DBManager.java</file>
+            <file>file:/C:/Users/Alexis/Documents/IoTBay/src/java/IOTB/model/dao/PaymentDAO.java</file>
             <file>file:/C:/Users/Alexis/Documents/IoTBay/src/java/IOTB/model/beans/Payment.java</file>
-            <file>file:/C:/Users/Alexis/Documents/IoTBay/src/java/IOTB/model/beans/Order.java</file>
+            <file>file:/C:/Users/Alexis/Documents/IoTBay/src/java/IOTB/model/dao/DBManager.java</file>
             <file>file:/C:/Users/Alexis/Documents/IoTBay/web/PaymentDetails.jsp</file>
-            <file>file:/C:/Users/Alexis/Documents/IoTBay/src/java/IOTB/controller/DeleteCustomerServlet.java</file>
-            <file>file:/C:/Users/Alexis/Documents/IoTBay/web/register.jsp</file>
-            <file>file:/C:/Users/Alexis/Documents/IoTBay/src/java/IOTB/model/beans/AccessLog.java</file>
-            <file>file:/C:/Users/Alexis/Documents/IoTBay/src/java/IOTB/model/beans/Staff.java</file>
+            <file>file:/C:/Users/Alexis/Documents/IoTBay/src/java/IOTB/model/dao/DBConnector.java</file>
+            <file>file:/C:/Users/Alexis/Documents/IoTBay/web/edit.jsp</file>
+            <file>file:/C:/Users/Alexis/Documents/IoTBay/src/java/IOTB/controller/PaymentManagerPoor.java</file>
             <file>file:/C:/Users/Alexis/Documents/IoTBay/src/java/IOTB/controller/PaymentManager.java</file>
         </group>
     </open-files>

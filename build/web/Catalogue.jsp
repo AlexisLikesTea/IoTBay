@@ -104,9 +104,9 @@
                             out.println("<input type='submit' value='Update'>");
                             out.println("</form>");
                         }
-                        else if(session.getAttribute("customer") != null){
+                        else if(session.getAttribute("staff") == null || session.getAttribute("admin") == null){
                             out.println("<form action='DeviceServlet' method='POST'>");
-                            out.println("<input type='hidden' name='action' value='addToCard'>");
+                            out.println("<input type='hidden' name='action' value='addToCart'>");
                             out.println("<input type='hidden' name='deviceId' value='" + dev.getDeviceID() + "'>");
                             out.println("<label for='quantity" + dev.getDeviceID() + "'>Quantity</label>");
                             out.println("<input type='number' id='quantity_" + dev.getDeviceID() + "' name='quantity'>");

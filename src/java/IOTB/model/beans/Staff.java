@@ -14,26 +14,14 @@ public class Staff {
     private String staffFirstName;
     private String staffLastName;
     private String staffEmail;
-<<<<<<< HEAD
-    private String staffPosition;
-    private String staffUsername;
-    private String staffPassword;
-
-    public Staff(String staffID, String staffFirstName, String staffLastName, String staffEmail,String staffPosition, String staffUsername, String staffPassword) {
-=======
     private String staffUsername;
     private String staffPassword;
 
     public Staff(String staffID, String staffFirstName, String staffLastName, String staffEmail, String staffUsername, String staffPassword) {
->>>>>>> main
         this.staffID = staffID;
         this.staffFirstName = staffFirstName;
         this.staffLastName = staffLastName;
         this.staffEmail = staffEmail;
-<<<<<<< HEAD
-        this.staffPosition = staffPosition;
-=======
->>>>>>> main
         this.staffUsername = staffUsername;
         this.staffPassword = staffPassword;
     }
@@ -77,10 +65,6 @@ public class Staff {
     public void setStaffUsername(String staffUsername) {
         this.staffUsername = staffUsername;
     }
-<<<<<<< HEAD
-    
-=======
->>>>>>> main
 
     public String getStaffPassword() {
         return staffPassword;
@@ -89,14 +73,4 @@ public class Staff {
     public void setStaffPassword(String staffPassword) {
         this.staffPassword = staffPassword;
     }
-<<<<<<< HEAD
-    public String getStaffPosition() {
-        return staffPosition;
-    }
-
-    public void setStaffPosition(String staffPosition) {
-        this.staffPosition = staffPosition;
-    }
-=======
->>>>>>> main
 }

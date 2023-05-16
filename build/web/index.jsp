@@ -39,39 +39,13 @@ PRIMARY SESSION ATTRIBUTE LIST
 
         <div class="topnav">
             <a  class="active" href="index.jsp"> Home </a>
-<<<<<<< HEAD
-            <% if (session.getAttribute("staff") == null && session.getAttribute("customer") == null && session.getAttribute("admin") == null) { %>
-                <a href="register.jsp"> Register </a>
-                <a href="login.jsp"> Login </a>
-                <a href = "Catalogue.jsp"> Catalogue </a>
-=======
              <% if (session.getAttribute("staff") == null && session.getAttribute("customer") == null) { %>
                 <a href="register.jsp"> Register </a>
                 <a href="login.jsp"> Login </a>
->>>>>>> main
             <% }%> 
             <% if (session.getAttribute("staff") != null) { %>
             <a href='CustomerManager.jsp'> Manage Customers</a>
             <a href ='Catalogue.jsp'> Manage Inventory </a>
-<<<<<<< HEAD
-            <% } %>
-            
-            <% if (session.getAttribute("customer") != null) { %>
-            
-            <a href ='Catalogue.jsp'> Catalogue</a>
-            
-            <% } %>
-            
-            <% if (session.getAttribute("admin") != null) { %>
-            <a href='StaffManager.jsp'> Manage Staff Member</a>
-            <a href='CustomerManager.jsp'> Manage Customer</a>
-            <a href ='Catalogue.jsp'> Manage Inventory</a>
-               
-            <% } %> 
-            
-            
-            <% if (session.getAttribute("staff") != null || session.getAttribute("customer") != null || session.getAttribute("admin") != null) { %>
-=======
             <a href =''> Manage AccessLogs</a>
             <% } %>
 
@@ -79,7 +53,6 @@ PRIMARY SESSION ATTRIBUTE LIST
             <a  href ='Catalogue.jsp'>Catalogue</a>
             <% }%>
             <% if (session.getAttribute("staff") != null || session.getAttribute("customer") != null) { %>
->>>>>>> main
             <a href = 'edit.jsp'> my account </a>
             <a  href="logout.jsp"  >Logout</a>
             <% }%> 

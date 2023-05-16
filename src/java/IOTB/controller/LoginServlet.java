@@ -45,10 +45,6 @@ public class LoginServlet extends HttpServlet {
         
         session.setAttribute("customer", null);
         session.setAttribute("staff", null);
-<<<<<<< HEAD
-        session.setAttribute("admin", null);
-=======
->>>>>>> main
         //_____________________________________________//
         
         //Standard out//
@@ -58,10 +54,6 @@ public class LoginServlet extends HttpServlet {
             try{
                 Customer customer = manager.findCustomer(emailUser, password);
                 Staff staff = manager.findStaff(emailUser, password);
-<<<<<<< HEAD
-                Admin admin = manager.findAdmin(emailUser, password);
-=======
->>>>>>> main
                 if(customer != null){
                     // Generate a new access log
                     String logID = manager.addAccessLog(customer.getCustomerId());
@@ -74,17 +66,7 @@ public class LoginServlet extends HttpServlet {
                      session.setAttribute("SessionLogId", logID); //Primary Session Attrib
                     session.setAttribute("staff", staff);      //Primary Session Attribs
                     request.getRequestDispatcher("mainpage.jsp").include(request, response);
-<<<<<<< HEAD
-                }else if(admin != null){
-                    String logID = manager.addAccessLog(admin.getAdminID());
-                    session.setAttribute("SessionLogId", logID); //Primary Session Attrib
-                    session.setAttribute("admin", admin);      //Primary Session Attribs
-                    request.getRequestDispatcher("mainpage.jsp").include(request, response);
-                }
-                else {
-=======
                 } else {
->>>>>>> main
                     session.setAttribute("existErr", "Credentials are incorrect or the account does not exist");
                     request.getRequestDispatcher("login.jsp").include(request, response);
                 }

@@ -55,12 +55,7 @@ package IOTB.controller;
 
       return validate(namePattern,name); 
 
-<<<<<<< HEAD
-   }
-   
-=======
    }       
->>>>>>> main
    
 
    public boolean validatePassword(String password){
@@ -84,13 +79,6 @@ package IOTB.controller;
    public boolean validatePostCode(String postCode){
        return validate(postCodePattern, postCode);
    }
-<<<<<<< HEAD
-   // test position
-   public boolean validatePosition(String position){
-       return validate(namePattern, position);
-   }
-=======
->>>>>>> main
    
    //Add and reset your error messages here! 
    public void clear (HttpSession session){

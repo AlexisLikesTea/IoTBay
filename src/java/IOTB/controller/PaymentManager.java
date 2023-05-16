@@ -5,14 +5,19 @@
  */
 package IOTB.controller;
 
-import IOTB.model.beans.Payment;
+import IOTB.model.beans.*;
+import IOTB.model.dao.*;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -20,6 +25,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class PaymentManager extends HttpServlet {
 
+    // _____________________________________________
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -66,7 +72,7 @@ public class PaymentManager extends HttpServlet {
         String paymentID = request.getParameter("paymentID");
         String paymentCardName = request.getParameter("cardName");
         long paymentCardNumber = Long.parseLong(request.getParameter("cardNum"));
-        long paymentCardCVC = Long.parseLong(request.getParameter("CVC"));
+        int paymentCardCVC = Integer.parseInt(request.getParameter("CVC"));
         LocalDate paymentCardExpiryDate = LocalDate.parse(request.getParameter("Expiry"));
         Payment payment = new Payment(paymentID, paymentCardName, paymentCardNumber, paymentCardCVC, paymentCardExpiryDate);
         request.setAttribute("payment", payment);
@@ -84,15 +90,26 @@ public class PaymentManager extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        HttpSession session = request.getSession();
+        Validator validator = new Validator();
+        DBManager manager = (DBManager) session.getAttribute("manager");
+
         String paymentID = request.getParameter("paymentID");
-        String paymentCardName = request.getParameter("cardName");
+        String paymentCardName = request.getParameter("cardNameyy");
         long paymentCardNumber = Long.parseLong(request.getParameter("cardNum"));
-        long paymentCardCVC = Long.parseLong(request.getParameter("CVC"));
+        int paymentCardCVC = Integer.parseInt(request.getParameter("CVC"));
+
         LocalDate paymentCardExpiryDate = LocalDate.parse(request.getParameter("Expiry"));
         Payment payment = new Payment(paymentID, paymentCardName, paymentCardNumber, paymentCardCVC, paymentCardExpiryDate);
         request.setAttribute("payment", payment);
-        processRequest(request, response);
-
+        String customerID = "38800000000000";
+        try {
+            manager.addPayment(paymentID, paymentCardName, paymentCardNumber, paymentCardCVC, paymentCardExpiryDate, customerID);
+        } catch (SQLException e) {
+            // Handle the exception here
+            System.out.println("An error occurred while adding the payment: " + e.getMessage());
+        }
     }
 
     /**

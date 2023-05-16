@@ -74,12 +74,12 @@
                         <td><input type = "text" id = "cardName" name = "cardName" placeholder ="Your name on the card"  value = "${(customer.state != "" ? customer.state : null)}"><h8> <%=(stateErr != null ? stateErr : "")%> </h8></td>
                     </tr>
                     <tr>
-                        <td><label for = "phonenum">Card Number: </label></td>
-                        <td><input type = "long" id = "cardNum" name = "cardNum" placeholder ="Please add your cards number" value = "${(customer.phoneNum != "" ? customer.phoneNum : null)}"><h8> <%=(phoneNumErr != null ? phoneNumErr : "")%> </h8></td>
+                        <td><label for = "cardNum">Card Number: </label></td>
+                        <td><input type = "int" id = "cardNum" name = "cardNum" placeholder ="Please add your cards number" value = "${(customer.phoneNum != "" ? customer.phoneNum : null)}"><h8> <%=(phoneNumErr != null ? phoneNumErr : "")%> </h8></td>
                     </tr>
                     <tr>
                         <td><label for = "CVC"> CVC: </label></td>
-                        <td><input type = "text" id = "CVC" name = "CVC" placeholder ="Your cards CVV" value = "${(customer.suburb != "" ? customer.suburb : null)}"><h8> <%=(suburbErr != null ? suburbErr : "")%> </h8></td>
+                        <td><input type = "int" id = "CVC" name = "CVC" placeholder ="Your cards CVV" value = "${(customer.suburb != "" ? customer.suburb : null)}"><h8> <%=(suburbErr != null ? suburbErr : "")%> </h8></td>
                     </tr>
                     <tr>
                         <td><label for = "Expiry"> Expiry Date: </label></td>

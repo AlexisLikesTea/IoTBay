@@ -21,6 +21,10 @@
         <%
             Customer customer = (Customer) session.getAttribute("customer");
             Staff staff = (Staff) session.getAttribute("staff");
+<<<<<<< HEAD
+            Admin admin = (Admin) session.getAttribute("admin");
+=======
+>>>>>>> main
         %>
 
         <div class="topbanner"></div>
@@ -28,6 +32,25 @@
         <!-- This is the top nav bar code-->
         <div class="topnav">
             <a href="index.jsp"> Home </a>
+<<<<<<< HEAD
+            
+            <% if (session.getAttribute("staff") != null) { %>
+            <a href='CustomerManager.jsp'> Manage Customers</a>
+            <a href ='Catalogue.jsp'> Manage Inventory </a>
+            <% } %>
+            
+            <% if (session.getAttribute("admin") != null) { %>
+            <a href='StaffManager.jsp'> Manage Staff Member</a>
+            <a href='CustomerManager.jsp'> Manage Customer</a>
+            <a href ='Catalogue.jsp'> Manage Inventory</a>
+               
+            <% } %>
+            
+            <%if (session.getAttribute("customer") != null && session.getAttribute("staff") == null) { %>
+            <a href ='Catalogue.jsp'>Catalogue</a>
+            <% } %>
+            <% if (session.getAttribute("staff") != null || session.getAttribute("customer") != null || session.getAttribute("admin") != null) { %>
+=======
             <% if (session.getAttribute("staff") != null) { %>
             <a href='CustomerManager.jsp'> Manage Customers</a>
             <a href ='Catalogue.jsp'> Manage Inventory </a>
@@ -37,6 +60,7 @@
             <a href ='Catalogue.jsp'>Catalogue</a>
             <% } %>
             <% if (session.getAttribute("staff") != null || session.getAttribute("customer") != null) { %>
+>>>>>>> main
             <a href = 'edit.jsp'> my account </a>
             <a  href="logout.jsp"  >Logout</a>
             <% } %> 
@@ -50,7 +74,14 @@
             <h1>Welcome Back ${customer.firstName} find the IOT device of your dreams </h1> 
             <% } else if (session.getAttribute("staff") != null) {%>
             <h1> Get to work ${staff.staffFirstName}!</h1> 
+<<<<<<< HEAD
+            <% } else if(session.getAttribute("admin") != null){ %>
+            <h1>Welcome Back Admin </h1>
+            <% }%>
+            
+=======
             <% }%> 
+>>>>>>> main
         </div> 
     </body>
 </html>

@@ -274,8 +274,14 @@ public class DBManager {
 
             while (rs.next()) {
                 //where4 and 6 refer to email and password in staff_t
+<<<<<<< HEAD
+                
+                if (rs.getString(4).equals(EmailOrUsername) && rs.getString(7).equals(password)) { 
+                    return new Staff(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6),rs.getString(7));
+=======
                 if (rs.getString(4).equals(EmailOrUsername) && rs.getString(6).equals(password)) { 
                     return new Staff(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6));
+>>>>>>> main
                 }
             }
         }
@@ -285,14 +291,52 @@ public class DBManager {
             ResultSet rs = statement.executeQuery();
 
             while (rs.next()) {
+<<<<<<< HEAD
+                String username = rs.getString(6);
+                String passowrd = rs.getString(7);
+                //where5 and 6 refer to username and password in staff_t
+                if (username.equals(EmailOrUsername) && passowrd.equals(password)) { 
+                    return new Staff(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7));
+=======
                 //where5 and 6 refer to username and password in staff_t
                 if (rs.getString(5).equals(EmailOrUsername) && rs.getString(6).equals(password)) { 
                     return new Staff(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6));
+>>>>>>> main
                 }
             }
         }
         return null;
     }
+<<<<<<< HEAD
+    public ArrayList<Staff> searchStaff(String Input) throws SQLException{
+        String[] querys = {
+            "SELECT * FROM STAFF_T WHERE LOWER(STAFFFIRSTNAME) LIKE ?",
+            "SELECT * FROM STAFF_T WHERE LOWER(STAFFLASTNAME) LIKE ?",
+            "SELECT * FROM STAFF_T WHERE LOWER(STAFFUSERNAME) LIKE ?",
+            "SELECT * FROM STAFF_T WHERE LOWER(STAFFID) LIKE ?"
+
+        };
+        
+        ArrayList<Staff> SearchResult = new ArrayList<>();
+        
+        if(Input != null){
+            for(String query : querys){
+                try(PreparedStatement statement = connect.prepareStatement(query)){
+                    statement.setString(1, "%" + Input.toLowerCase() + "%");
+                    ResultSet rs = statement.executeQuery();
+                    while(rs.next()){
+                        SearchResult.add(new Staff(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7)));
+                    }
+                }
+            }
+        } else {
+            return fetchStaff();
+        }
+        
+        return SearchResult;
+    }
+=======
+>>>>>>> main
     
     private Staff findStaffID(String ID) throws SQLException{
         String query = "SELECT * FROM ISDUSER.STAFF_T WHERE STAFFID =?";
@@ -301,14 +345,22 @@ public class DBManager {
             ResultSet rs = statement.executeQuery();
             while(rs.next()){
                 if(rs.getString(1).equals(ID)){
+<<<<<<< HEAD
+                    return new Staff(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7));
+=======
                     return new Staff(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6));
+>>>>>>> main
                 }
             }
         }
         return null;
     }
     
+<<<<<<< HEAD
+    public void addStaff(String staffFirstName, String staffLastName, String staffEmail, String staffPosition,String staffUserName, String staffPassword) throws SQLException{
+=======
     public void addStaff(String staffFirstName, String staffLastName, String staffEmail, String staffUserName, String staffPassword) throws SQLException{
+>>>>>>> main
         
         ResultSet maxIdRs = st.executeQuery("SELECT MAX(STAFFID) FROM STAFF_T");
         int IDLEN = 15;
@@ -326,30 +378,53 @@ public class DBManager {
             staffID += "0";
         }
         
+<<<<<<< HEAD
+        String qurey = "INSERT INTO STAFF_T VALUES (?,?,?,?,?,?,?)";
+=======
         String qurey = "INSERT INTO ISDUSER.STAFF_T VALUES (?,?,?,?,?,?)";
+>>>>>>> main
         try(PreparedStatement statement = connect.prepareStatement(qurey)){
             statement.setString(1, staffID);
             statement.setString(2, staffFirstName);
             statement.setString(3, staffLastName);
             statement.setString(4, staffEmail);
+<<<<<<< HEAD
+            statement.setString(5, staffPosition);
+            statement.setString(6, staffUserName);
+            statement.setString(7, staffPassword);
+=======
             statement.setString(5, staffUserName);
             statement.setString(6, staffPassword);
+>>>>>>> main
             statement.executeUpdate();
         }
     }
 
     //untested
+<<<<<<< HEAD
+    public void updateStaff(String staffID, String staffFirstName, String staffLastName, String staffEmail, String staffPosition,String staffUserName, String staffPassword ) throws SQLException {
+        
+        String qurey = "UPDATE ISDUSER.STAFF_T SET STAFFFIRSTNAME=?, STAFFLASTNAME=?, STAFFEMAIL=?,STAFFPOSITION=? STAFFUSERNAME=?, STAFFPASSWORD=? WHERE STAFFID =?";
+=======
     public void updateStaff(String staffID, String staffFirstName, String staffLastName, String staffEmail, String staffUserName, String staffPassword ) throws SQLException {
         
         String qurey = "UPDATE ISDUSER.STAFF_T SET STAFFFIRSTNAME=?, STAFFLASTNAME=?, STAFFEMAIL=?, STAFFUSERNAME=?, STAFFPASSWORD=? WHERE STAFFID =?";
+>>>>>>> main
         
         try(PreparedStatement statement = connect.prepareStatement(qurey)){
             statement.setString(1, staffFirstName);
             statement.setString(2, staffLastName);
             statement.setString(3, staffEmail);
+<<<<<<< HEAD
+            statement.setString(4, staffPosition);
+            statement.setString(5, staffUserName);
+            statement.setString(6, staffPassword);
+            statement.setString(7, staffID);
+=======
             statement.setString(4, staffUserName);
             statement.setString(5, staffPassword);
             statement.setString(6, staffID);
+>>>>>>> main
             statement.executeUpdate();
         }
     }
@@ -369,9 +444,54 @@ public class DBManager {
         ArrayList<Staff> allStaff = new ArrayList<>();
 
         while (rs.next()) {
+<<<<<<< HEAD
+            allStaff.add(new Staff(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7)));
+        }
+        if (!allStaff.isEmpty()) {
+            return allStaff;
+        } else {
+            return null;
+        }
+    }
+    
+    
+    
+    /////// Find Admin ////////
+        public Admin findAdmin(String Email, String password) throws SQLException {
+        String query1 = "SELECT * FROM ADMIN_T WHERE ADMINEMAIL =? and ADMINPASSWORD =?";
+        
+        try (PreparedStatement statement = connect.prepareStatement(query1)) {
+            statement.setString(1, Email);
+            statement.setString(2, password);
+            ResultSet rs = statement.executeQuery();
+
+            while (rs.next()) {
+                //where4 and 6 refer to email and password in staff_t
+                if (rs.getString(2).equals(Email) && rs.getString(3).equals(password)) { 
+                    return new Admin(rs.getString(1), rs.getString(2), rs.getString(3));
+                }
+            }
+        }
+
+        return null;
+    }
+        
+    public void updateAdmin(String AdminID, String AdminEmail, String AdminPassword) throws SQLException {
+        
+        String qurey = "UPDATE ISDUSER.ADMIN_T SET  ADMINEMAIL=?, ADMINPASSWORD=? WHERE ADMINID =?";
+        
+        try(PreparedStatement statement = connect.prepareStatement(qurey)){
+            statement.setString(1, AdminEmail);
+            statement.setString(2, AdminPassword);
+            
+            statement.setString(7, AdminID);
+            statement.executeUpdate();
+        }
+=======
             allStaff.add(new Staff(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6)));
         }
         return allStaff;
+>>>>>>> main
     }
     
       /////////////////////////////////////////////////////////////////////////
@@ -675,6 +795,13 @@ public class DBManager {
     }
     
     
+<<<<<<< HEAD
+    
+    
+    
+    
+=======
+>>>>>>> main
       /////////////////////////////////////////////////////////////////////////
      //                Order Section cant compile DByet                     //
     /////////////////////////////////////////////////////////////////////////

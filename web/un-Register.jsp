@@ -1,8 +1,9 @@
 <%-- 
-    Document   : welcom
-    Created on : 14/03/2023, 2:37:25 PM
-    Author     : aliaghajafari
+    Document   : un-Register
+    Created on : 15/05/2023, 10:18:02 AM
+    Author     : kyler
 --%>
+
 <%@page import="IOTB.model.beans.Customer"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -19,25 +20,17 @@
 
         <div class="topnav">
             <a  class="active" href="index.jsp"> Home </a>
-<<<<<<< HEAD
             <% if (session.getAttribute("staff") == null && session.getAttribute("customer") == null && session.getAttribute("admin") == null) { %>
-=======
-            <% if (session.getAttribute("staff") == null && session.getAttribute("customer") == null) { %>
->>>>>>> main
             <a href="register.jsp"> Register </a>
             <a href="login.jsp"> Login </a>
             <% }%> 
             <% if (session.getAttribute("staff") != null) { %>
             <a href='CustomerManager.jsp'> Manage Customers</a>
             <a href ='Catalogue.jsp'> Manage Inventory </a>
-<<<<<<< HEAD
             <% } %>
             <% if (session.getAttribute("admin") != null) { %>
             <a href='CustomerManager.jsp'> Manage Customers12</a>
             <a href ='Catalogue.jsp'> Manage Inventory12 </a>
-=======
-            <a href =''> Manage AccessLogs</a>
->>>>>>> main
             <% } %>
 
             <%if (session.getAttribute("staff") == null) { %>
@@ -50,26 +43,18 @@
         </div>
 
             <div class="contentcontainer">
-                <%
-                    Customer customer = (Customer) session.getAttribute("customer");
-                %>
-
-                <% if (session.getAttribute("staff") == null) { %>
-                <h1 id="underlineandcenter">Welcome ${customer.firstName} !</h1><br>
-                <h3> Your email is ${customer.email}</h3>
-                <h3> And your user name is ${customer.userName}</h3>
-
-                <h3>Use this button to access the main page: </h3><a href="mainpage.jsp" class="button" >Main Page</a>
-                <%
-                } else {
-                    customer = (Customer) session.getAttribute("editCus");
-                %>
-                <h1 id="underlineandcenter"> New staff created!</h1><br>
-                    <a href="register.jsp"> Make another Customer</a>
-                    <a href="CustomerManager.jsp"> Return </a>
-                <% }%>
-
-
+                <h1>Are you sure you wish to remove your account, you will be logged out, your account will be removed and you will be redirected to the home page.</h1>
+                <table>
+                    <tr>
+                        <td><a href ='edit.jsp'>Cancel</a></td>
+                        <td>        
+                            <form action ="unRegisterController" method="post">
+                                <input class ="button" type ="submit" value ="Un-Register">
+                            </form>
+                        </td>
+                    </tr>
+                    
+                </table>
             </div>
 
 

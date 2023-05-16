@@ -20,6 +20,24 @@
         <!-- This is the top nav bar code-->
         <div class="topbanner"></div>
         <div class="topnav">
+<<<<<<< HEAD
+            
+            <% if (session.getAttribute("staff") != null) { %>
+            <a href="mainpage.jsp"> Home </a>
+            <a class="active" href='CustomerManager.jsp'> Manage Customers</a>
+            <a href ='Catalogue.jsp'> Manage Inventory </a>
+            <% } %>
+            
+            <% if (session.getAttribute("admin") != null) { %>
+            <a href="mainpage.jsp"> Home </a>
+            <a href='StaffManager.jsp'> Manage Staff Member</a>
+            <a class = "active" href='CustomerManager.jsp'> Manage Customer</a>
+            <a href ='Catalogue.jsp'> Manage Inventory</a>
+               
+            <% } %> 
+            
+            <% if (session.getAttribute("staff") != null || session.getAttribute("customer") != null || session.getAttribute("admin") != null) { %>
+=======
             <a href="index.jsp"> Home </a>
             <% if (session.getAttribute("staff") != null) { %>
             <a class="active" href='CustomerManager.jsp'> Manage Customers</a>
@@ -27,6 +45,7 @@
             <a href =''> Manage AccessLogs</a>
             <% } %>
             <% if (session.getAttribute("staff") != null || session.getAttribute("customer") != null) { %>
+>>>>>>> main
             <a href = 'edit.jsp'> my account </a>
             <% } %> 
             <%if (session.getAttribute("customer") != null && session.getAttribute("staff") == null) { %>

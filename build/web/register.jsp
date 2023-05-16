@@ -35,7 +35,10 @@
             <% if (session.getAttribute("staff") != null) { %>
             <a href='CustomerManager.jsp'> Manage Customers</a>
             <a   href ='Catalogue.jsp'> Manage Inventory </a>
+<<<<<<< HEAD
+=======
             <a href =''> Manage AccessLogs</a>
+>>>>>>> main
             <% } %>
            
             <%if (session.getAttribute("staff") == null) { %>

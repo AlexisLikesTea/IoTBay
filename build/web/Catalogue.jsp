@@ -32,7 +32,6 @@
             <a href="mainpage.jsp"> Home </a>
             <a href='CustomerManager.jsp'> Manage Customers</a>
             <a class="active"  href ='Catalogue.jsp'> Manage Inventory </a>
-            <a href =''> Manage AccessLogs</a>
             <% } %>
             
             <% if (session.getAttribute("admin") != null) { %>
@@ -40,7 +39,6 @@
             <a href='StaffManager.jsp'> Manage Staff Member</a>
             <a href='CustomerManager.jsp'> Manage Customer</a>
             <a class = "active" href ='Catalogue.jsp'> Manage Inventory</a>
-            <a href =''> Manage AccessLogs</a>
                
             <% } %> 
             

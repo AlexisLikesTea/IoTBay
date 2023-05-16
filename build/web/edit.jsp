@@ -16,7 +16,10 @@
         <%
             Customer customer = (Customer) session.getAttribute("customer");
             Staff staff = (Staff) session.getAttribute("staff");
+<<<<<<< HEAD
             Admin admin = (Admin) session.getAttribute("admin");
+=======
+>>>>>>> main
             
             
             String userNameErr = (String) session.getAttribute("userNameErr");
@@ -38,6 +41,7 @@
 
         <!-- This is the top nav bar code-->
         <div class="topnav">
+<<<<<<< HEAD
             
             <% if (session.getAttribute("staff") != null) { %>
             <a href="mainpage.jsp"> Home </a>
@@ -57,6 +61,18 @@
             <a  href ='Catalogue.jsp'>Catalogue</a>
             <% } %>
             <% if (session.getAttribute("staff") != null || session.getAttribute("customer") != null || session.getAttribute("admin") != null) { %>
+=======
+            <a href="index.jsp"> Home </a>
+            <% if (session.getAttribute("staff") != null) { %>
+            <a href='CustomerManager.jsp'> Manage Customers</a>
+            <a  href ='Catalogue.jsp'> Manage Inventory </a>
+            <a href =''> Manage AccessLogs</a>
+            <% } %>
+            <%if (session.getAttribute("staff") == null) { %>
+            <a  href ='Catalogue.jsp'>Catalogue</a>
+            <% } %>
+            <% if (session.getAttribute("staff") != null || session.getAttribute("customer") != null) { %>
+>>>>>>> main
             <a class="active" href = 'edit.jsp'> my account </a>
             <a  href="logout.jsp"  >Logout</a>
             <% } %> 
@@ -77,7 +93,11 @@
                 <span>   |   </span>
                 <a> Payment Details  </a>
             </div>
+<<<<<<< HEAD
             <% if(staff != null || customer != null){ %>
+=======
+            
+>>>>>>> main
             <form action="editAccount" method = "POST">  
                 <table>
                     <tr>
@@ -123,8 +143,11 @@
                     </tr>
                 </table>
                     
+<<<<<<< HEAD
                  <% } %>
                     
+=======
+>>>>>>> main
                     <!<!-- this whole thing will have to be wrapped in an IF -->
                         <% if(staff == null && customer != null){ %>
                         <h1 id="underlineandcenter"> Shipping Details </h1>
@@ -166,6 +189,7 @@
                         
                         
             <br>
+<<<<<<< HEAD
             <% if(admin != null){ %>
             
              <form action="editAccount" method = "POST">  
@@ -195,6 +219,8 @@
             <% } %>
             
                         <a href='un-Register.jsp'>I want to delete my account.</a>
+=======
+>>>>>>> main
         </div>
         <!--This page and all others need to be updated to include all the new fields in the customer BEAN -->
     </body>

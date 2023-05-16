@@ -46,7 +46,10 @@ public class editAccount extends HttpServlet {
             String firstName = null;
             String lastName = null;
             String password = null;
+<<<<<<< HEAD
             String position = null;
+=======
+>>>>>>> main
             //customer only attribs
             String DOB = null;
             String phoneNum = null;
@@ -58,7 +61,10 @@ public class editAccount extends HttpServlet {
         try {
             Customer customer = (Customer) session.getAttribute("customer");
             Staff staff = (Staff) session.getAttribute("staff");
+<<<<<<< HEAD
             Admin admin = (Admin) session.getAttribute("admin");
+=======
+>>>>>>> main
 
    
             
@@ -206,10 +212,15 @@ public class editAccount extends HttpServlet {
                 firstName = request.getParameter("firstName");
                 lastName = request.getParameter("lastName");
                 password = request.getParameter("password");
+<<<<<<< HEAD
                 position = request.getParameter("position");
                 
                 
                     if(!staff.getStaffEmail().equals(email)){
+=======
+                
+                if(!staff.getStaffEmail().equals(email)){
+>>>>>>> main
                        //validate and allow
                         if (!validator.validateEmail(email)){
                             session.setAttribute("emailErr", "Email is invalid");
@@ -263,6 +274,7 @@ public class editAccount extends HttpServlet {
                             session.setAttribute("passwordErr", "Password updated successfully, dont forget");
                         }
                     }
+<<<<<<< HEAD
                     
                     // position 
                     if(!staff.getStaffPosition().equals(position)){
@@ -305,6 +317,11 @@ public class editAccount extends HttpServlet {
                 manager.updateAdmin(admin.getAdminID(), admin.getAdminEmail(), admin.getAdminPassword());
                 request.getRequestDispatcher("edit.jsp").include(request, response);
                 
+=======
+                    session.setAttribute("staff", staff);
+                    manager.updateStaff(staff.getStaffID(), staff.getStaffFirstName(), staff.getStaffLastName(), staff.getStaffEmail(), staff.getStaffUsername(), staff.getStaffPassword());
+                    request.getRequestDispatcher("edit.jsp").include(request, response);
+>>>>>>> main
             }
             
 

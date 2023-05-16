@@ -107,8 +107,11 @@ p{
 }
 #customerSearch{
     width: 400px;
+<<<<<<< HEAD
     padding: 10px 20px;
     font-size: 14px;
+=======
+>>>>>>> main
 }
 
 
@@ -165,11 +168,15 @@ tr:hover {background-color: coral;}
 #accessTabs{
     text-align: right; 
     margin-right: 15%; 
+<<<<<<< HEAD
     padding: 2%;/*
     color:blue;*/
 /*    border: 2px solid red;
     padding: 10px 20px;
     margin-left: 30px*/
+=======
+    padding: 2%;
+>>>>>>> main
 }
 
 
@@ -179,6 +186,7 @@ input{
 
 
 input[type=submit]{
+<<<<<<< HEAD
     padding: 10px 0px;
     width:100px;
     outline: none;
@@ -191,5 +199,9 @@ input[type=submit]{
 }
 input[type=submit]:hover{
     background-color: #4681f4;
+=======
+    padding: 5px;
+    margin: 5px 0;
+>>>>>>> main
 }
 /* ↑↑↑ formatting classess and ID's ↑↑↑ */

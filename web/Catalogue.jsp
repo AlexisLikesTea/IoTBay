@@ -21,6 +21,7 @@
 
         <!-- This is the top nav bar code-->
         <div class="topnav">
+<<<<<<< HEAD
             
             <% if(session.getAttribute("staff") == null && session.getAttribute("customer") == null && session.getAttribute("admin") == null){ %>
                 <a href="index.jsp"> Home </a>
@@ -50,6 +51,22 @@
            
             
             <% if (session.getAttribute("staff") != null || session.getAttribute("customer") != null || session.getAttribute("admin") != null) { %>
+=======
+            <a href="index.jsp"> Home </a>
+            <% if(session.getAttribute("staff") == null && session.getAttribute("customer") == null){ %>
+                <a href="register.jsp"> Register </a>
+                <a href="login.jsp"> Login </a>
+            <% } %>
+            <% if (session.getAttribute("staff") != null) { %>
+            <a href='CustomerManager.jsp'> Manage Customers</a>
+            <a class="active"  href ='Catalogue.jsp'> Manage Inventory </a>
+            <a href =''> Manage AccessLogs</a>
+            <% } %>
+            <%if (session.getAttribute("staff") == null) { %>
+            <a class="active" href ='Catalogue.jsp'>Catalogue</a>
+            <% } %>
+            <% if (session.getAttribute("staff") != null || session.getAttribute("customer") != null) { %>
+>>>>>>> main
             <a href = 'edit.jsp'> my account </a>
             <a  href="logout.jsp"  >Logout</a>
             <% } %> 
@@ -86,7 +103,11 @@
                  
                     out.println("<td>");
                     
+<<<<<<< HEAD
                         if (session.getAttribute("staff") != null || session.getAttribute("admin") != null) {
+=======
+                        if (session.getAttribute("staff") != null) {
+>>>>>>> main
 
                             // Delete device button
                             out.println("<form action='DeviceServlet' method='POST'>");
@@ -104,9 +125,15 @@
                             out.println("<input type='submit' value='Update'>");
                             out.println("</form>");
                         }
+<<<<<<< HEAD
                         else if(session.getAttribute("staff") == null || session.getAttribute("admin") == null){
                             out.println("<form action='DeviceServlet' method='POST'>");
                             out.println("<input type='hidden' name='action' value='addToCart'>");
+=======
+                        else{
+                            out.println("<form action='DeviceServlet' method='POST'>");
+                            out.println("<input type='hidden' name='action' value='addToCard'>");
+>>>>>>> main
                             out.println("<input type='hidden' name='deviceId' value='" + dev.getDeviceID() + "'>");
                             out.println("<label for='quantity" + dev.getDeviceID() + "'>Quantity</label>");
                             out.println("<input type='number' id='quantity_" + dev.getDeviceID() + "' name='quantity'>");

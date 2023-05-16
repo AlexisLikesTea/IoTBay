@@ -28,6 +28,10 @@
             <% if (session.getAttribute("staff") != null) { %>
             <a class="active" href='CustomerManager.jsp'> Manage Customers</a>
             <a href ='Catalogue.jsp'> Manage Inventory </a>
+<<<<<<< HEAD
+=======
+            <a href =''> Manage AccessLogs</a>
+>>>>>>> main
             <% } %>
             <% if (session.getAttribute("staff") != null || session.getAttribute("customer") != null) { %>
             <a href = 'edit.jsp'> my account </a>

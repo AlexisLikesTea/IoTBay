@@ -296,6 +296,7 @@ public class DBManager {
         }
         return null;
     }
+    
     public ArrayList<Staff> searchStaff(String Input) throws SQLException{
         String[] querys = {
             "SELECT * FROM STAFF_T WHERE LOWER(STAFFFIRSTNAME) LIKE ?",
@@ -324,7 +325,7 @@ public class DBManager {
         return SearchResult;
     }
     
-    private Staff findStaffID(String ID) throws SQLException{
+    public Staff findStaffID(String ID) throws SQLException{
         String query = "SELECT * FROM ISDUSER.STAFF_T WHERE STAFFID =?";
         try (PreparedStatement statement = connect.prepareStatement(query)) {
             statement.setString(1, ID);

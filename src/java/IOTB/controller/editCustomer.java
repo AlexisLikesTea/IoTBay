@@ -36,8 +36,11 @@ public class editCustomer extends HttpServlet {
            validator.clear(session);   
             try {
                 String customerID = request.getParameter("custId");
+                String staffID = request.getParameter("staffId");
                 Customer editCus = (Customer) manager.findCustomerID(customerID);
+                Staff editStaff = (Staff) manager.findStaffID(staffID);
                 session.setAttribute("editCus", editCus);
+                session.setAttribute("editStaff", editStaff);
                 System.out.println(customerID);
                  request.getRequestDispatcher("CustomerManagerEdit.jsp").include(request, response);
             } catch (SQLException ex) {

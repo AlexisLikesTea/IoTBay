@@ -60,6 +60,7 @@
                     String postCodeErr =(String) session.getAttribute("postCodeErr");
                     
                     Customer editCus = (Customer) session.getAttribute("editCus");
+                    Staff editStaff = (Staff) session.getAttribute("editStaff");
                %> 
             
 
@@ -71,24 +72,24 @@
                     <tr>
                         <td><label for = "editEemail">Email:</label></td>
                         
-                        <td><input type = "editEemail" id = "email" name = "email" value="${(editCus!=null ? editCus.email : "")}"><h8> <%=(emailErr != null ? emailErr : "")%> </h8></td>
+                        <td><input type = "editEemail" id = "email" name = "email" value="${(editCus!=null ? editCus.email : editStaff.staffEmail)}"><h8> <%=(emailErr != null ? emailErr : "")%> </h8></td>
                     </tr>
                     <tr>
                         <td><label for = "userName">User Name: </label></td>
-                        <td><input id = "userName" type = "text" name = "userName" value="${(editCus!=null ? editCus.userName : "")}"><h8> <%=(userNameErr != null ? userNameErr : "")%> </h8></td>
+                        <td><input id = "userName" type = "text" name = "userName" value="${(editCus!=null ? editCus.userName : editStaff.staffUsername)}"><h8> <%=(userNameErr != null ? userNameErr : "")%> </h8></td>
                     </tr>
                     <tr>
                         <td><label for = "firstName">First Name: </label></td>
-                        <td><input id = "firstName" type = "text" name = "firstName" value="${(editCus!=null ? editCus.firstName : "")}"><h8> <%=(firstNameErr != null ? firstNameErr : "")%> </h8></td>
+                        <td><input id = "firstName" type = "text" name = "firstName" value="${(editCus!=null ? editCus.firstName : editStaff.staffFirstName)}"><h8> <%=(firstNameErr != null ? firstNameErr : "")%> </h8></td>
                     </tr>
                     <tr>
                         <td><label for = "lastName">Last Name: </label></td>
-                        <td><input type = "text" id = "lastName" name ="lastName" value="${(editCus!=null ? editCus.lastName : "")}"><h8> <%=(lastNameErr != null ? lastNameErr : "")%> </h8></td>
+                        <td><input type = "text" id = "lastName" name ="lastName" value="${(editCus!=null ? editCus.lastName : editStaff.staffLastName)}"><h8> <%=(lastNameErr != null ? lastNameErr : "")%> </h8></td>
                     </tr>
                     
                     <tr>
                         <td><label for = "password">Password: </label></td>
-                        <td><input type = "password" id = "password" name ="password" value="${(editCus!=null ? editCus.password : "")}"><h8> <%=(passwordErr != null ? passwordErr : "")%> </h8></td>
+                        <td><input type = "password" id = "password" name ="password" value="${(editCus!=null ? editCus.password : editStaff.staffPassword)}"><h8> <%=(passwordErr != null ? passwordErr : "")%> </h8></td>
                     </tr>
                     
                     <tr>
@@ -104,6 +105,7 @@
                     </tr>
                 </table>
                     
+                    <% if(editStaff == null) { %>
                     <!-- this whole thing will have to be wrapped in an IF -->
                         <h1 id="underlineandcenter"> Shipping Details </h1>
                         
@@ -138,6 +140,7 @@
                             
                         </table>
                         
+                            <% } %>
                         
                          
             </form>

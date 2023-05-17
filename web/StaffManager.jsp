@@ -85,13 +85,13 @@
                         <!-- Add more columns for other attributes -->
                         <td>
                            <form action="editCustomer" method="post">
-                              <input type="hidden" name="custId" id = "custId" value="<%=staff.getStaffID()%>">
+                              <input type="hidden" name="staffId" id = "staffId" value="<%=staff.getStaffID()%>">
                               <input type="submit" value="Edit">
                              
                            </form>
                               <br>
                                <form action = "DeleteCustomerServlet" method = "post">
-                                  <input type="hidden" name="DELcustId" id = "DELcustId" value="<%=staff.getStaffID()%>">
+                                  <input type="hidden" name="DELstaffId" id = "DELstaffId" value="<%=staff.getStaffID()%>">
                                   <input type ="submit" value ="Delete">
                               </form>
                         </td>

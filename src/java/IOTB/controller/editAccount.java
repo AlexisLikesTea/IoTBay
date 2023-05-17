@@ -264,8 +264,8 @@ public class editAccount extends HttpServlet {
                     request.getRequestDispatcher("edit.jsp").include(request, response);
                     
             }else if(admin != null){
-                String email = request.getParameter("email");
-                String password = request.getParameter("password");
+                String email = request.getParameter("Ademail");
+                String password = request.getParameter("Adpassword");
                 
                 if(!admin.getAdminEmail().equals(email)){
                        //validate and allow

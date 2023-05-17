@@ -169,21 +169,19 @@
                             <a href='un-Register.jsp'>I want to delete my account.</a>
                         
                         <% } %> 
-        
-                        
-                        
-            <br>
+            </form>
+            <form action="editAccount" method = "POST"> 
             <% if(admin != null){ %>
             
                 <table>
                     <tr>
-                        <td><label for = "email">Email:</label></td>
+                        <td><label for = "Ademail">Email:</label></td>
                         
-                        <td><input type = "email" id = "email" name = "email" value="${admin.adminEmail}"><h8> <%=(emailErr != null ? emailErr : "")%> </h8></td>
+                        <td><input type = "email" id = "Ademail" name = "Ademail" value="${admin.adminEmail}"><h8> <%=(emailErr != null ? emailErr : "")%> </h8></td>
                     </tr>
                     <tr>
-                        <td><label for = "password">Password: </label></td>
-                        <td><input id = "password" type = "password" name = "password" value="${admin.adminPassword}"><h8> <%=(passwordErr != null ? passwordErr : "")%> </h8></td>
+                        <td><label for = "Adpassword">Password: </label></td>
+                        <td><input id = "password" type = "Adpassword" name = "Adpassword" value="${admin.adminPassword}"><h8> <%=(passwordErr != null ? passwordErr : "")%> </h8></td>
                     </tr>
                     <tr>
                         <td><label for="ID"> Your Admin ID </label></td>

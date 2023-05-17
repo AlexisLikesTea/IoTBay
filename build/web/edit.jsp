@@ -16,6 +16,7 @@
         <%
             Customer customer = (Customer) session.getAttribute("customer");
             Staff staff = (Staff) session.getAttribute("staff");
+            Admin admin = (Admin) session.getAttribute("admin");
             
             
             String userNameErr = (String) session.getAttribute("userNameErr");
@@ -37,16 +38,25 @@
 
         <!-- This is the top nav bar code-->
         <div class="topnav">
-            <a href="index.jsp"> Home </a>
+            
             <% if (session.getAttribute("staff") != null) { %>
+            <a href="mainpage.jsp"> Home </a>
             <a href='CustomerManager.jsp'> Manage Customers</a>
             <a  href ='Catalogue.jsp'> Manage Inventory </a>
-            <a href =''> Manage AccessLogs</a>
             <% } %>
-            <%if (session.getAttribute("staff") == null) { %>
+            
+            <% if (session.getAttribute("admin") != null) { %>
+            <a href="mainpage.jsp"> Home </a>
+            <a href='StaffManager.jsp'> Manage Staff Member</a>
+            <a href='CustomerManager.jsp'> Manage Customer</a>
+            <a href ='Catalogue.jsp'> Manage Inventory</a>
+            <% } %> 
+            
+            <%if (session.getAttribute("staff") == null && session.getAttribute("admin") == null) { %>
+            <a href="mainpage.jsp"> Home </a>
             <a  href ='Catalogue.jsp'>Catalogue</a>
             <% } %>
-            <% if (session.getAttribute("staff") != null || session.getAttribute("customer") != null) { %>
+            <% if (session.getAttribute("staff") != null || session.getAttribute("customer") != null || session.getAttribute("admin") != null) { %>
             <a class="active" href = 'edit.jsp'> my account </a>
             <a  href="logout.jsp"  >Logout</a>
             <% } %> 
@@ -60,14 +70,17 @@
             <h1 id="underlineandcenter">Edit your current details</h1>
             
             <!-- Placeholder buttons -->
+            <% if(session.getAttribute("admin") == null){ %>
             <div id = "accessTabs">
+                
                 <form action = "AccessLogController" method = "post">
                     <input type = "submit" value = "Access Logs">
                 </form>
                 <span>   |   </span>
                 <a> Payment Details  </a>
             </div>
-            
+            <% } %>
+            <% if(staff != null || customer != null){ %>
             <form action="editAccount" method = "POST">  
                 <table>
                     <tr>
@@ -100,6 +113,10 @@
                     </tr>
                     <% } else { %>
                      <tr>
+                        <td><label for="position"> Your Position </label></td>
+                        <td><input type = "text" id = "position" name ="position" value="${(staff!=null ? staff.staffPosition : "")}"></td>
+                     </tr>
+                     <tr>
                         <td><label for="ID"> Your staff ID </label></td>
                         <td><h3>${(staff!=null ? staff.staffID : "")}</h3></td>
                     </tr>
@@ -113,6 +130,7 @@
                     </tr>
                 </table>
                     
+                 <% } %>
                     <!<!-- this whole thing will have to be wrapped in an IF -->
                         <% if(staff == null && customer != null){ %>
                         <h1 id="underlineandcenter"> Shipping Details </h1>
@@ -147,13 +165,39 @@
                             
                             
                         </table>
-                        
+                            
+                            <a href='un-Register.jsp'>I want to delete my account.</a>
                         
                         <% } %> 
             </form>
+            <form action="editAccount" method = "POST"> 
+            <% if(admin != null){ %>
+            
+                <table>
+                    <tr>
+                        <td><label for = "Ademail">Email:</label></td>
                         
-                        
-            <br>
+                        <td><input type = "email" id = "Ademail" name = "Ademail" value="${admin.adminEmail}"><h8> <%=(emailErr != null ? emailErr : "")%> </h8></td>
+                    </tr>
+                    <tr>
+                        <td><label for = "Adpassword">Password: </label></td>
+                        <td><input id = "password" type = "Adpassword" name = "Adpassword" value="${admin.adminPassword}"><h8> <%=(passwordErr != null ? passwordErr : "")%> </h8></td>
+                    </tr>
+                    <tr>
+                        <td><label for="ID"> Your Admin ID </label></td>
+                        <td><h3>${admin.adminID}</h3></td>
+                    </tr>
+                    <tr><td></td>
+                        <td>
+                            <input class="button" type="submit" value="Update">
+                            
+                        </td>
+                    </tr>
+                    
+                </table>  
+             </form>
+                    <% } %>
+            
         </div>
         <!--This page and all others need to be updated to include all the new fields in the customer BEAN -->
     </body>

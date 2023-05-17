@@ -1,7 +1,7 @@
 <%-- 
-    Document   : CustomerManager
-    Created on : 06/05/2023, 1:42:34 PM
-    Author     : kyler
+    Document   : StaffManager.jsp
+    Created on : 14/05/2023, 11:19:35 AM
+    Author     : aliaghajafari
 --%>
 
 <%@page import="IOTB.model.dao.*"%>
@@ -20,25 +20,23 @@
         <!-- This is the top nav bar code-->
         <div class="topbanner"></div>
         <div class="topnav">
-            
-            <% if (session.getAttribute("staff") != null) { %>
             <a href="mainpage.jsp"> Home </a>
-            <a class="active" href='CustomerManager.jsp'> Manage Customers</a>
+            <% if (session.getAttribute("staff") != null) { %>
+            <a href='CustomerManager.jsp'> Manage Customers</a>
             <a href ='Catalogue.jsp'> Manage Inventory </a>
             <% } %>
             
             <% if (session.getAttribute("admin") != null) { %>
-            <a href="mainpage.jsp"> Home </a>
-            <a href='StaffManager.jsp'> Manage Staff Member</a>
-            <a class = "active" href='CustomerManager.jsp'> Manage Customer</a>
+            <a class = "active" href='StaffManager.jsp'> Manage Staff Member</a>
+            <a href='CustomerManager.jsp'> Manage Customer</a>
             <a href ='Catalogue.jsp'> Manage Inventory</a>
                
-            <% } %> 
+            <% } %>
             
             <% if (session.getAttribute("staff") != null || session.getAttribute("customer") != null || session.getAttribute("admin") != null) { %>
             <a href = 'edit.jsp'> my account </a>
             <% } %> 
-            <%if (session.getAttribute("customer") != null && session.getAttribute("staff") == null && session.getAttribute("admin") ==  null) { %>
+            <%if (session.getAttribute("customer") != null && session.getAttribute("staff") == null && session.getAttribute("admin") == null) { %>
             <a href ='Catalogue.jsp'>Catalogue</a>
             <% } %>
 
@@ -49,21 +47,15 @@
                 
                <%   ///Page Variables
                     DBManager manager = (DBManager) session.getAttribute("manager");
-                    ArrayList<Customer> customers = manager.searchCustomer(request.getParameter("customerSearch"));
+                    ArrayList<Staff> staffs = manager.searchStaff(request.getParameter("staffSearch"));
                     
-                    Customer Editcustomer = (Customer) session.getAttribute("editCustomer");
+                    Staff EditStaff = (Staff) session.getAttribute("editStaff");
                            
                     String userNameErr = (String) session.getAttribute("userNameErr");
                     String emailErr = (String) session.getAttribute("emailErr");
                     String firstNameErr = (String) session.getAttribute("firstNameErr");
                     String lastNameErr = (String) session.getAttribute("lastNameErr");
                     String passwordErr = (String) session.getAttribute("passwordErr");
-                    String DOBErr = (String) session.getAttribute("DOBErr");
-                    String phoneNumErr = (String) session.getAttribute("phoneNumErr");
-                    String streetErr = (String) session.getAttribute("streetErr");
-                    String suburbErr = (String) session.getAttribute("suburbErr");
-                    String stateErr = (String) session.getAttribute("stateErr");
-                    String postCodeErr =(String) session.getAttribute("postCodeErr");
                     
                    String deleteErr = (String) session.getAttribute("deleteErr");
                %> 
@@ -74,32 +66,32 @@
            <div class ="contentcontainer" >
               
                 <br>
-                <h1 id="underlineandcenter">Customer List</h1>
+                <h1 id="underlineandcenter">Staff List</h1>
                 
-                <a id = "accessTabs" href = "register.jsp"> Register New customers <a/>
+                <a id = "accessTabs" href = "registerStaff.jsp"> Register New Staff <a/>
                 <h1 id="underlineandcenter"> <%= (deleteErr != null ? deleteErr : "") %> </h1>
                 <form  id="underlineandcenter" method = "post">
-                    <input id="customerSearch"  type="text" name="customerSearch" placeholder="Search Customers By First Name Last Name or Email">                
+                    <input id="staffSearch"  type="text" name="staffSearch" placeholder="Search Staff By First Name Last Name or Email">                
                 </form>
                 <br>
                   
                     <table border='1'>
                     <tr><th>ID</th><th>Name</th><th>Email</th><th>Action</th></tr>
                     
-                     <%for(Customer cus: customers) { %>
-                        <td><%= cus.getCustomerId() %></td>
-                        <td><%= cus.getFirstName() %> <%=cus.getLastName()%></td>
-                         <td><%= cus.getEmail() %></td>
+                     <%for(Staff staff: staffs) { %>
+                        <td><%= staff.getStaffID() %></td>
+                        <td><%= staff.getStaffFirstName() %> <%=staff.getStaffLastName()%></td>
+                         <td><%= staff.getStaffEmail() %></td>
                         <!-- Add more columns for other attributes -->
                         <td>
                            <form action="editCustomer" method="post">
-                              <input type="hidden" name="custId" id = "custId" value="<%=cus.getCustomerId()%>">
+                              <input type="hidden" name="custId" id = "custId" value="<%=staff.getStaffID()%>">
                               <input type="submit" value="Edit">
                              
                            </form>
                               <br>
                                <form action = "DeleteCustomerServlet" method = "post">
-                                  <input type="hidden" name="DELcustId" id = "DELcustId" value="<%=cus.getCustomerId()%>">
+                                  <input type="hidden" name="DELcustId" id = "DELcustId" value="<%=staff.getStaffID()%>">
                                   <input type ="submit" value ="Delete">
                               </form>
                         </td>

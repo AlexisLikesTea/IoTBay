@@ -3,6 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
+
+/**
+ *
+ * @author aliaghajafari
+ */
+
+
 package IOTB.controller;
 
 import IOTB.model.beans.*;
@@ -23,7 +31,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author kyler
  */
-public class RegisterCustomerController extends HttpServlet {
+public class RegisterStaffController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -39,28 +47,23 @@ public class RegisterCustomerController extends HttpServlet {
         //Standard out//
 //        validator.clear(session);
         
-        Staff staff = (Staff) session.getAttribute("staff");
         Admin admin = (Admin) session.getAttribute("admin");
         
         //the logic is like edit customer. 
-            String email = null;
-            String userName = null;
-            String firstName = null;
-            String lastName = null;
-            String password = null;
-            String DOB = null;
-        
-        try {
-            
-                email = request.getParameter("email");
-                userName = request.getParameter("userName");
-                password = request.getParameter("password");
-                firstName = request.getParameter("firstName");
-                lastName =  request.getParameter("lastName");
-                DOB = request.getParameter("DOB");
+                String email = request.getParameter("email");
+                String userName = request.getParameter("userName");
+                String password = request.getParameter("password");
+                String firstName = request.getParameter("firstName");
+                String lastName =  request.getParameter("lastName");
+                String position = request.getParameter("position");
+               
                 
                 Boolean ValidForm = true;
         
+        
+        try {
+            
+            //manager.addStaff(firstName, lastName, email, position, userName, password);
                
                         if (!validator.validateEmail(email)){
                             session.setAttribute("emailErr", "Email is invalid");
@@ -103,43 +106,43 @@ public class RegisterCustomerController extends HttpServlet {
                         } else {
                             session.setAttribute("passwordErr", "Password updated successfully, dont forget");
                         }
-                        
-                        LocalDate DOByear = LocalDate.parse(DOB);
-                        if(  DOByear.getYear() <=  LocalDate.now().getYear() && DOByear.getYear() > 1900){
-                            session.setAttribute("DOBErr", "Your birthday has been updated.");
-                        } else {
-                            session.setAttribute("DOBErr", "Invalid birthday selection");
-                            
+                        // validate position
+                        if (!validator.validatePosition(position)){
+                            session.setAttribute("positionErr", "position must not be empty");
+                            //request.getRequestDispatcher("edit.jsp").include(request, response);
                             ValidForm = false;
+                        } else {
+                            session.setAttribute("position", "position updated successfully, dont forget");
                         }
+                        
+                        
                         
                         if(ValidForm == true){
                             String placeholder = "Contact Details not Saved";
-                            manager.addCustomer(firstName, lastName, DOB, email, "123456789" , "35 Example Street", "Suburb", "AAA", "0000", userName, password);
+                            manager.addStaff(firstName, lastName, email, position, userName, password);
                             
-                            Customer customer = manager.findCustomer(userName, password);
-                            
-                            //Allows staff to make customers without logging them in. 
-                            if(staff == null && admin == null){
-                                String logID = manager.addAccessLog(customer.getCustomerId());
-                                session.setAttribute("customer", customer); //Primary Session Attribs
-                                session.setAttribute("SessionLogId", logID); //Primary
-                                request.getRequestDispatcher("welcome.jsp").include(request, response);
-                            } else if(staff != null && admin == null){
-                                session.setAttribute("editCus", customer); //Primary Session Attribs
-                                request.getRequestDispatcher("welcome.jsp").include(request, response);
-                            }else if(staff == null && admin != null){ 
-                               request.getRequestDispatcher("welcome.jsp").include(request, response);
-                           } 
-                            
+//                            Customer customer = manager.findCustomer(userName, password);
+//                            
+//                            //Allows staff to make customers without logging them in. 
+//                            if(admin == null){
+//                                String logID = manager.addAccessLog(customer.getCustomerId());
+//                                session.setAttribute("customer", customer); //Primary Session Attribs
+//                                session.setAttribute("SessionLogId", logID); //Primary
+//                            } else {
+//                                session.setAttribute("editCus", customer); //Primary Session Attribs
+//                            }
+                           
+                            request.getRequestDispatcher("welcome2.jsp").include(request, response);
+                            validator.clear(session);
+
                         } else {
-                                
-                             request.getRequestDispatcher("register.jsp").include(request, response);
+                             request.getRequestDispatcher("registerStaff.jsp").include(request, response);
+                             validator.clear(session);
+
                         }
-                         validator.clear(session);
                     
             }   catch (SQLException ex) {
-            Logger.getLogger(RegisterCustomerController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RegisterStaffController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -154,3 +157,4 @@ public class RegisterCustomerController extends HttpServlet {
     }// </editor-fold>
 
 }
+

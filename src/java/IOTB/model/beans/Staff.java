@@ -14,14 +14,16 @@ public class Staff {
     private String staffFirstName;
     private String staffLastName;
     private String staffEmail;
+    private String staffPosition;
     private String staffUsername;
     private String staffPassword;
 
-    public Staff(String staffID, String staffFirstName, String staffLastName, String staffEmail, String staffUsername, String staffPassword) {
+    public Staff(String staffID, String staffFirstName, String staffLastName, String staffEmail,String staffPosition, String staffUsername, String staffPassword) {
         this.staffID = staffID;
         this.staffFirstName = staffFirstName;
         this.staffLastName = staffLastName;
         this.staffEmail = staffEmail;
+        this.staffPosition = staffPosition;
         this.staffUsername = staffUsername;
         this.staffPassword = staffPassword;
     }
@@ -65,6 +67,7 @@ public class Staff {
     public void setStaffUsername(String staffUsername) {
         this.staffUsername = staffUsername;
     }
+    
 
     public String getStaffPassword() {
         return staffPassword;
@@ -72,5 +75,12 @@ public class Staff {
 
     public void setStaffPassword(String staffPassword) {
         this.staffPassword = staffPassword;
+    }
+    public String getStaffPosition() {
+        return staffPosition;
+    }
+
+    public void setStaffPosition(String staffPosition) {
+        this.staffPosition = staffPosition;
     }
 }

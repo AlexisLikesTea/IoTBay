@@ -1,6 +1,6 @@
 <%-- 
-    Document   : register.jsp
-    Created on : 14/03/2023, 2:11:59 PM
+    Document   : registerStaff.jsp
+    Created on : 14/05/2023, 8:22:09 PM
     Author     : aliaghajafari
 --%>
 
@@ -23,21 +23,20 @@
             String firstNameErr = (String) session.getAttribute("firstNameErr");
             String lastNameErr = (String) session.getAttribute("lastNameErr");
             String passwordErr = (String) session.getAttribute("passwordErr");
-            String DOBErr = (String) session.getAttribute("DOBErr");
             
         %>
         <div class="topbanner"></div>
 
         <div class="topnav">
-            <a href="index.jsp"> Home </a>
+            <a href="mainpage.jsp"> Home </a>
             <% if (session.getAttribute("staff") != null) { %>
-            <a class = "active" href='CustomerManager.jsp'> Manage Customers</a>
+            <a href='CustomerManager.jsp'> Manage Customers</a>
             <a href ='Catalogue.jsp'> Manage Inventory </a>
             <% } %>
             
             <% if (session.getAttribute("admin") != null) { %>
-            <a  href='StaffManager.jsp'> Manage Staff Member</a>
-            <a class = "active" href='CustomerManager.jsp'> Manage Customer</a>
+            <a class = "active" href='StaffManager.jsp'> Manage Staff Member</a>
+            <a href='CustomerManager.jsp'> Manage Customer</a>
             <a href ='Catalogue.jsp'> Manage Inventory</a>
                
             <% } %>
@@ -45,19 +44,20 @@
             <% if (session.getAttribute("staff") != null || session.getAttribute("customer") != null || session.getAttribute("admin") != null) { %>
             <a href = 'edit.jsp'> my account </a>
             <% } %> 
-            <a href ='logout.jsp'>logout</a>
+            <%if (session.getAttribute("customer") != null && session.getAttribute("staff") == null) { %>
+            <a href ='Catalogue.jsp'>Catalogue</a>
+            <% } %>
 
+            <a  href="logout.jsp" >Logout</a>
         </div>
 
         <div class="contentcontainer">
-            <% if(session.getAttribute("staff") == null){ %>
-                <h1 id ="underlineandcenter"> To Register: Enter your customer details </h1>
-            <% } else { %>
-                <h1 id ="underlineandcenter"> Register a new customer </h1>
-                    <a href="CustomerManager.jsp"> Return </a>
+            <% if(session.getAttribute("admin") != null) { %>
+                <h1 id ="underlineandcenter"> Register a new Staff </h1>
+                <a href="StaffManager.jsp"> Return </a>
             <% } %>
             <br>
-            <form action="RegisterCustomerController" method = "POST">  
+            <form action="RegisterStaffController" method = "POST">  
                 <table>
                     <tr>
                         <td><label for = "email">Email:</label></td>
@@ -82,15 +82,17 @@
                         <td><input type = "password" id = "password" name ="password" value=""><h8> <%=(passwordErr != null ? passwordErr : "")%> </h8></td>
                     </tr>
                     
-                 
                     <tr>
-                        <td><label for="DOB">Date Of Birth </label></td>
-                           <td><input type = "date"  onfocus="this.showPicker()" id = "DOB" name ="DOB" value="1995-12-12"><h8> <%=(DOBErr != null ? DOBErr : "")%> </h8></td>
+                        <td><label for = "lastName">Position: </label></td>
+                        <td><input type = "text" id = "position" name ="position" value=""></td>
                     </tr>
+                 
+                    
                     
                     <tr><td></td>
                         <td>
-                            <input class="button" type="submit" value="Update">
+                            <input class="button" type="submit" value="Add">
+                            
                         </td>
                     </tr>
                 </table>
@@ -99,3 +101,4 @@
         </div>
     </body>
 </html>
+

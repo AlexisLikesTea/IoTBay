@@ -21,20 +21,35 @@
 
         <!-- This is the top nav bar code-->
         <div class="topnav">
-            <a href="index.jsp"> Home </a>
-            <% if(session.getAttribute("staff") == null && session.getAttribute("customer") == null){ %>
+            
+            <% if(session.getAttribute("staff") == null && session.getAttribute("customer") == null && session.getAttribute("admin") == null){ %>
+                <a href="index.jsp"> Home </a>
                 <a href="register.jsp"> Register </a>
                 <a href="login.jsp"> Login </a>
+                <a class="active" href ='Catalogue.jsp'>Catalogue</a>
             <% } %>
             <% if (session.getAttribute("staff") != null) { %>
+            <a href="mainpage.jsp"> Home </a>
             <a href='CustomerManager.jsp'> Manage Customers</a>
             <a class="active"  href ='Catalogue.jsp'> Manage Inventory </a>
-            <a href =''> Manage AccessLogs</a>
             <% } %>
-            <%if (session.getAttribute("staff") == null) { %>
-            <a class="active" href ='Catalogue.jsp'>Catalogue</a>
+            
+            <% if (session.getAttribute("admin") != null) { %>
+            <a href="mainpage.jsp"> Home </a>
+            <a href='StaffManager.jsp'> Manage Staff Member</a>
+            <a href='CustomerManager.jsp'> Manage Customer</a>
+            <a class = "active" href ='Catalogue.jsp'> Manage Inventory</a>
+               
+            <% } %> 
+            
+            <% if (session.getAttribute("customer") != null && session.getAttribute("admin") == null && session.getAttribute("staff") == null) { %>
+            <a href="mainpage.jsp"> Home </a>
+            <a class="active"  href ='Catalogue.jsp'> Catalogue </a>
+            
             <% } %>
-            <% if (session.getAttribute("staff") != null || session.getAttribute("customer") != null) { %>
+           
+            
+            <% if (session.getAttribute("staff") != null || session.getAttribute("customer") != null || session.getAttribute("admin") != null) { %>
             <a href = 'edit.jsp'> my account </a>
             <a  href="logout.jsp"  >Logout</a>
             <% } %> 
@@ -71,7 +86,7 @@
                  
                     out.println("<td>");
                     
-                        if (session.getAttribute("staff") != null) {
+                        if (session.getAttribute("staff") != null || session.getAttribute("admin") != null) {
 
                             // Delete device button
                             out.println("<form action='DeviceServlet' method='POST'>");
@@ -89,7 +104,7 @@
                             out.println("<input type='submit' value='Update'>");
                             out.println("</form>");
                         }
-                        else{
+                        else if(session.getAttribute("customer") != null){
                             out.println("<form action='DeviceServlet' method='POST'>");
                             out.println("<input type='hidden' name='action' value='addToCard'>");
                             out.println("<input type='hidden' name='deviceId' value='" + dev.getDeviceID() + "'>");

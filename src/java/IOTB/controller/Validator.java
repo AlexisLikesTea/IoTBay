@@ -55,7 +55,8 @@ package IOTB.controller;
 
       return validate(namePattern,name); 
 
-   }       
+   }
+   
    
 
    public boolean validatePassword(String password){
@@ -78,6 +79,10 @@ package IOTB.controller;
    
    public boolean validatePostCode(String postCode){
        return validate(postCodePattern, postCode);
+   }
+   // test position
+   public boolean validatePosition(String position){
+       return validate(namePattern, position);
    }
    
    //Add and reset your error messages here! 

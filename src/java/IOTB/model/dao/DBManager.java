@@ -747,29 +747,24 @@ public class DBManager {
         }
     }
     
-    public void addDevice(String deviceID,String deviceName,String deviceDescription,String deviceBrand,String deviceSupplier,String deviceSpecifications,String deviceWRPolicy,float deviceStandardPrice,float deviceCurrentPrice,String deviceType,int deviceSOH,String deviceImage) throws SQLException{
+    public void addDevice(Device device) throws SQLException{
         String query = "(INSERT INTO Device_T VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
-        //here is a quick change to test something
         try(PreparedStatement statement = connect.prepareStatement(query)){
-            statement.setString(1, deviceID);
-            statement.setString(2, deviceName);
-            statement.setString(3, deviceDescription);
-            statement.setString(4, deviceBrand);
-            statement.setString(5, deviceSupplier);
-            statement.setString(6, deviceSpecifications);
-            statement.setString(7, deviceWRPolicy);
-            statement.setFloat(8, deviceStandardPrice);
-            statement.setFloat(9, deviceCurrentPrice);
-            statement.setString(10, deviceType);
-            statement.setInt(11, deviceSOH);
-            statement.setString(12, deviceImage);
+            statement.setString(1, device.getDeviceID());
+            statement.setString(2, device.getDeviceName());
+            statement.setString(3, device.getDeviceDescription());
+            statement.setString(4, device.getDeviceBrand());
+            statement.setString(5, device.getDeviceSupplier());
+            statement.setString(6, device.getDeviceSpecifications());
+            statement.setString(7, device.getDeviceWRPolicy());
+            statement.setFloat(8, device.getDeviceStandardPrice());
+            statement.setFloat(9, device.getDeviceCurrentPrice());
+            statement.setString(10, device.getDeviceType());
+            statement.setInt(11, device.getDeviceSOH());
+            statement.setString(12, device.getDeviceImage());
             statement.executeUpdate();
         }
     }
-    
-    
-    
-    
       /////////////////////////////////////////////////////////////////////////
      //                Order Section cant compile DByet                     //
     /////////////////////////////////////////////////////////////////////////

@@ -32,7 +32,14 @@
             String postCodeErr =(String) session.getAttribute("postCodeErr");
             //Staff updated = request.getParameter("Updated");
         %>
-
+        <%  
+            //Page Error variables
+            
+            String stdPriceErr = (String) session.getAttribute("stdPriceErr");
+            String currentPriceErr = (String) session.getAttribute("currentPriceErr");
+            String sohErr = (String) session.getAttribute("currentPriceErr");
+            
+        %>
       
         <div class="topbanner"></div>
 
@@ -51,7 +58,7 @@
             <a href='StaffManager.jsp'> Manage Staff Member</a>
             <a href='CustomerManager.jsp'> Manage Customer</a>
             <a href ='Catalogue.jsp'> Manage Inventory</a>
-            <a href =''> Manage AccessLogs</a>  
+            <a href =''> Manage Access Logs</a>  
             <% } %> 
             
             <%if (session.getAttribute("staff") == null && session.getAttribute("admin") == null) { %>
@@ -81,11 +88,47 @@
                         <td><label for = "deviceDescription">Description:</label></td>
                         <td><input type = "text" id = "description" name = "description" value=""/></td>
                     </tr>
+                    <tr>
+                        <td><label for = "deviceBrand">Brand:</label></td>
+                        <td><input type = "text" id = "Brand" name = "Brand" value=""/></td>
+                    </tr>
+                    <tr>
+                        <td><label for = "deviceSupplier">Supplier:</label></td>
+                        <td><input type = "text" id = "Supplier" name = "Supplier" value=""/></td>
+                    </tr>
+                    <tr>
+                        <td><label for = "deviceSpecifications">Specifications:</label></td>
+                        <td><input type = "text" id = "Specifications" name = "Specifications" value=""/></td>
+                    </tr>
+                    <tr>
+                        <td><label for = "deviceWRPolicy">Warranty:</label></td>
+                        <td><input type = "text" id = "Warranty" name = "Warranty" value=""/></td>
+                    </tr>
+                    <tr>
+                        <td><label for = "deviceStandardPrice">Standard Price:</label></td>
+                        <td><input type = "text" id = "stdPrice" name = "stdPrice" value=""/><h8> <%=(stdPriceErr != null ? stdPriceErr : "")%> </h8></td>
+                    </tr>
+                    <tr>
+                        <td><label for = "deviceCurrentPrice">Current Price: </label></td>
+                        <td><input type = "text" id = "currentPrice" name = "currentPrice" value=""/><h8> <%=(currentPriceErr != null ? currentPriceErr : "")%> </h8></td>
+                    </tr>
+                    <tr>
+                        <td><label for = "deviceType">Type: </label></td>
+                        <td><input type = "text" id = "Type" name = "Type" value=""/></td> 
+                        <!--possibly do a radio button thing here https://www.w3schools.com/html/html_form_input_types.asp-->
+                    </tr>
+                    <tr>
+                        <td><label for = "deviceSOH">Stock On Hand:</label></td>
+                        <td><input type = "text" id = "soh" name = "soh" value=""/><h8> <%=(sohErr != null ? sohErr : "")%> </h8></td>
+                    </tr>
+                    <tr>
+                        <td><label for = "deviceImage">Image (URL): </label></td>
+                        <td><input type = "text" id = "url" name = "url" value=""/></td>
+                    </tr>
                     
                     <tr><td></td>
                         <td>
                             <input class="button" type="submit" value="Add button">
-                            
                         </td>
                     </tr>
                 </table>

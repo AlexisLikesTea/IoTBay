@@ -5,16 +5,21 @@
  */
 package IOTB.controller;
 
+import IOTB.model.beans.Customer;
+import IOTB.model.beans.Device;
 import IOTB.model.dao.DBManager;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.logging.*;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.Random;
 
 /**
  *
@@ -34,18 +39,85 @@ public class addDeviceServlet extends HttpServlet {
         
                 //Standard out//
         validator.clear(session);
-    
+        Random r = new Random();
+        
+        
         try {
+            ArrayList<String> deviceIDList = new ArrayList<String>();
+            for(Device d : manager.fetchDevices()){
+                deviceIDList.add(d.getDeviceID());          //populate the list with all device id's
+            }
             
-            String name = (String) session.getAttribute("name");
-            String description = (String) session.getAttribute("description");
-            float i = (float) 1.00;
-            float b = (float) 1.00;
+            String deviceID = r.nextInt(999999999)+""+r.nextInt(999999);
+            boolean matching = true;
+            while(matching){
+                deviceID = r.nextInt(999999999)+""+r.nextInt(999999); //generate deviceID up to 15 characters long
+                for(String s : deviceIDList){ //for all device id's in list populated above
+                   if(deviceID.equals(s)){ // check if the generated ID matches the ID
+                       matching = true;
+                       break; // if it does match set matching to true again and break back to the while loop and regenerate an ID
+                   }
+                   matching = false; //if it doesnt match make matching false and check the next one, if it reachs    
+               }                    //the end of the list then it will exit the for loop and matching will be false so it will exit the while  
+            }
+            String name = (String) request.getParameter("name");
+            String description = (String) request.getParameter("description");
+            String brand = (String) request.getParameter("Brand");
+            String supplier = (String) request.getParameter("Supplier");
+            String specifications = (String) request.getParameter("Specifications");
+            String warranty = (String) request.getParameter("Warranty");
+            String stdPriceCheck = (String) request.getParameter("stdPrice");
+            String currentPriceCheck = (String) request.getParameter("currentPrice");
+            float stdPrice = 0;
+            float currentPrice = 0;
+            String type = (String) request.getParameter("Type");
+            String sohCheck = (String) request.getParameter("soh");
+            int soh = 0;
+            String imageUrl = (String) request.getParameter("url");
             
-//            manager.addDevice("9999999999999",name,description,"1","1","1","1",i,b,"1",1,"1");
-            request.getRequestDispatcher("Catalouge.jsp").include(request, response);
-        } catch (Exception e) {
-            Logger.getLogger(DeleteCustomerServlet.class.getName()).log(Level.SEVERE, null, e);
+            Boolean ValidForm = true;
+            
+                        if (validator.validateFloat(stdPriceCheck)){
+                            session.setAttribute("stdPriceErr", "Standard Price is invalid, Please enter a floating point number e.g. 10.00");
+                            stdPrice = Float.parseFloat(request.getParameter("stdPrice"));
+                            ValidForm = false;
+                        }
+                        if (validator.validateFloat(currentPriceCheck)){
+                            session.setAttribute("currentPriceErr", "Current Price is invalid, Please enter a floating point number e.g. 10.00");
+                            currentPrice = Float.parseFloat(request.getParameter("currentPrice"));
+                            ValidForm = false;
+                        }
+                        if (validator.validateInteger(sohCheck)){
+                            session.setAttribute("sohErr", "Stock On Hand is invalid, Please enter an integer number e.g. 1,2,3... (not decimals)");
+                            soh = Integer.parseInt(request.getParameter("soh"));
+                            ValidForm = false;
+                        }
+                        if(ValidForm == true){
+                            Device newDevice = new Device(
+                                deviceID,
+                                name,
+                                description,
+                                brand,
+                                supplier,
+                                specifications,
+                                warranty,
+                                stdPrice,
+                                currentPrice,
+                                type,
+                                soh,
+                                imageUrl);
+                            manager.addDevice(newDevice);
+                            request.getRequestDispatcher("Catalogue.jsp").include(request, response); //now getting sql error
+                        } else {
+                            request.getRequestDispatcher("addDevice.jsp").include(request, response);
+                        }
+                         validator.clear(session);
+        } catch (SQLException e) {
+            System.out.print(e);
         }
-}
+//}
+        }
+    
+    
+    
 }

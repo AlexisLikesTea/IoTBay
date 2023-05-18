@@ -17,6 +17,8 @@ package IOTB.controller;
    private final String streetPattern = "\\d+.*\\b\\p{Alpha}+";
    private final String statePattern = "[A-Za-z]{2,4}";
    private final String postCodePattern = "[0-9]{2,6}";
+   private final String floatNumberPattern="^([+-]?\\d*\\.?\\d*)$";
+   private final String integerPattern="^\\d+$";
               
    public Validator(){    }       
 
@@ -36,7 +38,18 @@ package IOTB.controller;
       return  email.isEmpty() || password.isEmpty();   
 
    }
+   
+   public boolean validateFloat(String floatNum){                       
 
+      return validate(floatNumberPattern,floatNum);   
+
+   } 
+
+   public boolean validateInteger(String intNum){                       
+
+      return validate(integerPattern,intNum);   
+
+   } 
    
    public boolean validateEmail(String email){                       
 

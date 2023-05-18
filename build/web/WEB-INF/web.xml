@@ -40,6 +40,14 @@
         <servlet-name>PaymentManager</servlet-name>
         <servlet-class>IOTB.controller.PaymentManager</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RegisterStaffController</servlet-name>
+        <servlet-class>IOTB.controller.RegisterStaffController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>unRegisterController</servlet-name>
+        <servlet-class>IOTB.controller.unRegisterController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ConnServlet</servlet-name>
         <url-pattern>/ConnServlet</url-pattern>
@@ -71,6 +79,14 @@
     <servlet-mapping>
         <servlet-name>RegisterCustomerController</servlet-name>
         <url-pattern>/RegisterCustomerController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RegisterStaffController</servlet-name>
+        <url-pattern>/RegisterStaffController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>unRegisterController</servlet-name>
+        <url-pattern>/unRegisterController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Debug</servlet-name>

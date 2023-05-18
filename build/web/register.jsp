@@ -30,21 +30,22 @@
 
         <div class="topnav">
             <a href="index.jsp"> Home </a>
-            <a class="active"  href="register.jsp"> Register </a>
-            <a href="login.jsp"> Login </a>
             <% if (session.getAttribute("staff") != null) { %>
-            <a href='CustomerManager.jsp'> Manage Customers</a>
-            <a   href ='Catalogue.jsp'> Manage Inventory </a>
-            <a href =''> Manage AccessLogs</a>
+            <a class = "active" href='CustomerManager.jsp'> Manage Customers</a>
+            <a href ='Catalogue.jsp'> Manage Inventory </a>
             <% } %>
-           
-            <%if (session.getAttribute("staff") == null) { %>
-            <a href ='Catalogue.jsp'>Catalogue</a>
-            <% }%>
-             <% if (session.getAttribute("staff") != null || session.getAttribute("customer") != null) { %>
+            
+            <% if (session.getAttribute("admin") != null) { %>
+            <a  href='StaffManager.jsp'> Manage Staff Member</a>
+            <a class = "active" href='CustomerManager.jsp'> Manage Customer</a>
+            <a href ='Catalogue.jsp'> Manage Inventory</a>
+               
+            <% } %>
+            
+            <% if (session.getAttribute("staff") != null || session.getAttribute("customer") != null || session.getAttribute("admin") != null) { %>
             <a href = 'edit.jsp'> my account </a>
-            <a  href="logout.jsp"  >Logout</a>
             <% } %> 
+            <a href ='logout.jsp'>logout</a>
 
         </div>
 
@@ -90,7 +91,6 @@
                     <tr><td></td>
                         <td>
                             <input class="button" type="submit" value="Update">
-                            
                         </td>
                     </tr>
                 </table>

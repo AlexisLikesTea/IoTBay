@@ -38,40 +38,29 @@ public class editAccount extends HttpServlet {
         // _____________________________________________
         
                 //Standard out//
-        validator.clear(session);
+//        validator.clear(session);
         
-        //Get page Parameters//
-            String email = null;
-            String userName = null;
-            String firstName = null;
-            String lastName = null;
-            String password = null;
-            //customer only attribs
-            String DOB = null;
-            String phoneNum = null;
-            String street = null;
-            String suburb = null;
-            String state = null;
-            String postCode= null;
+
         
         try {
             Customer customer = (Customer) session.getAttribute("customer");
             Staff staff = (Staff) session.getAttribute("staff");
+            Admin admin = (Admin) session.getAttribute("admin");
 
    
             
             if(customer != null){
-                email = request.getParameter("email");
-                userName = request.getParameter("userName");
-                password = request.getParameter("password");
-                firstName = request.getParameter("firstName");
-                lastName =  request.getParameter("lastName");
-                DOB = request.getParameter("DOB");
-                phoneNum = request.getParameter("phonenum");
-                street = request.getParameter("street");
-                suburb = request.getParameter("suburb");
-                state = request.getParameter("state");
-                postCode = request.getParameter("postCode");
+               String email = request.getParameter("email");
+                String userName = request.getParameter("userName");
+                String password = request.getParameter("password");
+                String firstName = request.getParameter("firstName");
+                String lastName =  request.getParameter("lastName");
+                String DOB = request.getParameter("DOB");
+                String phoneNum = request.getParameter("phonenum");
+                String street = request.getParameter("street");
+                String suburb = request.getParameter("suburb");
+                String state = request.getParameter("state");
+                String postCode = request.getParameter("postCode");
                 
                 //Logical Tests 
                 
@@ -189,9 +178,6 @@ public class editAccount extends HttpServlet {
                         }
                     }
                     
-                    
-                    
-                    
                     session.setAttribute("customer", customer); //refresh the customer bean
                     manager.updateCustomer(customer.getCustomerId(), customer.getFirstName(), customer.getLastName(), customer.getDOB(), customer.getEmail(), customer.getPhoneNum(), customer.getStreet(), customer.getSuburb(), customer.getPostCode(), customer.getUserName(), customer.getPassword());
 
@@ -199,13 +185,15 @@ public class editAccount extends HttpServlet {
                     request.getRequestDispatcher("edit.jsp").include(request, response);
                 
             } else if (staff != null){
-                email = request.getParameter("email");
-                userName = request.getParameter("userName");
-                firstName = request.getParameter("firstName");
-                lastName = request.getParameter("lastName");
-                password = request.getParameter("password");
+                String email = request.getParameter("email");
+                String userName = request.getParameter("userName");
+                String firstName = request.getParameter("firstName");
+                String lastName = request.getParameter("lastName");
+                String password = request.getParameter("password");
+                String position = request.getParameter("position");
                 
-                if(!staff.getStaffEmail().equals(email)){
+                
+                    if(!staff.getStaffEmail().equals(email)){
                        //validate and allow
                         if (!validator.validateEmail(email)){
                             session.setAttribute("emailErr", "Email is invalid");
@@ -259,17 +247,58 @@ public class editAccount extends HttpServlet {
                             session.setAttribute("passwordErr", "Password updated successfully, dont forget");
                         }
                     }
+                    
+                    // position 
+                    if(!staff.getStaffPosition().equals(position)){
+                       if (!validator.validatePosition(position)){
+                          // session.setAttribute("lastNameErr", "Position is empty.");
+                           // request.getRequestDispatcher("edit.jsp").include(request, response);
+                        } else {
+                            String posCap = position.substring(0, 1).toUpperCase() + position.substring(1);
+                            staff.setStaffPosition(posCap);
+                            //session.setAttribute("lastNameErr", "Position updated too!: " + posCap);
+                       }
+                   }
                     session.setAttribute("staff", staff);
-                    manager.updateStaff(staff.getStaffID(), staff.getStaffFirstName(), staff.getStaffLastName(), staff.getStaffEmail(), staff.getStaffUsername(), staff.getStaffPassword());
+                    manager.updateStaff(staff.getStaffID(), staff.getStaffFirstName(), staff.getStaffLastName(), staff.getStaffEmail(), staff.getStaffPosition(), staff.getStaffUsername(), staff.getStaffPassword());
                     request.getRequestDispatcher("edit.jsp").include(request, response);
+                    
+            }else if(admin != null){
+                String email = request.getParameter("Ademail");
+                String password = request.getParameter("Adpassword");
+                
+                if(!admin.getAdminEmail().equals(email)){
+                       //validate and allow
+                        if (!validator.validateEmail(email)){
+                            session.setAttribute("emailErr", "Email is invalid");
+                            //request.getRequestDispatcher("edit.jsp").include(request, response);
+                        } else { 
+                             admin.setAdminEmail(email);
+                             session.setAttribute("emailErr", "Email updated successfully too: " + email);
+                        }
+                }
+                if(!admin.getAdminPassword().equals(password)){
+                        if (!validator.validatePassword(password)){
+                            session.setAttribute("passwordErr", "Password must be atleast 4 characters long, no special characters.");
+                            //request.getRequestDispatcher("edit.jsp").include(request, response);
+                        } else {
+                            admin.setAdminPassword(password);
+                            session.setAttribute("passwordErr", "Password updated successfully, dont forget");
+                        }
+                 }
+                session.setAttribute("admin", admin);
+                manager.updateAdmin(admin.getAdminID(), admin.getAdminEmail(), admin.getAdminPassword());
+                request.getRequestDispatcher("edit.jsp").include(request, response);
+                
             }
-            
+             validator.clear(session);
 
             }
             catch (SQLException ex){
-                    System.out.println(ex.getMessage() == null ? "Staff or Customer does not exist" : "Successful login");
+                    System.out.println(ex.getMessage() == null ? "Staff or Customer does not exist" : "UPdate error with SQL query ");
 
             } 
+       
     }
 
    

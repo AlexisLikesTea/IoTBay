@@ -52,6 +52,8 @@ public class editCustomerValidate extends HttpServlet {
             String state = null;
             String postCode= null;
         
+            //Ali you need to write the code to accomidate "session.getAttribute("editStaff") below plz;
+            
         try {
             Customer customer = (Customer) session.getAttribute("editCus");
             if(customer != null){

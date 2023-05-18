@@ -23,8 +23,13 @@
             <% if (session.getAttribute("staff") != null) { %>
             <a href='CustomerManager.jsp'> Manage Customers</a>
             <a  href ='Catalogue.jsp'> Manage Inventory </a>
-            <a href =''> Manage AccessLogs</a>
             <% } %>
+            
+            <% if (session.getAttribute("admin") != null) { %>
+            <a href='CustomerManager.jsp'> Manage Customers</a>
+            <a  href ='Catalogue.jsp'> Manage Inventory12 </a>
+            <% } %>
+            
             <%if (session.getAttribute("staff") == null) { %>
             <a href ='Catalogue.jsp'>Catalogue</a>
             <% } %>

@@ -749,7 +749,7 @@ public class DBManager {
     
     public void addDevice(String deviceID,String deviceName,String deviceDescription,String deviceBrand,String deviceSupplier,String deviceSpecifications,String deviceWRPolicy,float deviceStandardPrice,float deviceCurrentPrice,String deviceType,int deviceSOH,String deviceImage) throws SQLException{
         String query = "(INSERT INTO Device_T VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
-        
+        //here is a quick change to test something
         try(PreparedStatement statement = connect.prepareStatement(query)){
             statement.setString(1, deviceID);
             statement.setString(2, deviceName);

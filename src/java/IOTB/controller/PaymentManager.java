@@ -75,18 +75,18 @@ public class PaymentManager extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String paymentID = request.getParameter("paymentID");
-        String paymentCardName = request.getParameter("cardName");
-        long paymentCardNumber = Long.parseLong(request.getParameter("cardNum"));
-        int paymentCardCVC = Integer.parseInt(request.getParameter("CVC"));
-        LocalDate paymentCardExpiryDate = LocalDate.parse(request.getParameter("Expiry"));
-        Payment payment = new Payment(paymentID, paymentCardName, paymentCardNumber, paymentCardCVC, paymentCardExpiryDate);
-        request.setAttribute("payment", payment);
-        processRequest(request, response);
-    }
+//    @Override
+//    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+//            throws ServletException, IOException {
+//        String paymentID = request.getParameter("paymentID");
+//        String paymentCardName = request.getParameter("cardName");
+//        long paymentCardNumber = Long.parseLong(request.getParameter("cardNum"));
+//        int paymentCardCVC = Integer.parseInt(request.getParameter("CVC"));
+//        LocalDate paymentCardExpiryDate = LocalDate.parse(request.getParameter("Expiry"));
+//        Payment payment = new Payment(paymentID, paymentCardName, paymentCardNumber, paymentCardCVC, paymentCardExpiryDate);
+//        request.setAttribute("payment", payment);
+//        processRequest(request, response);
+//    }
 
     /**
      * Handles the HTTP <code>POST</code> method.

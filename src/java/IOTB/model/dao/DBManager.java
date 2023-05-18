@@ -759,7 +759,7 @@ public class DBManager {
         return randomNumber;
     }
 
-    public void addPayment(String paymentID, String paymentCardName, long paymentCardNumber, long paymentCardCVC, LocalDate paymentCardExpiryDate, String customerID) throws SQLException {
+    public void addPayment(String paymentID, String paymentCardName, long paymentCardNumber, int paymentCardCVC, LocalDate paymentCardExpiryDate, String customerID) throws SQLException {
         paymentID = String.valueOf(nextPaymentID());
         String query = "INSERT INTO Payment_T (paymentID, paymentCardName, paymentCardNumber, paymentCardCVC, paymentCardExpiryDate, customerID) VALUES (?, ?, ?, ?, ?, ?)";
         try (PreparedStatement statement = connect.prepareStatement(query)) {

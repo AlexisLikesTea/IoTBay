@@ -33,6 +33,14 @@
         <servlet-class>IOTB.controller.RegisterCustomerController</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>Debug</servlet-name>
+        <servlet-class>IOTB.controller.Debug</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PaymentManager</servlet-name>
+        <servlet-class>IOTB.controller.PaymentManager</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>RegisterStaffController</servlet-name>
         <servlet-class>IOTB.controller.RegisterStaffController</servlet-class>
     </servlet>
@@ -79,6 +87,14 @@
     <servlet-mapping>
         <servlet-name>unRegisterController</servlet-name>
         <url-pattern>/unRegisterController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Debug</servlet-name>
+        <url-pattern>/Debug</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PaymentManager</servlet-name>
+        <url-pattern>/PaymentManager</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

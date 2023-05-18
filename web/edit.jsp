@@ -31,10 +31,10 @@
             String stateErr = (String) session.getAttribute("stateErr");
             String postCodeErr =(String) session.getAttribute("postCodeErr");
                 //Staff updated = request.getParameter("Updated");
-        %>
+            %>
 
-      
-        <div class="topbanner"></div>
+
+            <div class="topbanner"></div>
 
         <!-- This is the top nav bar code-->
         <div class="topnav">
@@ -62,9 +62,9 @@
             <% } %> 
         </div>
 
-        <!--This page and all others need to be updated to include all the new fields in the customer BEAN -->
-        <div class="contentcontainer">
-            <br>
+            <!--This page and all others need to be updated to include all the new fields in the customer BEAN -->
+            <div class="contentcontainer">
+                <br>
 
             
             <h1 id="underlineandcenter">Edit your current details</h1>
@@ -132,33 +132,33 @@
                     
                  <% } %>
                     <!<!-- this whole thing will have to be wrapped in an IF -->
-                        <% if(staff == null && customer != null){ %>
-                        <h1 id="underlineandcenter"> Shipping Details </h1>
-                        
-                        <table>
-                            <tr>
-                                <td><label for = "phonenum">Contact Number: </label></td>
-                                <td><input type = "text" id = "phonenum" name = "phonenum" placeholder ="You need to add your phone number" value = "${(customer.phoneNum != "" ? customer.phoneNum : null)}"><h8> <%=(phoneNumErr != null ? phoneNumErr : "")%> </h8></td>
-                            </tr>
-                            <tr>
-                                <td><label for = "street"> Street Number and Name: </label></td>
-                                <td><input type = "text" id = "street" name = "street" placeholder ="You need to add your street" value = "${(customer.street != "" ? customer.street : null)}"><h8> <%=(streetErr != null ? streetErr : "")%> </h8></td>
-                            </tr>
-                            <tr>
-                                <td><label for = "suburb"> Suburb: </label></td>
-                                <td><input type = "text" id = "suburb" name = "suburb" placeholder ="You need to add your suburb" value = "${(customer.suburb != "" ? customer.suburb : null)}"><h8> <%=(suburbErr != null ? suburbErr : "")%> </h8></td>
-                            </tr>
-                            <tr>
-                                <td><label for = "state"> STATE: </label></td>
-                                <td><input type = "text" id = "state" name = "state" placeholder ="You need to add your state"  value = "${(customer.state != "" ? customer.state : null)}"><h8> <%=(stateErr != null ? stateErr : "")%> </h8></td>
-                            </tr>
-                            <tr>
-                                <td><label for = "postCode"> Post Code: </label></td>
-                                <td><input type = "text" id = "postCode" name = "postCode" placeholder ="You need to add a post code"  value = "${(customer.postCode != "" ? customer.postCode : null)}"> <%=(postCodeErr != null ? postCodeErr : "")%> </td>
-                            </tr>
-                            <tr><td></td>
-                                <td>
-                                    <input class="button" type="submit" value="Update">
+                    <% if (staff == null && customer != null) {%>
+                    <h1 id="underlineandcenter"> Shipping Details </h1>
+
+                    <table>
+                        <tr>
+                            <td><label for = "phonenum">Contact Number: </label></td>
+                            <td><input type = "text" id = "phonenum" name = "phonenum" placeholder ="You need to add your phone number" value = "${(customer.phoneNum != "" ? customer.phoneNum : null)}"><h8> <%=(phoneNumErr != null ? phoneNumErr : "")%> </h8></td>
+                        </tr>
+                        <tr>
+                            <td><label for = "street"> Street Number and Name: </label></td>
+                            <td><input type = "text" id = "street" name = "street" placeholder ="You need to add your street" value = "${(customer.street != "" ? customer.street : null)}"><h8> <%=(streetErr != null ? streetErr : "")%> </h8></td>
+                        </tr>
+                        <tr>
+                            <td><label for = "suburb"> Suburb: </label></td>
+                            <td><input type = "text" id = "suburb" name = "suburb" placeholder ="You need to add your suburb" value = "${(customer.suburb != "" ? customer.suburb : null)}"><h8> <%=(suburbErr != null ? suburbErr : "")%> </h8></td>
+                        </tr>
+                        <tr>
+                            <td><label for = "state"> STATE: </label></td>
+                            <td><input type = "text" id = "state" name = "state" placeholder ="You need to add your state"  value = "${(customer.state != "" ? customer.state : null)}"><h8> <%=(stateErr != null ? stateErr : "")%> </h8></td>
+                        </tr>
+                        <tr>
+                            <td><label for = "postCode"> Post Code: </label></td>
+                            <td><input type = "text" id = "postCode" name = "postCode" placeholder ="You need to add a post code"  value = "${(customer.postCode != "" ? customer.postCode : null)}"> <%=(postCodeErr != null ? postCodeErr : "")%> </td>
+                        </tr>
+                        <tr><td></td>
+                            <td>
+                                <input class="button" type="submit" value="Update">
 
                                 </td>
                             </tr>

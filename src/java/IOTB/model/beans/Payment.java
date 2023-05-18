@@ -12,13 +12,19 @@ import java.time.LocalDate;
  * @author kyler
  */
 public class Payment {
+
     private String paymentID;
     private String paymentCardName;
     private long paymentCardNumber;
-    private long paymentCardCVC;
+    private int paymentCardCVC;
     private LocalDate paymentCardExpiryDate;
 
-    public Payment() {
+    public Payment(String paymentID, String paymentCardName, long paymentCardNumber, int paymentCardCVC, LocalDate paymentCardExpirtyDate) {
+        this.paymentID = paymentID;
+        this.paymentCardName = paymentCardName;
+        this.paymentCardNumber = paymentCardNumber;
+        this.paymentCardCVC = paymentCardCVC;
+        this.paymentCardExpiryDate = paymentCardExpiryDate;
     }
 
     public String getPaymentID() {
@@ -49,7 +55,7 @@ public class Payment {
         return paymentCardCVC;
     }
 
-    public void setPaymentCardCVC(long paymentCardCVC) {
+    public void setPaymentCardCVC(int paymentCardCVC) {
         this.paymentCardCVC = paymentCardCVC;
     }
 

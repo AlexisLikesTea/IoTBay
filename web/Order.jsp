@@ -3,7 +3,6 @@
     Created on : 18/05/2023, 10:03:34 PM
     Author     : anishsharma
 --%>
-
 <%@page import="IOTB.model.beans.*"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="IOTB.model.dao.*"%>
@@ -78,12 +77,39 @@
                     out.println("</tr>");
                 }
                 out.println("</table>");
-
-                out.println("<form action='PaymentServlet' method='POST'>");
-                out.println("<input type='hidden' name='action' value='makePayment'>");
-                out.println("<input type='submit' value='Checkout'>");
+                
+                // Clear Cart button
+                out.println("<div style='text-align: center; padding-top: 20px;'>"); // Add <div> container for center alignment
+                out.println("<form action='CartServlet' method='POST'>");
+                out.println("<input type='hidden' name='action' value='clearCart'>");
+                out.println("<input type='submit' value='Clear Cart'>");
                 out.println("</form>");
+                out.println("</div>");
+
+//                out.println("<div>");
+//                out.println("<form action='PaymentServlet' method='POST'>");
+//                out.println("<input type='hidden' name='action' value='makePayment'>");
+//                out.println("<input type='submit' value='Checkout'>");
+//                out.println("</form>");
+//                out.println("<form style='text-align: right; action='OrderHistoryServlet' method='POST'>");
+//                out.println("<input type='hidden' name='action' value='orderHistory'>");
+//                out.println("<input type='submit' value='Order History'>");
+//                out.println("</form>");
+//                out.println("</div>");
+                
+                    out.println("<div style='display: flex; justify-content: space-between;'>");
+                    out.println("<form action='PaymentServlet' method='POST'>");
+                    out.println("<input type='hidden' name='action' value='makePayment'>");
+                    out.println("<input type='submit' value='Checkout'>");
+                    out.println("</form>");
+                    out.println("<form style='text-align: right;' action='OrderHistoryServlet' method='POST'>");
+                    out.println("<input type='hidden' name='action' value='orderHistory'>");
+                    out.println("<input type='submit' value='Order History'>");
+                    out.println("</form>");
+                    out.println("</div>");
+
             %> 
+
         </div>
     </body>
 </html>

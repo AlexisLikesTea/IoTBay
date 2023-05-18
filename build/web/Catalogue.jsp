@@ -13,6 +13,26 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <style>
+            .button-wrapper {
+              text-align: center;
+              margin-top: 10px;
+              margin-bottom: 15px;/* Adjust margin as needed */
+            }
+
+            .button-wrapper a {
+              text-decoration: none;
+            }
+
+            .button-wrapper button {
+              padding: 10px 20px; /* Adjust padding as needed */
+              background-color: #007bff; /* Change to your desired background color */
+              color: #fff; /* Change to your desired text color */
+              border: none;
+              border-radius: 5px;
+              font-size: 16px; /* Adjust font size as needed */
+            }
+          </style>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="style.css" rel="stylesheet" type="text/css"/>
         <title>Catalogue Page</title>
@@ -67,7 +87,11 @@
                 <input style ="width:60%; text-align:center; margin: 0 20% 10px 20%; height: 30px" id = "deviceSearch" type = "text" name = "deviceSearch" placeholder="Search for a device">
 <!--put a button here (maybe) for the order payment - calls the order.controller (takes in array list of strings of devices, and other necessary stuff for the orderLine row, method in db manager, loops over array list and keep creating them in order and orderLine (with all the information)-->
                 <% if (session.getAttribute("customer") != null && session.getAttribute("admin") == null && session.getAttribute("staff") == null) { %>
-                    <a href="Order.jsp" style="float:right;"><button type="button">Go to Order</button></a>
+                    <div class="button-wrapper">
+                    <a href="Order.jsp">
+                      <button type="button">Go to Current Order</button>
+                    </a>
+                  </div>
                 <% } %>
             
             </form>

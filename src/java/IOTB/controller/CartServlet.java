@@ -36,32 +36,35 @@ public class CartServlet extends HttpServlet {
             }
             cart.add(deviceId);
             session.setAttribute("cart", cart);
+            response.sendRedirect("Catalogue.jsp");
         }
         
         if ("removeFromCart".equals(action)) {
             if (deviceId != null) {
-                try {
-                    // Get the current cart from the session
-                    ArrayList<Device> cart = (ArrayList<Device>) session.getAttribute("cart");
-
-                    // Find and remove the device with the given ID
-                    for (Iterator<Device> it = cart.iterator(); it.hasNext(); ) {
-                        Device device = it.next();
-                        if (deviceId.equals(device.getDeviceID())) {
-                            it.remove();
+                ArrayList<String> cart = (ArrayList<String>) session.getAttribute("cart");
+                if (cart != null) {
+                    Iterator<String> iterator = cart.iterator();
+                    while (iterator.hasNext()) {
+                        String cartItemId = iterator.next();
+                        if (deviceId.equals(cartItemId)) {
+                            iterator.remove();
                             break;
                         }
                     }
-
-                    // Update the cart in the session
-                    session.setAttribute("cart", cart);
-                } catch (Exception e) {
-                    // Handle any errors that might occur
-                    e.printStackTrace();
                 }
             }
+            response.sendRedirect("Order.jsp");
         }
+        
+        if ("clearCart".equals(action)) {
+            session.removeAttribute("cart");
+            response.sendRedirect("Order.jsp");
+        }
+        
+        
+        
     }
+    
  
 }
 

@@ -13,6 +13,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.Random;
 
 /**
  * Each BEAN has a DataBase manager function associated with it such that you
@@ -670,29 +671,18 @@ public class DBManager {
     /////////////////////////////////////////////////////////////////////////
     //OrderLine Section 
     //Payment Section
-    private String nextPaymentID() throws SQLException {
-        ResultSet maxIdRs = st.executeQuery("SELECT MAX(customerID) FROM CUSTOMER_T");
-        int IDLEN = 15;
-        BigInteger freshID;
-        String LOGID = null;
+    private int nextPaymentID() throws SQLException {
+        Random random = new Random();
+        int min = 1; // Minimum value
+        int max = 100000; // Maximum value
 
-        if (maxIdRs.next()) {
-            freshID = new BigInteger(maxIdRs.getString(1));
-            freshID = freshID.add(BigInteger.ONE);
-            LOGID = freshID.toString();
-        } else {
-            LOGID = "1";
-        }
-        // Add a bunch of zeros
-        while (LOGID.length() < IDLEN) {
-            LOGID += "0";
-        }
-
-        return LOGID;
+        // Generate a random number between min and max (inclusive)
+        int randomNumber = random.nextInt(max - min + 1) + min;
+        return randomNumber;
     }
 
     public void addPayment(String paymentID, String paymentCardName, long paymentCardNumber, long paymentCardCVC, LocalDate paymentCardExpiryDate, String customerID) throws SQLException {
-        paymentID = nextPaymentID();
+        paymentID = String.valueOf(nextPaymentID());
         String query = "INSERT INTO Payment_T (paymentID, paymentCardName, paymentCardNumber, paymentCardCVC, paymentCardExpiryDate, customerID) VALUES (?, ?, ?, ?, ?, ?)";
         try (PreparedStatement statement = connect.prepareStatement(query)) {
             statement.setString(1, paymentID);

@@ -24,7 +24,7 @@ import javax.servlet.http.HttpSession;
  * @author Alexis
  */
 public class PaymentManager extends HttpServlet {
-
+    
     // _____________________________________________
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,9 +36,17 @@ public class PaymentManager extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            
+            HttpSession session = request.getSession();
+            DBManager manager = (DBManager) session.getAttribute("manager"); 
+            String customerID = request.getParameter("custId");
+//                Customer editCus = (Customer) manager.findCustomerID(customerID);
+//                session.setAttribute("editCus", editCus);
+                System.out.println(customerID);
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -50,6 +58,7 @@ public class PaymentManager extends HttpServlet {
             Payment payment = (Payment) request.getAttribute("payment");
             if (payment != null) {
                 out.println("<p>Payment Card Number: " + payment.getPaymentCardNumber() + "</p>");
+                out.println("<p>Payment Card Number: " + session.getAttribute("customerID") + "</p>");
             }
             out.println("<h1>Servlet PaymentManassger at " + request.getContextPath() + "</h1>");
             out.println("</body>");
@@ -90,20 +99,21 @@ public class PaymentManager extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        
         HttpSession session = request.getSession();
         Validator validator = new Validator();
         DBManager manager = (DBManager) session.getAttribute("manager");
 
         String paymentID = request.getParameter("paymentID");
-        String paymentCardName = request.getParameter("cardNameyy");
+        String paymentCardName = request.getParameter("cardName");
         long paymentCardNumber = Long.parseLong(request.getParameter("cardNum"));
         int paymentCardCVC = Integer.parseInt(request.getParameter("CVC"));
 
         LocalDate paymentCardExpiryDate = LocalDate.parse(request.getParameter("Expiry"));
         Payment payment = new Payment(paymentID, paymentCardName, paymentCardNumber, paymentCardCVC, paymentCardExpiryDate);
         request.setAttribute("payment", payment);
-        String customerID = "38800000000000";
+        String customerID = (String) session.getAttribute("customerID");
+            processRequest(request, response);
         try {
             manager.addPayment(paymentID, paymentCardName, paymentCardNumber, paymentCardCVC, paymentCardExpiryDate, customerID);
         } catch (SQLException e) {

@@ -77,7 +77,7 @@
                     <input type = "submit" value = "Access Logs">
                 </form>
                 <span>   |   </span>
-                <a> Payment Details  </a>
+                <a href="PaymentDetails.jsp"> Payment Details  </a>
             </div>
             <% } %>
             <% if(staff != null || customer != null){ %>

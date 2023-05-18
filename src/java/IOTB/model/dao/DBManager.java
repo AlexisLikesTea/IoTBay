@@ -770,6 +770,7 @@ public class DBManager {
             statement.setDate(5, java.sql.Date.valueOf(paymentCardExpiryDate));
             statement.setString(6, customerID);
             statement.executeUpdate();
+            
             connect.commit();
         } catch (SQLException e) {
             e.printStackTrace();

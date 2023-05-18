@@ -65,7 +65,11 @@
             <form method = "POST">
                 <h4 style = "text-align: center">Browse the device catalogue</h4>
                 <input style ="width:60%; text-align:center; margin: 0 20% 10px 20%; height: 30px" id = "deviceSearch" type = "text" name = "deviceSearch" placeholder="Search for a device">
-
+<!--put a button here (maybe) for the order payment - calls the order.controller (takes in array list of strings of devices, and other necessary stuff for the orderLine row, method in db manager, loops over array list and keep creating them in order and orderLine (with all the information)-->
+                <% if (session.getAttribute("customer") != null && session.getAttribute("admin") == null && session.getAttribute("staff") == null) { %>
+                    <a href="Order.jsp" style="float:right;"><button type="button">Go to Order</button></a>
+                <% } %>
+            
             </form>
             <%
                 // This should really be implimented in a new Servlet or Model controller. 
@@ -107,8 +111,8 @@
                             out.println("</form>");
                         }
                         else if(session.getAttribute("customer") != null){
-                            out.println("<form action='DeviceServlet' method='POST'>");
-                            out.println("<input type='hidden' name='action' value='addToCard'>");
+                            out.println("<form action='CartServlet' method='POST'>");
+                            out.println("<input type='hidden' name='action' value='addToCart'>");
                             out.println("<input type='hidden' name='deviceId' value='" + dev.getDeviceID() + "'>");
                             out.println("<label for='quantity" + dev.getDeviceID() + "'>Quantity</label>");
                             out.println("<input type='number' id='quantity_" + dev.getDeviceID() + "' name='quantity'>");

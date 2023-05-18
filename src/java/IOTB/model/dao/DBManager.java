@@ -13,6 +13,7 @@ import java.math.BigInteger;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import javax.servlet.http.HttpSession;
 
 /**
  * Each BEAN has a DataBase manager function associated with it such that you
@@ -756,6 +757,21 @@ public class DBManager {
      //                Order Section cant compile DByet                     //
     /////////////////////////////////////////////////////////////////////////
     
+   public ArrayList<Device> getCartItems(HttpSession session) throws SQLException {
+        ArrayList<String> cart = (ArrayList<String>) session.getAttribute("cart");
+        ArrayList<Device> cartItems = new ArrayList<Device>();
+
+        if (cart != null) {
+            for (String deviceId : cart) {
+                Device device = this.findDevice(deviceId);
+                if (device != null) {
+                    cartItems.add(device);
+                }
+            }
+        }
+
+        return cartItems;
+    }    
     //OrderLine Section 
     
     //Payment Section

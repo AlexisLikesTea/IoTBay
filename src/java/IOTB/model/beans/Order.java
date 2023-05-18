@@ -6,7 +6,7 @@
 package IOTB.model.beans;
 
 import java.time.LocalDate;
-
+//jsp pages - button calls a method in the controller which will process information to create an object specified in beans, this order info is passed into the dao by the controller too
 /**
  *
  * @author kyler

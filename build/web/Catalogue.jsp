@@ -32,6 +32,7 @@
             <a href="mainpage.jsp"> Home </a>
             <a href='CustomerManager.jsp'> Manage Customers</a>
             <a class="active"  href ='Catalogue.jsp'> Manage Inventory </a>
+            <a href='addDevice.jsp'> Add Device</a>
             <% } %>
             
             <% if (session.getAttribute("admin") != null) { %>
@@ -58,7 +59,7 @@
         <!--This page and all others need to be updated to include all the new fields in the customer BEAN -->
 
         <div class="contentcontainer">
-
+            
             <!-- THE SECTION BELOW IS PLACEHOLDER -->
             <form method = "POST">
                 <h4 style = "text-align: center">Browse the device catalogue</h4>

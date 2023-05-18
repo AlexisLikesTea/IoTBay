@@ -747,7 +747,25 @@ public class DBManager {
         }
     }
     
-    
+    public void addDevice(String deviceID,String deviceName,String deviceDescription,String deviceBrand,String deviceSupplier,String deviceSpecifications,String deviceWRPolicy,float deviceStandardPrice,float deviceCurrentPrice,String deviceType,int deviceSOH,String deviceImage) throws SQLException{
+        String query = "(INSERT INTO Device_T VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+        
+        try(PreparedStatement statement = connect.prepareStatement(query)){
+            statement.setString(1, deviceID);
+            statement.setString(2, deviceName);
+            statement.setString(3, deviceDescription);
+            statement.setString(4, deviceBrand);
+            statement.setString(5, deviceSupplier);
+            statement.setString(6, deviceSpecifications);
+            statement.setString(7, deviceWRPolicy);
+            statement.setFloat(8, deviceStandardPrice);
+            statement.setFloat(9, deviceCurrentPrice);
+            statement.setString(10, deviceType);
+            statement.setInt(11, deviceSOH);
+            statement.setString(12, deviceImage);
+            statement.executeUpdate();
+        }
+    }
     
     
     

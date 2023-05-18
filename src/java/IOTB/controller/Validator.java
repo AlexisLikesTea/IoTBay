@@ -17,7 +17,7 @@ package IOTB.controller;
    private final String streetPattern = "\\d+.*\\b\\p{Alpha}+";
    private final String statePattern = "[A-Za-z]{2,4}";
    private final String postCodePattern = "[0-9]{2,6}";
-   private final String floatNumberPattern="^([+-]?\\d*\\.?\\d*)$";
+   private final String floatNumberPattern="[-+]?[0-9]*\\.?[0-9]+";
    private final String integerPattern="^\\d+$";
               
    public Validator(){    }       

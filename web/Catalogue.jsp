@@ -90,19 +90,19 @@
                         if (session.getAttribute("staff") != null || session.getAttribute("admin") != null) {
 
                             // Delete device button
-                            out.println("<form action='DeviceServlet' method='POST'>");
+                            out.println("<form action='addDeviceServlet' method='POST'>");
                             out.println("<input type='hidden' name='action' value='deleteDevice'>");
                             out.println("<input type='hidden' name='deviceId' value='" + dev.getDeviceID() + "'>");
                             out.println("<input type='submit' value='Delete'>");
                             out.println("</form>");
 
                             // Update device price form
-                            out.println("<form action='DeviceServlet' method='POST'>");
+                            out.println("<form action='addDeviceServlet' method='POST'>");
                             out.println("<input type='hidden' name='action' value='updateDevicePrice'>");
                             out.println("<input type='hidden' name='deviceId' value='" + dev.getDeviceID() + "'>");
                             out.println("<label for='price_" + dev.getDeviceID() + "'>Price:</label>");
                             out.println("<input type='number' id='price_" + dev.getDeviceID() + "' name='price' step='0.01'>");
-                            out.println("<input type='submit' value='Update'>");
+                            out.println("<input type='submit' name='submit' value='Update'>");
                             out.println("</form>");
                         }
                         else if(session.getAttribute("customer") != null){

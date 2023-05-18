@@ -128,7 +128,7 @@
                     
                     <tr><td></td>
                         <td>
-                            <input class="button" type="submit" value="Add button">
+                            <input class="button" type="submit" name="submit" value="addDevice">
                         </td>
                     </tr>
                 </table>

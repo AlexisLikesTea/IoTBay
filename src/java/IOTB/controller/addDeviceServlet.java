@@ -40,8 +40,7 @@ public class addDeviceServlet extends HttpServlet {
                 //Standard out//
         validator.clear(session);
         Random r = new Random();
-        
-        
+        if(request.getParameter("submit").equals("addDevice")){
         try {
             ArrayList<String> deviceIDList = new ArrayList<String>();
             for(Device d : manager.fetchDevices()){
@@ -77,20 +76,26 @@ public class addDeviceServlet extends HttpServlet {
             
             Boolean ValidForm = true;
             
-                        if (validator.validateFloat(stdPriceCheck)){
+                        if (!validator.validateFloat(stdPriceCheck)){
                             session.setAttribute("stdPriceErr", "Standard Price is invalid, Please enter a floating point number e.g. 10.00");
+                            ValidForm = false;
+                        }else{
                             stdPrice = Float.parseFloat(request.getParameter("stdPrice"));
-                            ValidForm = false;
+                            session.setAttribute("stdPriceErr", "");
                         }
-                        if (validator.validateFloat(currentPriceCheck)){
+                        if (!validator.validateFloat(currentPriceCheck)){
                             session.setAttribute("currentPriceErr", "Current Price is invalid, Please enter a floating point number e.g. 10.00");
+                            ValidForm = false;
+                        } else{
                             currentPrice = Float.parseFloat(request.getParameter("currentPrice"));
-                            ValidForm = false;
+                            session.setAttribute("currentPriceErr", "");
                         }
-                        if (validator.validateInteger(sohCheck)){
+                        if (!validator.validateInteger(sohCheck)){
                             session.setAttribute("sohErr", "Stock On Hand is invalid, Please enter an integer number e.g. 1,2,3... (not decimals)");
-                            soh = Integer.parseInt(request.getParameter("soh"));
                             ValidForm = false;
+                        } else{
+                            soh = Integer.parseInt(request.getParameter("soh"));
+                            session.setAttribute("sohErr", "");
                         }
                         if(ValidForm == true){
                             Device newDevice = new Device(
@@ -107,7 +112,7 @@ public class addDeviceServlet extends HttpServlet {
                                 soh,
                                 imageUrl);
                             manager.addDevice(newDevice);
-                            request.getRequestDispatcher("Catalogue.jsp").include(request, response); //now getting sql error
+                            request.getRequestDispatcher("deviceAdded.jsp").include(request, response); //now getting sql error
                         } else {
                             request.getRequestDispatcher("addDevice.jsp").include(request, response);
                         }
@@ -115,8 +120,19 @@ public class addDeviceServlet extends HttpServlet {
         } catch (SQLException e) {
             System.out.print(e);
         }
-//}
+        }else if(request.getParameter("submit").equals("Update")){
+            float newPrice = Float.parseFloat(request.getParameter("price"));
+            String deviceID = (String) request.getParameter("deviceId");
+            try{
+               manager.updatePrice(request.getParameter(deviceID),newPrice);
+               
+               request.getRequestDispatcher("Catalogue.jsp").include(request, response);
+            } catch (SQLException e) {
+            System.out.print(e);
         }
+            
+        }
+       }
     
     
     

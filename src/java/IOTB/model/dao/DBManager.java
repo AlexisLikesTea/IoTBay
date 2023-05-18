@@ -723,8 +723,8 @@ public class DBManager {
         String query = "UPDATE DEVICE_T SET DEVICECURRENTPRICE = ? WHERE DEVICEID = ?";
                 
         try(PreparedStatement statement = connect.prepareStatement(query)){
-            statement.setString(1, deviceID);
-            statement.setFloat(2, newPrice);
+            statement.setFloat(1, newPrice);
+            statement.setString(2, deviceID);
             statement.executeUpdate();
         }
     }

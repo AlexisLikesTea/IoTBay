@@ -93,7 +93,7 @@
                             out.println("<form action='addDeviceServlet' method='POST'>");
                             out.println("<input type='hidden' name='action' value='deleteDevice'>");
                             out.println("<input type='hidden' name='deviceId' value='" + dev.getDeviceID() + "'>");
-                            out.println("<input type='submit' value='Delete'>");
+                            out.println("<input type='submit' name='submit' value='Delete'>");
                             out.println("</form>");
 
                             // Update device price form

@@ -44,6 +44,10 @@ public class CartServlet extends HttpServlet {
         System.out.println("Action: " + action);
         System.out.println("DeviceId: " + deviceId);
         System.out.println("Quantity: " + quantity);
+        
+        if (quantity == null || quantity.equals("") || quantity.equals(" ")) {
+            quantity = "1";
+        }
 
         if (action != null && action.equals("addToCart")) {
             
@@ -64,10 +68,8 @@ public class CartServlet extends HttpServlet {
                 do {
                     orderLineId = new Random().nextInt(999999);
                 } while (!manager.isOrderLineIdUnique(orderLineId));
-                
-            if (quantity.equals("")) {
-                quantity = "1";
-            }
+            
+            System.out.println("Order Line ID: " + orderLineId);
             
             OrderLine orderLine = new OrderLine();
             orderLine.setOrderLineID(Integer.toString(orderLineId));
@@ -132,6 +134,9 @@ public class CartServlet extends HttpServlet {
                 Order order = manager.findOrder(orderId);
                 if(order == null){
                     System.out.println("No order found for orderId: " + orderId);
+                    session.removeAttribute("cart");
+                    session.removeAttribute("orderId");
+                    session.removeAttribute("orderLineId");
                     return;
                 }
                 order.setOrderTotalAmount(order.getOrderTotalAmount() + Integer.parseInt(quantity) * device.getDeviceCurrentPrice());
@@ -148,46 +153,54 @@ public class CartServlet extends HttpServlet {
             response.sendRedirect("Catalogue.jsp");
         }
 
+        if ("removeFromCart".equals(action)) {
+            String orderId = (String) session.getAttribute("orderId");
 
-            if ("removeFromCart".equals(action)) {
-                if (deviceId != null) {
-                    String orderId = (String) session.getAttribute("orderId");
-                    try {
-                        // Remove one order line from the database
-                        manager.removeOneOrderLine(orderId, deviceId);
+            if (deviceId != null && orderId != null) {
+                try {
+                    // Find the specific order line using device ID, quantity, and order ID
+                    OrderLine orderLine = manager.findOrderLine(deviceId, quantity, orderId);
+                    if (orderLine != null) {
+                        // Remove the specific order line from the database
+                        manager.removeOrderLine(orderLine.getOrderLineID());
 
                         // Update the order total amount
                         Order order = manager.findOrder(orderId);
                         Device device = manager.findDevice(deviceId);
-                        order.setOrderTotalAmount(order.getOrderTotalAmount() - device.getDeviceCurrentPrice());
+                        order.setOrderTotalAmount(order.getOrderTotalAmount() - device.getDeviceCurrentPrice() * Integer.parseInt(quantity));
                         manager.updateOrder(order);
-                    } catch (SQLException ex) {
-                        Logger.getLogger(CartServlet.class.getName()).log(Level.SEVERE, null, ex);
                     }
+                } catch (SQLException ex) {
+                    Logger.getLogger(CartServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                
-                ArrayList<String> cart = (ArrayList<String>) session.getAttribute("cart");
-                if (cart != null) {
-                    Iterator<String> iterator = cart.iterator();
-                    while (iterator.hasNext()) {
-                        String cartItemId = iterator.next();
-                        if (deviceId.equals(cartItemId)) {
-                            iterator.remove();
-                            break;
-                        }
-                    }
-                }
-                
-                response.sendRedirect("Order.jsp");
             }
+
+            // Remove the device ID from the cart
+            ArrayList<String> cart = (ArrayList<String>) session.getAttribute("cart");
+            if (cart != null) {
+                cart.remove(deviceId);
+            }
+
+            response.sendRedirect("Order.jsp");
+        }
+
         
         if ("clearCart".equals(action)) {
             String orderId = (String) session.getAttribute("orderId");
             manager.clearCart(orderId);
             manager.removeOrder(orderId);
+            manager.removeOrderLineByOrderId(orderId);
             session.removeAttribute("cart");
             session.removeAttribute("orderId");
             session.removeAttribute("orderLineId");
+            response.sendRedirect("Order.jsp");
+        }
+        
+        if ("saveCart".equals(action)) {
+            // Reset order ID, orderLineId, and cart attributes
+            session.removeAttribute("orderId");
+            session.removeAttribute("orderLineId");
+            session.removeAttribute("cart");
             response.sendRedirect("Order.jsp");
         }
         

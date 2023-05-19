@@ -15,7 +15,9 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;    
-import java.util.Date;    
+import java.util.Date;  
+import java.time.LocalDate;
+import java.time.ZoneId;
 
 /**
  * Each BEAN has a DataBase manager function associated with it such that you
@@ -776,6 +778,28 @@ public class DBManager {
         return null;
     }
    
+   public ArrayList<OrderLine> findOrderLines(String orderId) throws SQLException {
+        ArrayList<OrderLine> orderLines = new ArrayList<>();
+
+        String query = "SELECT * FROM ORDERLINE_T WHERE ORDERID = ?";
+        try (PreparedStatement statement = connect.prepareStatement(query)) {
+            statement.setString(1, orderId);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                OrderLine orderLine = new OrderLine();
+                orderLine.setOrderLineID(resultSet.getString("ORDERLINEID"));
+                orderLine.setDeviceID(resultSet.getString("DEVICEID"));
+                orderLine.setOrderlineQuantity(resultSet.getInt("ORDERLINEQUANTITY"));
+                orderLine.setOrderlineDateAdded(resultSet.getTimestamp("ORDERLINEDATEADDED"));
+                orderLines.add(orderLine);
+            }
+        } catch (SQLException e) {
+            System.err.println("SQL Exception: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return orderLines;
+    }
+   
    public boolean updateOrder(Order order) {
         String query = "UPDATE ORDER_T SET CUSTOMERID = ?, ORDERDATE = ?, ORDERTOTALAMOUNT = ?, ORDERSTATUS = ?, ORDERCOMPLETE = ?, STAFFID = ?, PAYMENTID = ? WHERE ORDERID = ?";
         try (PreparedStatement statement = connect.prepareStatement(query)) {
@@ -798,41 +822,12 @@ public class DBManager {
         }
     }
     
-    public ArrayList<Device> getCartItems(HttpSession session) throws SQLException {
-        ArrayList<String> cart = (ArrayList<String>) session.getAttribute("cart");
-        ArrayList<Device> cartItems = new ArrayList<Device>();
-
-        if (cart != null) {
-            for (String deviceId : cart) {
-                Device device = this.findDevice(deviceId);
-                if (device != null) {
-                    cartItems.add(device);
-                }
-            }
-        }
-
-        return cartItems;
+    public ArrayList<OrderLine> getCartItems(HttpSession session) throws SQLException {
+        String orderId = (String) session.getAttribute("orderId");
+        return this.findOrderLines(orderId);
     }
     
-//    public ArrayList<Device> getCartItems(String orderId) {
-//        ArrayList<Device> cartItems = new ArrayList<>();
-//        String query = "SELECT * FROM ORDERLINE_T WHERE ORDERID = ?";
-//        try (PreparedStatement statement = connect.prepareStatement(query)) {
-//            statement.setString(1, orderId);
-//            ResultSet rs = statement.executeQuery();
-//            while(rs.next()){
-//                String deviceId = rs.getString("DEVICEID");
-//                Device device = this.findDevice(deviceId);
-//                if (device != null) {
-//                    cartItems.add(device);
-//                }
-//            }
-//        } catch (SQLException e) {
-//            System.err.println("SQL Exception: " + e.getMessage());
-//            e.printStackTrace();
-//        }
-//        return cartItems;
-//    }
+
    
    public boolean isOrderIdUnique(int orderId) {
         String query = "SELECT * FROM ORDER_T WHERE ORDERID = ?";
@@ -908,21 +903,28 @@ public class DBManager {
         }
     }
    
-   public void removeOneOrderLine(String orderId, String deviceId) throws SQLException {
-        String query = "DELETE FROM ORDERLINE_T WHERE ORDERID = ? AND DEVICEID = ? " +
-                       "AND ORDERLINEID IN (SELECT ORDERLINEID FROM ORDERLINE_T " +
-                       "WHERE ORDERID = ? AND DEVICEID = ? FETCH FIRST 1 ROWS ONLY)";
+   public void removeOrderLine(String orderLineId) {
+        String query = "DELETE FROM ORDERLINE_T WHERE ORDERLINEID = ?";
         try (PreparedStatement statement = connect.prepareStatement(query)) {
-            statement.setString(1, orderId);
-            statement.setString(2, deviceId);
-            statement.setString(3, orderId);
-            statement.setString(4, deviceId);
+            statement.setString(1, orderLineId);
             statement.executeUpdate();
         } catch (SQLException e) {
             System.err.println("SQL Exception: " + e.getMessage());
             e.printStackTrace();
         }
     }
+   
+   public void removeOrderLineByOrderId(String orderId) {
+        String query = "DELETE FROM ORDERLINE_T WHERE ORDERID = ?";
+        try (PreparedStatement statement = connect.prepareStatement(query)) {
+            statement.setString(1, orderId);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println("SQL Exception: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+   
    
    public void clearCart(String orderId) {
         String query = "DELETE FROM ORDERLINE_T WHERE ORDERID = ?";
@@ -936,16 +938,101 @@ public class DBManager {
     }
    
    public void removeOrder(String orderId) {
-    String query = "DELETE FROM ORDER_T WHERE ORDERID = ?";
-    try (PreparedStatement statement = connect.prepareStatement(query)) {
-        statement.setString(1, orderId);
-        statement.executeUpdate();
-    } catch (SQLException e) {
-        System.err.println("SQL Exception: " + e.getMessage());
-        e.printStackTrace();
+        String query = "DELETE FROM ORDER_T WHERE ORDERID = ?";
+        try (PreparedStatement statement = connect.prepareStatement(query)) {
+            statement.setString(1, orderId);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println("SQL Exception: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
-}
    
+   public OrderLine findOrderLine(String deviceId, String quantity, String orderId) {
+        String query = "SELECT * FROM ORDERLINE_T WHERE DEVICEID = ? AND ORDERLINEQUANTITY = ? AND ORDERID = ?";
+        try (PreparedStatement statement = connect.prepareStatement(query)) {
+            statement.setString(1, deviceId);
+            statement.setInt(2, Integer.parseInt(quantity));
+            statement.setString(3, orderId);
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    OrderLine orderLine = new OrderLine();
+                    orderLine.setOrderLineID(resultSet.getString("ORDERLINEID"));
+                    System.out.println("Order Line to remove" + orderLine.getOrderLineID());
+                    return orderLine;
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("SQL Exception: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return null; // Return null if no matching order line is found
+    }
+
+    public ArrayList<Order> findOrders(String orderId, String customerId) throws SQLException {
+        ArrayList<Order> orders = new ArrayList<>();
+
+        String fetch = "SELECT * FROM ORDER_T WHERE ORDERID = ? AND CUSTOMERID = ?";
+        try (PreparedStatement ps = connect.prepareStatement(fetch)) {
+            ps.setString(1, orderId);
+            ps.setString(2, customerId);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                String orderID = rs.getString(1);
+                String customerID = rs.getString(2);
+                java.sql.Date sqlDate = rs.getDate(3);
+                LocalDate orderDate = null;
+                if (sqlDate != null) {
+                    orderDate = sqlDate.toLocalDate();
+                }
+                float orderTotalAmount = rs.getFloat(4);
+                String orderStatus = rs.getString(5);
+                boolean orderComplete = rs.getBoolean(6);
+                String staffID = rs.getString(7);
+                String paymentID = rs.getString(8);
+
+                Order order = new Order(orderID, customerID, orderDate, orderTotalAmount, orderStatus, orderComplete, staffID, paymentID);
+                orders.add(order);
+            }
+        }
+        return orders;
+    }
+    
+    public ArrayList<Order> findAllOrders(String customerId) throws SQLException {
+        ArrayList<Order> orders = new ArrayList<>();
+
+        String fetch = "SELECT * FROM ORDER_T WHERE CUSTOMERID = ?";
+        try (PreparedStatement ps = connect.prepareStatement(fetch)) {
+            
+            ps.setString(1, customerId);
+            
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                String orderID = rs.getString(1);
+                String customerID = rs.getString(2);
+                java.sql.Date sqlDate = rs.getDate(3);
+                LocalDate orderDate = null;
+                if (sqlDate != null) {
+                    orderDate = sqlDate.toLocalDate();
+                }
+                float orderTotalAmount = rs.getFloat(4);
+                String orderStatus = rs.getString(5);
+                boolean orderComplete = rs.getBoolean(6);
+                String staffID = rs.getString(7);
+                String paymentID = rs.getString(8);
+
+                Order order = new Order(orderID, customerID, orderDate, orderTotalAmount, orderStatus, orderComplete, staffID, paymentID);
+                orders.add(order);
+            }
+        }
+        return orders;
+    }
+
 
     //OrderLine Section 
     

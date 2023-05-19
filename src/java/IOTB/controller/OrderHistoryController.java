@@ -5,32 +5,36 @@
  */
 package IOTB.controller;
 
-import IOTB.model.dao.*;
-import IOTB.model.beans.*;
+/**
+ *
+ * @author anishsharma
+ */
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.Iterator;
+import IOTB.model.beans.*;
+import IOTB.model.dao.DBManager;
 
-public class OrderHistoryServlet extends HttpServlet {
+
+// Ensure this path matches the one in your JSP form action
+public class OrderHistoryController extends HttpServlet {
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         DBManager manager = (DBManager) session.getAttribute("manager");
-
-        response.sendRedirect("OrderHistory.jsp");
+        Customer customer = (Customer) session.getAttribute("customer");
+        String customerId = customer.getCustomerId();
         
+        String action = request.getParameter("action");
+
+        if (action.equals("orderHistory")) {
+            response.sendRedirect("OrderHistory.jsp");
+        }
         
         
     }
-    
- 
 }

@@ -59,31 +59,43 @@
             </form>
             <%
                 DBManager manager = (DBManager) session.getAttribute("manager");
-                ArrayList<Device> cartItems = manager.getCartItems(session);
+                ArrayList<OrderLine> cartItems = manager.getCartItems(session);
 
                 out.println("<table border='1'>");
-                out.println("<tr><th>Device Name</th><th>Device Price</th><th>Remove</th></tr>");
-                for (Device dev : cartItems) {
+                out.println("<tr><th>Device Name</th><th>Device Price</th><th>Quantity</th><th>Remove</th></tr>");
+                for (OrderLine orderLine : cartItems) {
+                    Device dev = manager.findDevice(orderLine.getDeviceID());
                     out.println("<tr>");
                     out.println("<td>" + dev.getDeviceName() + "</td>");
                     out.println("<td>" + "$ " + dev.getDeviceCurrentPrice() + "</td>");
+                    out.println("<td>" + orderLine.getOrderlineQuantity() + "</td>");
                     out.println("<td>");
                     out.println("<form action='CartServlet' method='POST'>");
                     out.println("<input type='hidden' name='action' value='removeFromCart'>");
                     out.println("<input type='hidden' name='deviceId' value='" + dev.getDeviceID() + "'>");
+                    out.println("<input type='hidden' name='quantity' value='" + orderLine.getOrderlineQuantity() + "'>");
                     out.println("<input type='submit' value='Remove'>");
                     out.println("</form>");
                     out.println("</td>");
-                    out.println("<td>" + "$ " + dev.getDeviceCurrentPrice() + "</td>");
                     out.println("</tr>");
                 }
                 out.println("</table>");
                 
                 // Clear Cart button
-                out.println("<div style='text-align: center; padding-top: 20px;'>"); // Add <div> container for center alignment
-                out.println("<form action='CartServlet' method='POST'>");
+//                out.println("<div style='text-align: center; padding-top: 20px;'>"); // Add <div> container for center alignment
+//                out.println("<form action='CartServlet' method='POST'>");
+//                out.println("<input type='hidden' name='action' value='clearCart'>");
+//                out.println("<input type='submit' value='Clear Cart'>");
+//                out.println("</form>");
+//                out.println("</div>");
+                out.println("<div style='text-align: center;'>"); // Update CSS style to center-align the container
+                out.println("<form action='CartServlet' method='POST' style='display: inline-block; padding-top: 20px;'>"); // Add padding-top property
                 out.println("<input type='hidden' name='action' value='clearCart'>");
                 out.println("<input type='submit' value='Clear Cart'>");
+                out.println("</form>");
+                out.println("<form action='CartServlet' method='POST' style='display: inline-block; padding-top: 20px;'>"); // Add padding-top property
+                out.println("<input type='hidden' name='action' value='saveCart'>"); // Adjust the action value accordingly
+                out.println("<input type='submit' value='Save'>");
                 out.println("</form>");
                 out.println("</div>");
                 
@@ -92,7 +104,7 @@
                 out.println("<input type='hidden' name='action' value='makePayment'>");
                 out.println("<input type='submit' value='Checkout'>");
                 out.println("</form>");
-                out.println("<form style='text-align: right;' action='OrderHistoryServlet' method='POST'>");
+                out.println("<form style='text-align: right;' action='OrderHistoryController' method='POST'>");
                 out.println("<input type='hidden' name='action' value='orderHistory'>");
                 out.println("<input type='submit' value='Order History'>");
                 out.println("</form>");

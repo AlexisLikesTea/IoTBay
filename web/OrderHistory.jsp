@@ -1,19 +1,14 @@
-<%-- 
-    Document   : OrderHistory
-    Created on : 19/05/2023, 1:38:59 AM
-    Author     : anishsharma
---%>
-
 <%@page import="IOTB.model.beans.*"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="IOTB.model.dao.*"%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="style.css" rel="stylesheet" type="text/css"/>
-        <title>Order History</title>
+        <title>Order History Page</title>
     </head>
     <body>
 
@@ -51,30 +46,42 @@
             <% if (session.getAttribute("staff") != null || session.getAttribute("customer") != null || session.getAttribute("admin") != null) { %>
             <a href = 'edit.jsp'> my account </a>
             <a  href="logout.jsp"  >Logout</a>
-            <% } %> 
+            <% } %>
         </div>
 
         <div class="contentcontainer">
 
             <form method = "POST">
-                <h4 style = "text-align: center">Your Order History</h4>
+                <h4 style = "text-align: center">Browse Your Order History</h4>
+                <input style ="width:60%; text-align:center; margin: 0 20% 10px 20%; height: 30px" id = "orderSearch" type = "text" name = "orderSearch" placeholder="Search for an order">
             </form>
 
             <%
                 DBManager manager = (DBManager) session.getAttribute("manager");
-                ArrayList<Order> OrderSearchResults = manager.findUserOrders(session.getAttribute("userId"));
+                Customer customer = (Customer) session.getAttribute("customer");
+                ArrayList<Order> OrderSearchResults;
+                String orderSearch = request.getParameter("orderSearch");
 
-                // Output order information in a table
+                if(orderSearch != null && !orderSearch.isEmpty()){
+                    OrderSearchResults = manager.findOrders(orderSearch, customer.getCustomerId());
+                } else {
+                    OrderSearchResults = manager.findAllOrders(customer.getCustomerId());
+                }
+
                 out.println("<table border='1'>");
-                out.println("<tr><th>Order ID</th><th>Date of Order</th></tr>");
+                out.println("<tr><th>Order ID</th><th>Total Amount</th><th>Date</th></tr>");
                 for (Order order : OrderSearchResults) {
                     out.println("<tr>");
                     out.println("<td>" + order.getOrderID() + "</td>");
-                    out.println("<td>" + order.getDateOfOrder() + "</td>");
+                    out.println("<td>" + "$ " + order.getOrderTotalAmount() + "</td>");
+                    out.println("<td>" + order.getOrderDate() + "</td>");
                     out.println("</tr>");
                 }
                 out.println("</table>");
+
             %> 
+           
+
         </div>
     </body>
 </html>

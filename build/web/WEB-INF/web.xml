@@ -48,6 +48,10 @@
         <servlet-name>OrderHistoryServlet</servlet-name>
         <servlet-class>IOTB.controller.OrderHistoryServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>OrderHistoryController</servlet-name>
+        <servlet-class>IOTB.controller.OrderHistoryController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ConnServlet</servlet-name>
         <url-pattern>/ConnServlet</url-pattern>
@@ -95,6 +99,10 @@
     <servlet-mapping>
         <servlet-name>OrderHistoryServlet</servlet-name>
         <url-pattern>/OrderHistoryServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderHistoryController</servlet-name>
+        <url-pattern>/OrderHistoryController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

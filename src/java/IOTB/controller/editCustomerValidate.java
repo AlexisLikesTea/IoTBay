@@ -51,12 +51,16 @@ public class editCustomerValidate extends HttpServlet {
             String suburb = null;
             String state = null;
             String postCode= null;
+            
+            // staff only attribs
+            String position = null;
         
             //Ali you need to write the code to accomidate "session.getAttribute("editStaff") below plz;
             
         try {
             Customer customer = (Customer) session.getAttribute("editCus");
-            if(customer != null){
+            Staff staff = (Staff) session.getAttribute("editStaff");
+            if(customer != null ){
                 email = request.getParameter("email");
                 userName = request.getParameter("userName");
                 password = request.getParameter("password");
@@ -189,10 +193,94 @@ public class editCustomerValidate extends HttpServlet {
 
                    // response.sendRedirect("edit.jsp");
                     request.getRequestDispatcher("CustomerManagerEdit.jsp").include(request, response);
+                    validator.clear(session);
+                    
                 
+            }else{
+                email = request.getParameter("email");
+                userName = request.getParameter("userName");
+                password = request.getParameter("password");
+                firstName = request.getParameter("firstName");
+                lastName =  request.getParameter("lastName");
+                position = request.getParameter("position");
+                
+                //Logical Tests 
+                
+                    //Email test
+                    if(!staff.getStaffEmail().equals(email)){
+                       //validate and allow
+                        if (!validator.validateEmail(email)){
+                            session.setAttribute("emailErr", "Email is invalid");
+                            //request.getRequestDispatcher("edit.jsp").include(request, response);
+                        } else { 
+                             staff.setStaffEmail(email);
+                             session.setAttribute("emailErr", "Email updated successfully too: " + email);
+                        }
+                    }
+                    //UserName 
+                    if(!staff.getStaffUsername().equals(userName)){
+                        if (!validator.validateUserName(userName)){
+                            session.setAttribute("userNameErr", "UserName is Invalid. Atleast 4 characters long, no spaces or special characters.");
+                            //request.getRequestDispatcher("edit.jsp").include(request, response);
+                        } else {
+                            staff.setStaffUsername(userName);
+                            session.setAttribute("userNameErr", "User Name updated successfully too: " + userName);
+                        }
+                    }
+                    //firstname 
+
+                    if(!staff.getStaffFirstName().equals(firstName)){
+                        if (!validator.validateName(firstName)){
+                            session.setAttribute("firstNameErr", "first name is invalid must be atleast 2 characters long.");
+                            //request.getRequestDispatcher("edit.jsp").include(request, response);
+                        } else {
+                            String nameCap = firstName.substring(0, 1).toUpperCase() + firstName.substring(1);
+                            staff.setStaffFirstName(nameCap);
+                            session.setAttribute("firstNameErr", "First name updated successfully too: " + nameCap);
+                        }
+                    }
+                    
+                    //lastName
+                    if(!staff.getStaffLastName().equals(lastName)){
+                        if (!validator.validateName(lastName)){
+                            session.setAttribute("lastNameErr", "last name is invalid must be atleast 2 characters long.");
+                            //request.getRequestDispatcher("edit.jsp").include(request, response);
+                        } else {
+                            String nameCap = lastName.substring(0, 1).toUpperCase() + lastName.substring(1);
+                            staff.setStaffLastName(nameCap);
+                            session.setAttribute("lastNameErr", "Last name updated successfully too: " + nameCap);
+                        }
+                    }
+                    //passWord 
+                    if(!staff.getStaffPassword().equals(password)){
+                        if (!validator.validatePassword(password)){
+                            session.setAttribute("passwordErr", "Password must be atleast 4 characters long, no special characters.");
+                            //request.getRequestDispatcher("edit.jsp").include(request, response);
+                        } else {
+                            staff.setStaffPassword(password);
+                            session.setAttribute("passwordErr", "Password updated successfully, dont forget");
+                        }
+                    }
+                    if(!staff.getStaffPosition().equals(position)){
+                        if (!validator.validatePassword(password)){
+                            session.setAttribute("passwordErr", "Position is empty.");
+                            //request.getRequestDispatcher("edit.jsp").include(request, response);
+                        } else {
+                            staff.setStaffPosition(position);
+                            session.setAttribute("passwordErr", "position updated successfully, dont forget");
+                        }
+                    }
+                   
+                    
+                    session.setAttribute("editStaff", staff); //refresh the staff bean
+                    manager.updateStaff(staff.getStaffID(), staff.getStaffFirstName(), staff.getStaffLastName(), staff.getStaffEmail(), staff.getStaffPosition(), staff.getStaffUsername(), staff.getStaffPassword());
+
+                   // response.sendRedirect("edit.jsp");
+                    request.getRequestDispatcher("CustomerManagerEdit.jsp").include(request, response);
+                    validator.clear(session);
             }
         }catch (SQLException ex){
-                    System.out.println(ex.getMessage() == null ? "Staff or Customer does not exist" : "Successful login");
+                    System.out.println(ex.getMessage() == null ? "Staff or staff does not exist" : "Successful login");
 
         } 
     }

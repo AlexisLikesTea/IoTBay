@@ -170,9 +170,9 @@
                         
                         <% } %> 
             </form>
+           <% if(admin != null){ %>
             <form action="editAccount" method = "POST"> 
-            <% if(admin != null){ %>
-            
+
                 <table>
                     <tr>
                         <td><label for = "Ademail">Email:</label></td>
@@ -196,7 +196,7 @@
                     
                 </table>  
              </form>
-                    <% } %>
+           <% } %>
             
         </div>
         <!--This page and all others need to be updated to include all the new fields in the customer BEAN -->

@@ -33,7 +33,7 @@ public class editCustomer extends HttpServlet {
         DBManager manager = (DBManager) session.getAttribute("manager"); 
         // _____________________________________________
                 //Standard out//
-           validator.clear(session);   
+           validator.clear(session);    
             try {
                 String customerID = request.getParameter("custId");
                 String staffID = request.getParameter("staffId");
@@ -41,7 +41,7 @@ public class editCustomer extends HttpServlet {
                 Staff editStaff = (Staff) manager.findStaffID(staffID);
                 session.setAttribute("editCus", editCus);
                 session.setAttribute("editStaff", editStaff);
-                System.out.println(customerID);
+//                System.out.println(customerID);
                  request.getRequestDispatcher("CustomerManagerEdit.jsp").include(request, response);
             } catch (SQLException ex) {
                 Logger.getLogger(editCustomer.class.getName()).log(Level.SEVERE, null, ex);

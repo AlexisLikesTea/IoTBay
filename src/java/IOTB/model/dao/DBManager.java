@@ -738,9 +738,17 @@ public class DBManager {
             statement.executeUpdate();
         }
     }
+    public void deleteOrderLineByDevice(String deviceID) throws SQLException{
+        String query = "DELETE FROM ORDERLINE_T WHERE DEVICEID = ?";
+        try(PreparedStatement statement = connect.prepareStatement(query)){
+            statement.setString(1, deviceID);
+            statement.executeUpdate();
+        }
+    }
+    
     public void deleteDevice(String deviceID) throws SQLException{
         String query = "DELETE FROM DEVICE_T WHERE DEVICEID = ?";
-         
+        deleteOrderLineByDevice(deviceID);
         try(PreparedStatement statement = connect.prepareStatement(query)){
             statement.setString(1, deviceID);
             statement.executeUpdate();

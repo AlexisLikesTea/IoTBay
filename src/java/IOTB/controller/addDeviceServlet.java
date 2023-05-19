@@ -138,7 +138,7 @@ public class addDeviceServlet extends HttpServlet {
                     String deviceID = (String) request.getParameter("deviceId");
                     try{
                         manager.deleteDevice(deviceID);
-                        request.getRequestDispatcher("deviceAdded.jsp").include(request, response);
+                        request.getRequestDispatcher("Catalogue.jsp").include(request, response);
                     } catch (SQLException e) {
                         System.out.print(e);
                     }           break;

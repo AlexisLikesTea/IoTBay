@@ -9,6 +9,7 @@
 <%@page import="IOTB.model.beans.*"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="IOTB.model.dao.*"%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -100,6 +101,7 @@
                 //place holder for now to flesh out a product, pulled from test.
                 DBManager manager = (DBManager) session.getAttribute("manager");
                 ArrayList<Device> DeviceSearchResults = manager.findDevices(request.getParameter("deviceSearch"));
+                
 
                 // Output customer information in a table
                 out.println("<table border='1'>");

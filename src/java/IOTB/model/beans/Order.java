@@ -20,6 +20,17 @@ public class Order {
     private boolean orderComplete;
     private String staffID;
     private String paymentID;
+    
+    public Order(String orderID, String customerID, LocalDate orderDate, float orderTotalAmount, String orderStatus, boolean orderComplete, String staffID, String paymentID) {
+        this.orderID = orderID;
+        this.customerID = customerID;
+        this.orderDate = orderDate;
+        this.orderTotalAmount = orderTotalAmount;
+        this.orderStatus = orderStatus;
+        this.orderComplete = orderComplete;
+        this.staffID = staffID;
+        this.paymentID = paymentID;
+    }
 
     public String getOrderID() {
         return orderID;

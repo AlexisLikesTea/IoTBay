@@ -14,6 +14,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import javax.servlet.http.HttpSession;
+import java.sql.Timestamp;    
+import java.util.Date;    
 
 /**
  * Each BEAN has a DataBase manager function associated with it such that you
@@ -757,7 +759,46 @@ public class DBManager {
      //                Order Section cant compile DByet                     //
     /////////////////////////////////////////////////////////////////////////
     
-   public ArrayList<Device> getCartItems(HttpSession session) throws SQLException {
+   public Order findOrder(String orderId) {
+        String query = "SELECT * FROM ORDER_T WHERE ORDERID = ?";
+        try (PreparedStatement statement = connect.prepareStatement(query)) {
+            statement.setString(1, orderId);
+            ResultSet rs = statement.executeQuery();
+            while(rs.next()){
+                if(rs.getString("ORDERID").equals(orderId)){
+                    return new Order(rs.getString("ORDERID"), rs.getString("CUSTOMERID"), rs.getDate("ORDERDATE").toLocalDate(), rs.getFloat("ORDERTOTALAMOUNT"), rs.getString("ORDERSTATUS"), rs.getBoolean("ORDERCOMPLETE"), rs.getString("STAFFID"), rs.getString("PAYMENTID"));
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("SQL Exception: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return null;
+    }
+   
+   public boolean updateOrder(Order order) {
+        String query = "UPDATE ORDER_T SET CUSTOMERID = ?, ORDERDATE = ?, ORDERTOTALAMOUNT = ?, ORDERSTATUS = ?, ORDERCOMPLETE = ?, STAFFID = ?, PAYMENTID = ? WHERE ORDERID = ?";
+        try (PreparedStatement statement = connect.prepareStatement(query)) {
+            statement.setString(1, order.getCustomerID());
+            statement.setDate(2, java.sql.Date.valueOf(order.getOrderDate()));
+            statement.setFloat(3, order.getOrderTotalAmount());
+            statement.setString(4, order.getOrderStatus());
+            statement.setBoolean(5, order.isOrderComplete());
+            statement.setString(6, order.getStaffID());
+            statement.setString(7, order.getPaymentID());
+            statement.setString(8, order.getOrderID());
+
+            int rowsAffected = statement.executeUpdate();
+            return rowsAffected > 0;
+
+        } catch (SQLException e) {
+            System.err.println("SQL Exception: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    public ArrayList<Device> getCartItems(HttpSession session) throws SQLException {
         ArrayList<String> cart = (ArrayList<String>) session.getAttribute("cart");
         ArrayList<Device> cartItems = new ArrayList<Device>();
 
@@ -771,7 +812,141 @@ public class DBManager {
         }
 
         return cartItems;
-    }    
+    }
+    
+//    public ArrayList<Device> getCartItems(String orderId) {
+//        ArrayList<Device> cartItems = new ArrayList<>();
+//        String query = "SELECT * FROM ORDERLINE_T WHERE ORDERID = ?";
+//        try (PreparedStatement statement = connect.prepareStatement(query)) {
+//            statement.setString(1, orderId);
+//            ResultSet rs = statement.executeQuery();
+//            while(rs.next()){
+//                String deviceId = rs.getString("DEVICEID");
+//                Device device = this.findDevice(deviceId);
+//                if (device != null) {
+//                    cartItems.add(device);
+//                }
+//            }
+//        } catch (SQLException e) {
+//            System.err.println("SQL Exception: " + e.getMessage());
+//            e.printStackTrace();
+//        }
+//        return cartItems;
+//    }
+   
+   public boolean isOrderIdUnique(int orderId) {
+        String query = "SELECT * FROM ORDER_T WHERE ORDERID = ?";
+        try (PreparedStatement statement = connect.prepareStatement(query)) {
+            statement.setInt(1, orderId);
+            ResultSet rs = statement.executeQuery();
+            return !rs.next();
+        } catch (SQLException e) {
+            System.err.println("SQL Exception: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+    }
+   
+   public boolean isOrderLineIdUnique(int orderLineId) {
+        String query = "SELECT * FROM ORDERLINE_T WHERE ORDERLINEID = ?";
+        try (PreparedStatement statement = connect.prepareStatement(query)) {
+            statement.setInt(1, orderLineId);
+            ResultSet rs = statement.executeQuery();
+            return !rs.next();
+        } catch (SQLException e) {
+            System.err.println("SQL Exception: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+    }
+   
+   public boolean addOrder(Order order) {
+        String query = "INSERT INTO ORDER_T (ORDERID, CUSTOMERID, ORDERDATE, ORDERTOTALAMOUNT, ORDERSTATUS, ORDERCOMPLETE, STAFFID, PAYMENTID) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement statement = connect.prepareStatement(query)) {
+            statement.setString(1, order.getOrderID());
+            statement.setString(2, order.getCustomerID());
+            statement.setDate(3, java.sql.Date.valueOf(order.getOrderDate()));
+            statement.setFloat(4, order.getOrderTotalAmount());
+            statement.setString(5, order.getOrderStatus());
+            statement.setBoolean(6, order.isOrderComplete());
+            statement.setString(7, order.getStaffID());
+            statement.setString(8, order.getPaymentID());
+
+            int rowsAffected = statement.executeUpdate();
+            return rowsAffected > 0;
+
+        } catch (SQLException e) {
+            System.err.println("SQL Exception: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+    }
+   
+   public boolean addOrderLine(OrderLine orderLine) {
+       Timestamp ts = orderLine.getOrderlineDateAdded();
+       if (ts == null) {
+            System.err.println("Timestamp is null. Unable to add order line.");
+            return false;
+        }
+       Date date = new Date(ts.getTime());  
+       java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+        String query = "INSERT INTO ORDERLINE_T (ORDERLINEID, ORDERID, DEVICEID, ORDERLINEDATEADDED, ORDERLINEQUANTITY) VALUES (?, ?, ?, ?, ?)";
+        try (PreparedStatement statement = connect.prepareStatement(query)) {
+            statement.setString(1, orderLine.getOrderLineID());
+            statement.setString(2, orderLine.getOrderID());
+            statement.setString(3, orderLine.getDeviceID());
+            statement.setDate(4, sqlDate);
+            statement.setInt(5, (int)orderLine.getOrderlineQuantity());
+
+            int rowsAffected = statement.executeUpdate();
+            return rowsAffected > 0;
+
+        } catch (SQLException e) {
+            System.err.println("SQL Exception: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+    }
+   
+   public void removeOneOrderLine(String orderId, String deviceId) throws SQLException {
+        String query = "DELETE FROM ORDERLINE_T WHERE ORDERID = ? AND DEVICEID = ? " +
+                       "AND ORDERLINEID IN (SELECT ORDERLINEID FROM ORDERLINE_T " +
+                       "WHERE ORDERID = ? AND DEVICEID = ? FETCH FIRST 1 ROWS ONLY)";
+        try (PreparedStatement statement = connect.prepareStatement(query)) {
+            statement.setString(1, orderId);
+            statement.setString(2, deviceId);
+            statement.setString(3, orderId);
+            statement.setString(4, deviceId);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println("SQL Exception: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+   
+   public void clearCart(String orderId) {
+        String query = "DELETE FROM ORDERLINE_T WHERE ORDERID = ?";
+        try (PreparedStatement statement = connect.prepareStatement(query)) {
+            statement.setString(1, orderId);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println("SQL Exception: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+   
+   public void removeOrder(String orderId) {
+    String query = "DELETE FROM ORDER_T WHERE ORDERID = ?";
+    try (PreparedStatement statement = connect.prepareStatement(query)) {
+        statement.setString(1, orderId);
+        statement.executeUpdate();
+    } catch (SQLException e) {
+        System.err.println("SQL Exception: " + e.getMessage());
+        e.printStackTrace();
+    }
+}
+   
+
     //OrderLine Section 
     
     //Payment Section

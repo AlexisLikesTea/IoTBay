@@ -271,9 +271,9 @@ public class DBManager {
 
             while (rs.next()) {
                 //where4 and 6 refer to email and password in staff_t
-                
-                if (rs.getString(4).equals(EmailOrUsername) && rs.getString(7).equals(password)) { 
-                    return new Staff(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6),rs.getString(7));
+
+                if (rs.getString(4).equals(EmailOrUsername) && rs.getString(7).equals(password)) {
+                    return new Staff(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7));
                 }
             }
         }
@@ -286,15 +286,15 @@ public class DBManager {
                 String username = rs.getString(6);
                 String passowrd = rs.getString(7);
                 //where5 and 6 refer to username and password in staff_t
-                if (username.equals(EmailOrUsername) && passowrd.equals(password)) { 
+                if (username.equals(EmailOrUsername) && passowrd.equals(password)) {
                     return new Staff(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7));
                 }
             }
         }
         return null;
     }
-    
-    public ArrayList<Staff> searchStaff(String Input) throws SQLException{
+
+    public ArrayList<Staff> searchStaff(String Input) throws SQLException {
         String[] querys = {
             "SELECT * FROM STAFF_T WHERE LOWER(STAFFFIRSTNAME) LIKE ?",
             "SELECT * FROM STAFF_T WHERE LOWER(STAFFLASTNAME) LIKE ?",
@@ -302,15 +302,15 @@ public class DBManager {
             "SELECT * FROM STAFF_T WHERE LOWER(STAFFID) LIKE ?"
 
         };
-        
+
         ArrayList<Staff> SearchResult = new ArrayList<>();
-        
-        if(Input != null){
-            for(String query : querys){
-                try(PreparedStatement statement = connect.prepareStatement(query)){
+
+        if (Input != null) {
+            for (String query : querys) {
+                try (PreparedStatement statement = connect.prepareStatement(query)) {
                     statement.setString(1, "%" + Input.toLowerCase() + "%");
                     ResultSet rs = statement.executeQuery();
-                    while(rs.next()){
+                    while (rs.next()) {
                         SearchResult.add(new Staff(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7)));
                     }
                 }
@@ -318,26 +318,26 @@ public class DBManager {
         } else {
             return fetchStaff();
         }
-        
+
         return SearchResult;
     }
-    
-    public Staff findStaffID(String ID) throws SQLException{
+
+    public Staff findStaffID(String ID) throws SQLException {
         String query = "SELECT * FROM ISDUSER.STAFF_T WHERE STAFFID =?";
         try (PreparedStatement statement = connect.prepareStatement(query)) {
             statement.setString(1, ID);
             ResultSet rs = statement.executeQuery();
-            while(rs.next()){
-                if(rs.getString(1).equals(ID)){
+            while (rs.next()) {
+                if (rs.getString(1).equals(ID)) {
                     return new Staff(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7));
                 }
             }
         }
         return null;
     }
-    
-    public void addStaff(String staffFirstName, String staffLastName, String staffEmail, String staffPosition,String staffUserName, String staffPassword) throws SQLException{
-        
+
+    public void addStaff(String staffFirstName, String staffLastName, String staffEmail, String staffPosition, String staffUserName, String staffPassword) throws SQLException {
+
         ResultSet maxIdRs = st.executeQuery("SELECT MAX(STAFFID) FROM STAFF_T");
         int IDLEN = 15;
         BigInteger freshID;
@@ -353,9 +353,9 @@ public class DBManager {
         while (staffID.length() < IDLEN) {
             staffID += "0";
         }
-        
+
         String qurey = "INSERT INTO STAFF_T VALUES (?,?,?,?,?,?,?)";
-        try(PreparedStatement statement = connect.prepareStatement(qurey)){
+        try (PreparedStatement statement = connect.prepareStatement(qurey)) {
             statement.setString(1, staffID);
             statement.setString(2, staffFirstName);
             statement.setString(3, staffLastName);
@@ -368,11 +368,11 @@ public class DBManager {
     }
 
     //untested
-    public void updateStaff(String staffID, String staffFirstName, String staffLastName, String staffEmail, String staffPosition,String staffUserName, String staffPassword ) throws SQLException {
-        
+    public void updateStaff(String staffID, String staffFirstName, String staffLastName, String staffEmail, String staffPosition, String staffUserName, String staffPassword) throws SQLException {
+
         String qurey = "UPDATE STAFF_T SET STAFFFIRSTNAME=?, STAFFLASTNAME=?, STAFFEMAIL=?,STAFFPOSITION=?, STAFFUSERNAME=?, STAFFPASSWORD=? WHERE STAFFID =?";
-        
-        try(PreparedStatement statement = connect.prepareStatement(qurey)){
+
+        try (PreparedStatement statement = connect.prepareStatement(qurey)) {
             statement.setString(1, staffFirstName);
             statement.setString(2, staffLastName);
             statement.setString(3, staffEmail);
@@ -408,13 +408,11 @@ public class DBManager {
             return null;
         }
     }
-    
-    
-    
+
     /////// Find Admin ////////
-        public Admin findAdmin(String Email, String password) throws SQLException {
+    public Admin findAdmin(String Email, String password) throws SQLException {
         String query1 = "SELECT * FROM ADMIN_T WHERE ADMINEMAIL =? and ADMINPASSWORD =?";
-        
+
         try (PreparedStatement statement = connect.prepareStatement(query1)) {
             statement.setString(1, Email);
             statement.setString(2, password);
@@ -422,7 +420,7 @@ public class DBManager {
 
             while (rs.next()) {
                 //where4 and 6 refer to email and password in staff_t
-                if (rs.getString(2).equals(Email) && rs.getString(3).equals(password)) { 
+                if (rs.getString(2).equals(Email) && rs.getString(3).equals(password)) {
                     return new Admin(rs.getString(1), rs.getString(2), rs.getString(3));
                 }
             }
@@ -430,15 +428,15 @@ public class DBManager {
 
         return null;
     }
-        
+
     public void updateAdmin(String AdminID, String AdminEmail, String AdminPassword) throws SQLException {
-        
+
         String qurey = "UPDATE ISDUSER.ADMIN_T SET  ADMINEMAIL=?, ADMINPASSWORD=? WHERE ADMINID =?";
-        
-        try(PreparedStatement statement = connect.prepareStatement(qurey)){
+
+        try (PreparedStatement statement = connect.prepareStatement(qurey)) {
             statement.setString(1, AdminEmail);
             statement.setString(2, AdminPassword);
-            
+
             statement.setString(3, AdminID); // there was a bug here where 3 was 7 for some ungodly reason
             statement.executeUpdate();
         }
@@ -738,14 +736,9 @@ public class DBManager {
             statement.executeUpdate();
         }
     }
-    
-    
-    
-    
-    
-    
-      /////////////////////////////////////////////////////////////////////////
-     //                Order Section cant compile DByet                     //
+
+    /////////////////////////////////////////////////////////////////////////
+    //                Order Section cant compile DByet                     //
     /////////////////////////////////////////////////////////////////////////
     //OrderLine Section 
     //Payment Section
@@ -770,11 +763,51 @@ public class DBManager {
             statement.setDate(5, java.sql.Date.valueOf(paymentCardExpiryDate));
             statement.setString(6, customerID);
             statement.executeUpdate();
-            
+            System.out.println(customerID);
             connect.commit();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
+   public List<Payment> getUserPayments(String customerID) throws SQLException {
+    List<Payment> payments = new ArrayList<>();
+    String query = "SELECT * FROM Payment_T WHERE customerID = ?";
+
+    try (PreparedStatement statement = connect.prepareStatement(query)) {
+        statement.setString(1, customerID);
+        ResultSet results = statement.executeQuery();
+
+        while (results.next()) {
+            String paymentID = results.getString("paymentID");
+            String paymentCardName = results.getString("paymentCardName");
+            long paymentCardNumber = results.getLong("paymentCardNumber");
+            int paymentCardCVC = results.getInt("paymentCardCVC");
+            LocalDate paymentCardExpiryDate = results.getDate("paymentCardExpiryDate").toLocalDate();
+           
+            System.out.println("paymentCardExpiryDate: " + paymentCardExpiryDate);
+            Payment payment = new Payment(paymentID, paymentCardName, paymentCardNumber, paymentCardCVC, paymentCardExpiryDate);
+            payments.add(payment);
+        }
+    } catch (SQLException e) {
+        System.out.println("Whoops");
+    }
+
+    return payments;
+}
+   public boolean deletePayment(String paymentID) {
+    String query = "DELETE FROM Payment_T WHERE paymentID = ?";
+
+    try (PreparedStatement statement = connect.prepareStatement(query)) {
+        statement.setString(1, paymentID);
+        int rowsAffected = statement.executeUpdate();
+
+        return rowsAffected > 0;
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return false;
+}
 
 }

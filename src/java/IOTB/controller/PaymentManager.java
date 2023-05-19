@@ -39,8 +39,8 @@ public class PaymentManager extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-
-            HttpSession session = request.getSession();
+            
+             HttpSession session = request.getSession();
             DBManager manager = (DBManager) session.getAttribute("manager");
             String customerID = request.getParameter("custId");
 //                Customer editCus = (Customer) manager.findCustomerID(customerID);
@@ -54,19 +54,20 @@ public class PaymentManager extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             out.println("<a href=\"PaymentDetails.jsp\">Details</a>");
+            out.println("<a href=\"paymentscentral.jsp\">THIS LINK SHOWS ALL YOUR PAYMENT CARDS</a>");
             Payment payment = (Payment) request.getAttribute("payment");
             Customer customer = (Customer) session.getAttribute("customer");
-            session.setAttribute("customer", null);
-            try {
-                manager.deleteCustomer(customer.getCustomerId());
-            } catch (Exception e) {
-                e.printStackTrace();
+           
+//            try {
+//                manager.deleteCustomer(customer.getCustomerId());
+//            } catch (Exception e) {
+//                e.printStackTrace();
                 if (payment != null) {
                     out.println("<p>Payment Card Number: " + payment.getPaymentCardNumber() + "</p>");
                     out.println("<p>CustomerID: " + session.getAttribute("customerID") + "</p>");
                     out.println("<p>Payment PaymentID: " + payment.getPaymentID() + "</p>");
                     out.println("<p>Payment PaymentID: " + customer.getCustomerId() + "</p>");
-                }
+               // }
                 out.println("<h1>Servlet PaymentManassger at " + request.getContextPath() + "</h1>");
                 out.println("</body>");
                 out.println("</html>");
@@ -117,11 +118,12 @@ public class PaymentManager extends HttpServlet {
             String paymentCardName = request.getParameter("cardName");
             long paymentCardNumber = Long.parseLong(request.getParameter("cardNum"));
             int paymentCardCVC = Integer.parseInt(request.getParameter("CVC"));
-
             LocalDate paymentCardExpiryDate = LocalDate.parse(request.getParameter("Expiry"));
+            Customer customer = (Customer) session.getAttribute("customer");
+            
+            String customerID = customer.getCustomerId();
             Payment payment = new Payment(paymentID, paymentCardName, paymentCardNumber, paymentCardCVC, paymentCardExpiryDate);
-            request.setAttribute("payment", payment);
-            String customerID = (String) session.getAttribute("customerID");
+           
             processRequest(request, response);
             try {
                 manager.addPayment(paymentID, paymentCardName, paymentCardNumber, paymentCardCVC, paymentCardExpiryDate, customerID);

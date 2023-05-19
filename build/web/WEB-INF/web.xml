@@ -48,6 +48,10 @@
         <servlet-name>unRegisterController</servlet-name>
         <servlet-class>IOTB.controller.unRegisterController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>deletePayment</servlet-name>
+        <servlet-class>IOTB.controller.deletePayment</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ConnServlet</servlet-name>
         <url-pattern>/ConnServlet</url-pattern>
@@ -95,6 +99,10 @@
     <servlet-mapping>
         <servlet-name>PaymentManager</servlet-name>
         <url-pattern>/PaymentManager</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>deletePayment</servlet-name>
+        <url-pattern>/deletePayment</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

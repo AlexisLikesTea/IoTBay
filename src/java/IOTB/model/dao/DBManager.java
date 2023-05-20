@@ -723,8 +723,8 @@ public class DBManager {
         String query = "UPDATE DEVICE_T SET DEVICECURRENTPRICE = ? WHERE DEVICEID = ?";
                 
         try(PreparedStatement statement = connect.prepareStatement(query)){
-            statement.setString(1, deviceID);
-            statement.setFloat(2, newPrice);
+            statement.setFloat(1, newPrice);
+            statement.setString(2, deviceID);
             statement.executeUpdate();
         }
     }
@@ -738,20 +738,41 @@ public class DBManager {
             statement.executeUpdate();
         }
     }
-    public void deleteDevice(String deviceID) throws SQLException{
-        String query = "DELETE FROM DEVICE_T WHERE DEVICEID = ?";
-         
+    public void deleteOrderLineByDevice(String deviceID) throws SQLException{
+        String query = "DELETE FROM ORDERLINE_T WHERE DEVICEID = ?";
         try(PreparedStatement statement = connect.prepareStatement(query)){
             statement.setString(1, deviceID);
             statement.executeUpdate();
         }
     }
     
+    public void deleteDevice(String deviceID) throws SQLException{
+        String query = "DELETE FROM DEVICE_T WHERE DEVICEID = ?";
+        deleteOrderLineByDevice(deviceID);
+        try(PreparedStatement statement = connect.prepareStatement(query)){
+            statement.setString(1, deviceID);
+            statement.executeUpdate();
+        }
+    }
     
-    
-    
-    
-    
+    public void addDevice(Device device) throws SQLException{
+        String query = "INSERT INTO Device_T VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try(PreparedStatement statement = connect.prepareStatement(query)){
+            statement.setString(1, device.getDeviceID());
+            statement.setString(2, device.getDeviceName());
+            statement.setString(3, device.getDeviceDescription());
+            statement.setString(4, device.getDeviceBrand());
+            statement.setString(5, device.getDeviceSupplier());
+            statement.setString(6, device.getDeviceSpecifications());
+            statement.setString(7, device.getDeviceWRPolicy());
+            statement.setFloat(8, device.getDeviceStandardPrice());
+            statement.setFloat(9, device.getDeviceCurrentPrice());
+            statement.setString(10, device.getDeviceType());
+            statement.setInt(11, device.getDeviceSOH());
+            statement.setString(12, device.getDeviceImage());
+            statement.executeUpdate();
+        }
+    }
       /////////////////////////////////////////////////////////////////////////
      //                Order Section cant compile DByet                     //
     /////////////////////////////////////////////////////////////////////////

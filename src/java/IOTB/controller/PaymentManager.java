@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -39,8 +40,8 @@ public class PaymentManager extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            
-             HttpSession session = request.getSession();
+
+            HttpSession session = request.getSession();
             DBManager manager = (DBManager) session.getAttribute("manager");
             String customerID = request.getParameter("custId");
 //                Customer editCus = (Customer) manager.findCustomerID(customerID);
@@ -57,17 +58,17 @@ public class PaymentManager extends HttpServlet {
             out.println("<a href=\"paymentscentral.jsp\">THIS LINK SHOWS ALL YOUR PAYMENT CARDS</a>");
             Payment payment = (Payment) request.getAttribute("payment");
             Customer customer = (Customer) session.getAttribute("customer");
-           
+
 //            try {
 //                manager.deleteCustomer(customer.getCustomerId());
 //            } catch (Exception e) {
 //                e.printStackTrace();
-                if (payment != null) {
-                    out.println("<p>Payment Card Number: " + payment.getPaymentCardNumber() + "</p>");
-                    out.println("<p>CustomerID: " + session.getAttribute("customerID") + "</p>");
-                    out.println("<p>Payment PaymentID: " + payment.getPaymentID() + "</p>");
-                    out.println("<p>Payment PaymentID: " + customer.getCustomerId() + "</p>");
-               // }
+            if (payment != null) {
+                out.println("<p>Payment Card Number: " + payment.getPaymentCardNumber() + "</p>");
+                out.println("<p>CustomerID: " + session.getAttribute("customerID") + "</p>");
+                out.println("<p>Payment PaymentID: " + payment.getPaymentID() + "</p>");
+                out.println("<p>Payment PaymentID: " + customer.getCustomerId() + "</p>");
+                // }
                 out.println("<h1>Servlet PaymentManassger at " + request.getContextPath() + "</h1>");
                 out.println("</body>");
                 out.println("</html>");
@@ -75,16 +76,15 @@ public class PaymentManager extends HttpServlet {
         }
     }
 
-
-        // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-        /**
-         * Handles the HTTP <code>GET</code> method.
-         *
-         * @param request servlet request
-         * @param response servlet response
-         * @throws ServletException if a servlet-specific error occurs
-         * @throws IOException if an I/O error occurs
-         */
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
 //    @Override
 //    protected void doGet(HttpServletRequest request, HttpServletResponse response)
 //            throws ServletException, IOException {
@@ -97,54 +97,76 @@ public class PaymentManager extends HttpServlet {
 //        request.setAttribute("payment", payment);
 //        processRequest(request, response);
 //    }
-        /**
-         * Handles the HTTP <code>POST</code> method.
-         *
-         * @param request servlet request
-         * @param response servlet response
-         * @throws ServletException if a servlet-specific error occurs
-         * @throws IOException if an I/O error occurs
-         */
-        @Override
-        protected void doPost
-        (HttpServletRequest request, HttpServletResponse response)
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-            HttpSession session = request.getSession();
-            Validator validator = new Validator();
-            DBManager manager = (DBManager) session.getAttribute("manager");
-
-            String paymentID = request.getParameter("paymentID");
-            String paymentCardName = request.getParameter("cardName");
-            long paymentCardNumber = Long.parseLong(request.getParameter("cardNum"));
-            int paymentCardCVC = Integer.parseInt(request.getParameter("CVC"));
-            LocalDate paymentCardExpiryDate = LocalDate.parse(request.getParameter("Expiry"));
-            Customer customer = (Customer) session.getAttribute("customer");
-            
-            String customerID = customer.getCustomerId();
-            Payment payment = new Payment(paymentID, paymentCardName, paymentCardNumber, paymentCardCVC, paymentCardExpiryDate);
-           
-            processRequest(request, response);
-            try {
-                manager.addPayment(paymentID, paymentCardName, paymentCardNumber, paymentCardCVC, paymentCardExpiryDate, customerID);
-            } catch (SQLException e) {
-                // Handle the exception here
-                System.out.println("An error occurred while adding the payment: " + e.getMessage());
-            }
-        }
-
-        /**
-         * Returns a short description of the servlet.
-         *
-         * @return a String containing servlet description
-         */
-        @Override
-        public String getServletInfo
+        HttpSession session = request.getSession();
+        Validator validator = new Validator();
+        DBManager manager = (DBManager) session.getAttribute("manager");
+        CardValidators cardvalid = new CardValidators();
         
-            () {
-        return "Short description";
-        }// </editor-fold>
+        String paymentID = request.getParameter("paymentID");
+        String paymentCardName = request.getParameter("cardName");
+        long paymentCardNumber = Long.parseLong(request.getParameter("cardNum"));
+        int paymentCardCVC = Integer.parseInt(request.getParameter("CVC"));
+        LocalDate paymentCardExpiryDate = LocalDate.parse(request.getParameter("Expiry"));
+        Customer customer = (Customer) session.getAttribute("customer");
+        
+        if (!(cardvalid.cvcValidator(String.valueOf(paymentCardCVC)))) {
+            request.setAttribute("cvvError", "Invalid CVV. Please enter a 3-digit CVV.");
+            RequestDispatcher rd = request.getRequestDispatcher("/PaymentDetails.jsp");
+            rd.forward(request, response);
+            return;
+        }
+        if (!(cardvalid.cardNumValidator(String.valueOf(paymentCardNumber)))) {
+            request.setAttribute("cardNumError", "Invalid Card Number. Make sure you number is at least 16 digits.");
+            RequestDispatcher rd = request.getRequestDispatcher("/PaymentDetails.jsp");
+            rd.forward(request, response);
+            return;
+        }
+            if(paymentCardExpiryDate == null){
+                System.out.println("hehe");
+            } else {
+                System.out.println("haha");
+            }
+         if (paymentCardExpiryDate == null) {
+            request.setAttribute("expDateError", "Invalid EXP. Please enter a valid Expiry Date.");
+            RequestDispatcher rd = request.getRequestDispatcher("/PaymentDetails.jsp");
+            rd.forward(request, response);
+            return;
+        }
+       
+        
+        
+        String customerID = customer.getCustomerId();
+        Payment payment = new Payment(paymentID, paymentCardName, paymentCardNumber, paymentCardCVC, paymentCardExpiryDate);
 
+        processRequest(request, response);
+        try {
+            manager.addPayment(paymentID, paymentCardName, paymentCardNumber, paymentCardCVC, paymentCardExpiryDate, customerID);
+        } catch (SQLException e) {
+            // Handle the exception here
+            System.out.println("An error occurred while adding the payment: " + e.getMessage());
+        }
     }
 
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
 
+}

@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 /**
  *
  * @author Alexis
@@ -41,7 +42,7 @@ public class UpdatePaymentServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet UpdatePaymentServlet</title>");            
+            out.println("<title>Servlet UpdatePaymentServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet UpdatePaymentServlet at " + request.getContextPath() + "</h1>");
@@ -76,16 +77,17 @@ public class UpdatePaymentServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         HttpSession session = request.getSession();
+        HttpSession session = request.getSession();
         DBManager manager = (DBManager) session.getAttribute("manager");
         Customer customer = (Customer) session.getAttribute("customer");
-        
-        String paymentID = request.getParameter("paymentID");
-            String cardName = request.getParameter("cardName");
-            String cardNumber = request.getParameter("cardNumber");
-            String cvc = request.getParameter("cvc");
-            String expiryDate = request.getParameter("expiryDate");
-            
+
+            String paymentID = request.getParameter("paymentID");
+            String paymentCardName = request.getParameter("cardName");
+            long paymentCardNumber = Long.parseLong(request.getParameter("cardNumber"));
+            int paymentCardCVC = Integer.parseInt(request.getParameter("cvc"));
+            //LocalDate paymentCardExpiryDate = request.getParameter("expiryDate"));
+            String customerID = customer.getCustomerId();
+        manager.updatePayment(paymentID, paymentCardName, paymentCardNumber, paymentCardCVC, customerID);
         processRequest(request, response);
     }
 

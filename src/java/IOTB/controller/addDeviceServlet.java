@@ -77,27 +77,27 @@ public class addDeviceServlet extends HttpServlet {
                     
                     Boolean ValidForm = true;
                     
-                    if (!validator.validateFloat(stdPriceCheck)){
-                        session.setAttribute("stdPriceErr", "Standard Price is invalid, Please enter a floating point number e.g. 10.00");
-                        ValidForm = false;
-                    }else{
-                        stdPrice = Float.parseFloat(request.getParameter("stdPrice"));
-                        session.setAttribute("stdPriceErr", "");
-                    }
-                    if (!validator.validateFloat(currentPriceCheck)){
-                        session.setAttribute("currentPriceErr", "Current Price is invalid, Please enter a floating point number e.g. 10.00");
-                        ValidForm = false;
-                    } else{
-                        currentPrice = Float.parseFloat(request.getParameter("currentPrice"));
-                        session.setAttribute("currentPriceErr", "");
-                    }
-                    if (!validator.validateInteger(sohCheck)){ //still need to fix this as it doesnt work properly
-                        session.setAttribute("sohErr", "Stock On Hand is invalid, Please enter an integer number e.g. 1,2,3... (not decimals)");
-                        ValidForm = false;
-                    } else{
-                        soh = Integer.parseInt(request.getParameter("soh"));
-                        session.setAttribute("sohErr", "");
-                    }
+//                    if (!validator.validateFloat(stdPriceCheck)){
+//                        session.setAttribute("stdPriceErr", "Standard Price is invalid, Please enter a floating point number e.g. 10.00");
+//                        ValidForm = false;
+//                    }else{
+//                        stdPrice = Float.parseFloat(request.getParameter("stdPrice"));
+//                        session.setAttribute("stdPriceErr", "");
+//                    }
+//                    if (!validator.validateFloat(currentPriceCheck)){
+//                        session.setAttribute("currentPriceErr", "Current Price is invalid, Please enter a floating point number e.g. 10.00");
+//                        ValidForm = false;
+//                    } else{
+//                        currentPrice = Float.parseFloat(request.getParameter("currentPrice"));
+//                        session.setAttribute("currentPriceErr", "");
+//                    }
+//                    if (!validator.validateInteger(sohCheck)){ //still need to fix this as it doesnt work properly
+//                        session.setAttribute("sohErr", "Stock On Hand is invalid, Please enter an integer number e.g. 1,2,3... (not decimals)");
+//                        ValidForm = false;
+//                    } else{
+//                        soh = Integer.parseInt(request.getParameter("soh"));
+//                        session.setAttribute("sohErr", "");
+//                    }
                     if(ValidForm == true){
                         Device newDevice = new Device(
                                 deviceID,
@@ -112,7 +112,7 @@ public class addDeviceServlet extends HttpServlet {
                                 type,
                                 soh,
                                 imageUrl);
-                        manager.addDevice(newDevice);
+//                        manager.addDevice(newDevice);
                         request.getRequestDispatcher("deviceAdded.jsp").include(request, response);
                     } else {
                         request.getRequestDispatcher("addDevice.jsp").include(request, response);

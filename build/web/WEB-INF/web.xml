@@ -41,6 +41,7 @@
         <servlet-class>IOTB.controller.unRegisterController</servlet-class>
     </servlet>
     <servlet>
+<<<<<<< HEAD
         <servlet-name>CartServlet</servlet-name>
         <servlet-class>IOTB.controller.CartServlet</servlet-class>
     </servlet>
@@ -51,6 +52,10 @@
     <servlet>
         <servlet-name>OrderHistoryController</servlet-name>
         <servlet-class>IOTB.controller.OrderHistoryController</servlet-class>
+=======
+        <servlet-name>addDeviceServlet</servlet-name>
+        <servlet-class>IOTB.controller.addDeviceServlet</servlet-class>
+>>>>>>> main
     </servlet>
     <servlet-mapping>
         <servlet-name>ConnServlet</servlet-name>
@@ -93,6 +98,7 @@
         <url-pattern>/unRegisterController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+<<<<<<< HEAD
         <servlet-name>CartServlet</servlet-name>
         <url-pattern>/CartServlet</url-pattern>
     </servlet-mapping>
@@ -103,6 +109,10 @@
     <servlet-mapping>
         <servlet-name>OrderHistoryController</servlet-name>
         <url-pattern>/OrderHistoryController</url-pattern>
+=======
+        <servlet-name>addDeviceServlet</servlet-name>
+        <url-pattern>/addDeviceServlet</url-pattern>
+>>>>>>> main
     </servlet-mapping>
     <session-config>
         <session-timeout>

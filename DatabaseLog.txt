@@ -115,7 +115,6 @@ CREATE Table AccessLog_T(
     CONSTRAINT AccessLog_T_FK2 FOREIGN KEY (staffID) REFERENCES Staff_T (staffID)
 );
 
-
 INSERT INTO Staff_T VALUES
 ('586662000000000', 'Theresa', 'Bockin','tbockin0@usnews.com','Salesperson','tbockin0','P59H1lzI'),
 ('296103000000000', 'Pearla', 'Dodgson','pdodgson1@dyndns.org','Order Picker','pdodgson1','AKI6GiGOSygR'),

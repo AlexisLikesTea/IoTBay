@@ -55,6 +55,7 @@
             <a href="mainpage.jsp"> Home </a>
             <a href='CustomerManager.jsp'> Manage Customers</a>
             <a class="active"  href ='Catalogue.jsp'> Manage Inventory </a>
+            <a href='addDevice.jsp'> Add Device</a>
             <% } %>
             
             <% if (session.getAttribute("admin") != null) { %>
@@ -81,7 +82,7 @@
         <!--This page and all others need to be updated to include all the new fields in the customer BEAN -->
 
         <div class="contentcontainer">
-
+            
             <!-- THE SECTION BELOW IS PLACEHOLDER -->
             <form method = "POST">
                 <h4 style = "text-align: center">Browse the device catalogue</h4>
@@ -121,19 +122,19 @@
                         if (session.getAttribute("staff") != null || session.getAttribute("admin") != null) {
 
                             // Delete device button
-                            out.println("<form action='DeviceServlet' method='POST'>");
+                            out.println("<form action='addDeviceServlet' method='POST'>");
                             out.println("<input type='hidden' name='action' value='deleteDevice'>");
                             out.println("<input type='hidden' name='deviceId' value='" + dev.getDeviceID() + "'>");
-                            out.println("<input type='submit' value='Delete'>");
+                            out.println("<input type='submit' name='submit' value='Delete'>");
                             out.println("</form>");
 
                             // Update device price form
-                            out.println("<form action='DeviceServlet' method='POST'>");
+                            out.println("<form action='addDeviceServlet' method='POST'>");
                             out.println("<input type='hidden' name='action' value='updateDevicePrice'>");
                             out.println("<input type='hidden' name='deviceId' value='" + dev.getDeviceID() + "'>");
                             out.println("<label for='price_" + dev.getDeviceID() + "'>Price:</label>");
                             out.println("<input type='number' id='price_" + dev.getDeviceID() + "' name='price' step='0.01'>");
-                            out.println("<input type='submit' value='Update'>");
+                            out.println("<input type='submit' name='submit' value='Update'>");
                             out.println("</form>");
                         }
                         else if(session.getAttribute("customer") != null){

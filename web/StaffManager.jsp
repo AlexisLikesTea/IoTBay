@@ -84,13 +84,14 @@
                          <td><%= staff.getStaffEmail() %></td>
                         <!-- Add more columns for other attributes -->
                         <td>
-                           <form action="editCustomer" method="post">
+                           <!--<form action="editCustomer" method="post">-->
+                            <form action="editCustomer" method="post">
                               <input type="hidden" name="staffId" id = "staffId" value="<%=staff.getStaffID()%>">
                               <input type="submit" value="Edit">
                              
                            </form>
                               <br>
-                               <form action = "DeleteCustomerServlet" method = "post">
+                               <form action = "DeleteStaffServlet" method = "post">
                                   <input type="hidden" name="DELstaffId" id = "DELstaffId" value="<%=staff.getStaffID()%>">
                                   <input type ="submit" value ="Delete">
                               </form>

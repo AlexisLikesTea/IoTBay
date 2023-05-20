@@ -6,13 +6,11 @@
 package IOTB.controller;
 
 import IOTB.model.beans.AccessLog;
-import IOTB.model.beans.Customer;
 import IOTB.model.dao.DBManager;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -23,9 +21,9 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author kyler
+ * @author aliaghajafari
  */
-public class DeleteCustomerServlet extends HttpServlet {
+public class DeleteStaffServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -38,14 +36,14 @@ public class DeleteCustomerServlet extends HttpServlet {
         // _____________________________________________
         
                 //Standard out//
-        validator.clear(session);
+//        validator.clear(session);
          
         try {
            
-            String ID = (String) request.getParameter("DELcustId");
+            String ID = (String) request.getParameter("DELstaffId");
             
             if(ID != null){
-                 session.setAttribute("DELcust", "DELcustId");
+                 session.setAttribute("DELstaff", "DELstaffId");
                  session.setAttribute("deleteErr", ID + " was removed from the data base. ");
             }
            
@@ -56,12 +54,13 @@ public class DeleteCustomerServlet extends HttpServlet {
                 manager.deleteAccessLog(log.getLogID());
             }
             
-            String delete = (String) session.getAttribute("DELcust");
-            manager.deleteCustomer((String) request.getParameter("DELcustId"));
+            String delete = (String) session.getAttribute("DELstaff");
+            manager.deleteStaff((String) request.getParameter("DELstaffId"));
 //            manager.deleteCustomer(ID);
-            request.getRequestDispatcher("CustomerManager.jsp").include(request, response);
+            request.getRequestDispatcher("StaffManager.jsp").include(request, response);
+//             validator.clear(session);
         } catch (SQLException ex) {
-            Logger.getLogger(DeleteCustomerServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DeleteStaffServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }
@@ -77,3 +76,4 @@ public class DeleteCustomerServlet extends HttpServlet {
     }// </editor-fold>
 
 }
+

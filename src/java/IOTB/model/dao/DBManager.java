@@ -200,14 +200,27 @@ public class DBManager {
         //st.executeUpdate("UPDATE ISDUSER.CUSTOMER_T SET CUSTOMERFIRSTNAME='"+ firstName+"',CUSTOMERLASTNAME='"+lastName+"',CUSTOMERDOB='"+DOB+ "',CUSTOMEREMAIL='"+customerEmail+"',CUSTOMERPHONENUMBER='"+phoneNum+"',CUSTOMERSTREET='"+street+"',CUSTOMERSUBURB='"+suburb+"',CUSTOMERPOSTCODE='"+postCode+"',CUSTOMERUSERNAME='"+userName+"',CUSTOMERPASSWORD='"+customerPassWord+"' WHERE CUSTOMERID = '"+customerId+ "'");
     }
 
-    public void deleteCustomer(String customerId) throws SQLException {
-        String query = "DELETE FROM ISDUSER.CUSTOMER_T WHERE CUSTOMERID=?";
-        try (PreparedStatement statement = connect.prepareStatement(query)) {
-            statement.setString(1, customerId);
-            statement.executeUpdate();
+public void deleteCustomer(String customerId) throws SQLException {
+        //String query = "DELETE FROM ISDUSER.CUSTOMER_T WHERE CUSTOMERID=?";
+        
+            String[] queries= {
+                 "DELETE FROM OrderLine_T WHERE orderID IN (SELECT orderID FROM Order_T WHERE customerID = ?)",
+                "UPDATE Order_T SET customerID = NULL WHERE customerID = ?",
+                "UPDATE Payment_T SET customerID = NULL where customerID = ?", // this is a fucking massive security risk. anyway..
+                "DELETE FROM AccessLog_T WHERE customerID = ?",
+                "DELETE FROM Customer_T WHERE customerID = ?",
+            };
+
+        for (String query : queries) {
+             try (PreparedStatement statement = connect.prepareStatement(query)) {
+                statement.setString(1, customerId); // Replace with the actual customer ID
+                statement.executeUpdate();
+                //statement.close();
+             }
+
+            //backup statement 
+            //st.executeUpdate("'DELETE FROM ISDUSER.CUSTOMER_T WHERE CUSTOMERID='" + customerId + "'");
         }
-        //backup statement 
-        //st.executeUpdate("'DELETE FROM ISDUSER.CUSTOMER_T WHERE CUSTOMERID='" + customerId + "'");
     }
 
     public ArrayList<Customer> fetchCustomers() throws SQLException {
@@ -389,12 +402,20 @@ public class DBManager {
     }
        
     public void deleteStaff(String staffID) throws SQLException{
-        String qurey = "DELETE FROM ISDUSER.STAFF_T WHERE STAFFID=?";
-        try(PreparedStatement statement = connect.prepareStatement(qurey)){
-            statement.setString(1, staffID);
-            statement.executeUpdate();
+        String[] qureys = {
+            "DELETE FROM AccessLog_T WHERE staffID = ?",
+            "UPDATE Order_T SET staffID = NULL WHERE staffID = ?",
+            "DELETE FROM Staff_T WHERE staffID = ?",
+        };
+        
+        for(String query : qureys){
+            try(PreparedStatement statement = connect.prepareStatement(query)){
+                statement.setString(1, staffID);
+                statement.executeUpdate();
+            }
         }
     }
+    
     
     public ArrayList<Staff> fetchStaff() throws SQLException {
         String query = "SELECT * FROM ISDUSER.STAFF_T";

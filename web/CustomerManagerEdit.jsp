@@ -16,25 +16,39 @@
         <title>JSP Page</title>
     </head>
     <body>
-        
+                    <% Customer editCus = (Customer) session.getAttribute("editCus");
+                    Staff editStaff = (Staff) session.getAttribute("editStaff");%>
 
 
         <!-- This is the top nav bar code-->
         <div class="topbanner"></div>
         <div class="topnav">
-            <a href="index.jsp"> Home </a>
-            <a href="register.jsp"> Register </a>
-            <a href="login.jsp"> Login </a>
+            <a href="mainpage.jsp"> Home </a>
             <% if (session.getAttribute("staff") != null) { %>
-            <a class="active" href='CustomerManager.jsp'> Manage Customers</a>
+            <a class = "active" href='CustomerManager.jsp'> Manage Customers</a>
             <a href ='Catalogue.jsp'> Manage Inventory </a>
             <% } %>
-            <% if (session.getAttribute("staff") != null || session.getAttribute("customer") != null) { %>
+            
+            <% if (session.getAttribute("admin") != null) { 
+                    if(editStaff != null){ %>
+                       <a class = "active" href='StaffManager.jsp'> Manage Staff Member</a>
+                    <% }else{ %>
+                       <a  href='StaffManager.jsp'> Manage Staff Member</a>
+                    <% } %>
+                    <% if(editCus != null){ %>
+                       <a  class = "active" href='CustomerManager.jsp'> Manage Customer</a>
+                    <% }else{ %>
+                       <a href='CustomerManager.jsp'> Manage Customer</a>
+                    <% } %>
+            
+            <a href ='Catalogue.jsp'> Manage Inventory</a>
+               
+            <% } %>
+            
+            <% if (session.getAttribute("staff") != null || session.getAttribute("admin") != null) { %>
             <a href = 'edit.jsp'> my account </a>
             <% } %> 
-            <%if (session.getAttribute("customer") != null && session.getAttribute("staff") == null) { %>
-            <a href ='Catalogue.jsp'>Catalogue</a>
-            <% } %>
+            
 
             <a  href="logout.jsp" >Logout</a>
         </div>
@@ -59,8 +73,8 @@
                     String stateErr = (String) session.getAttribute("stateErr");
                     String postCodeErr =(String) session.getAttribute("postCodeErr");
                     
-                    Customer editCus = (Customer) session.getAttribute("editCus");
-                    Staff editStaff = (Staff) session.getAttribute("editStaff");
+//                    Customer editCus = (Customer) session.getAttribute("editCus");
+//                    Staff editStaff = (Staff) session.getAttribute("editStaff");
                %> 
             
 
@@ -91,11 +105,17 @@
                         <td><label for = "password">Password: </label></td>
                         <td><input type = "password" id = "password" name ="password" value="${(editCus!=null ? editCus.password : editStaff.staffPassword)}"><h8> <%=(passwordErr != null ? passwordErr : "")%> </h8></td>
                     </tr>
-                    
-                    <tr>
-                        <td><label for="DOB">Date Of Birth </label></td>
-                           <td><input type = "date"  onfocus="this.showPicker()" id = "DOB" name ="DOB" value="${(editCus!=null ? editCus.DOB : "")}"><h8> <%=(DOBErr != null ? DOBErr : "")%> </h8></td>
-                    </tr>
+                  <% if(editCus != null) { %>  
+                        <tr>
+                            <td><label for="DOB">Date Of Birth </label></td>
+                               <td><input type = "date"  onfocus="this.showPicker()" id = "DOB" name ="DOB" value="${(editCus!=null ? editCus.DOB : "")}"><h8> <%=(DOBErr != null ? DOBErr : "")%> </h8></td>
+                        </tr>
+                    <% } else { %>
+                        <tr>
+                                <td><label for="position">Position </label></td>
+                               <td><input type = "text"  onfocus="this.showPicker()" id = "position" name ="position" value="${editStaff.staffPosition}"><h8> <%=(DOBErr != null ? DOBErr : "")%> </h8></td>
+                        </tr>
+                    <% } %>
                     
                     <tr><td></td>
                         <td>

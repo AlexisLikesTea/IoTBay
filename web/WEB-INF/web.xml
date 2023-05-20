@@ -44,6 +44,10 @@
         <servlet-name>addDeviceServlet</servlet-name>
         <servlet-class>IOTB.controller.addDeviceServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DeleteStaffServlet</servlet-name>
+        <servlet-class>IOTB.controller.DeleteStaffServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ConnServlet</servlet-name>
         <url-pattern>/ConnServlet</url-pattern>
@@ -87,6 +91,10 @@
     <servlet-mapping>
         <servlet-name>addDeviceServlet</servlet-name>
         <url-pattern>/addDeviceServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteStaffServlet</servlet-name>
+        <url-pattern>/DeleteStaffServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

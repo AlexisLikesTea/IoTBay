@@ -809,5 +809,26 @@ public class DBManager {
 
     return false;
 }
+   
+   public boolean updatePayment(String paymentID, String paymentCardName,  Long paymentCardNumber, Long paymentCardCVC, LocalDate paymentCardExpiryDate) {
+    String query = "UPDATE FROM Payment_T SET paymentID, paymentCardName, paymentCardNumber, paymentCardCVC, paymentCardExpiryDate, customerID) VALUES (?, ?, ?, ?, ?, ?)";;
+
+    try (PreparedStatement statement = connect.prepareStatement(query)) {
+        statement.setString(1, paymentID);
+        int rowsAffected = statement.executeUpdate();
+            statement.setString(1, paymentID);
+            statement.setString(2, paymentCardName);
+            statement.setLong(3, paymentCardNumber);
+            statement.setLong(4, paymentCardCVC);
+            statement.setDate(5, java.sql.Date.valueOf(paymentCardExpiryDate));
+            statement.executeUpdate();
+            connect.commit();
+        return rowsAffected > 0;
+    } catch (SQLException e) {
+        System.out.println("Deletion failed");
+    }
+
+    return false;
+}
 
 }

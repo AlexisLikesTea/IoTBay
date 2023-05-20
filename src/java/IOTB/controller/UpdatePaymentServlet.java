@@ -5,13 +5,19 @@
  */
 package IOTB.controller;
 
+import IOTB.model.beans.*;
+import IOTB.model.dao.*;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.Set;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import javax.servlet.http.HttpSession;
 /**
  *
  * @author Alexis
@@ -70,6 +76,16 @@ public class UpdatePaymentServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+         HttpSession session = request.getSession();
+        DBManager manager = (DBManager) session.getAttribute("manager");
+        Customer customer = (Customer) session.getAttribute("customer");
+        
+        String paymentID = request.getParameter("paymentID");
+            String cardName = request.getParameter("cardName");
+            String cardNumber = request.getParameter("cardNumber");
+            String cvc = request.getParameter("cvc");
+            String expiryDate = request.getParameter("expiryDate");
+            
         processRequest(request, response);
     }
 

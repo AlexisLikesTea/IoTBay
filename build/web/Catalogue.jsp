@@ -4,13 +4,36 @@
     Author     : kyler
 --%>
 
+<!--this is a test-->
+
 <%@page import="IOTB.model.beans.*"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="IOTB.model.dao.*"%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
+        <style>
+            .button-wrapper {
+              text-align: center;
+              margin-top: 10px;
+              margin-bottom: 15px;/* Adjust margin as needed */
+            }
+
+            .button-wrapper a {
+              text-decoration: none;
+            }
+
+            .button-wrapper button {
+              padding: 10px 20px; /* Adjust padding as needed */
+              background-color: #007bff; /* Change to your desired background color */
+              color: #fff; /* Change to your desired text color */
+              border: none;
+              border-radius: 5px;
+              font-size: 16px; /* Adjust font size as needed */
+            }
+          </style>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="style.css" rel="stylesheet" type="text/css"/>
         <title>Catalogue Page</title>
@@ -64,13 +87,22 @@
             <form method = "POST">
                 <h4 style = "text-align: center">Browse the device catalogue</h4>
                 <input style ="width:60%; text-align:center; margin: 0 20% 10px 20%; height: 30px" id = "deviceSearch" type = "text" name = "deviceSearch" placeholder="Search for a device">
-
+<!--put a button here (maybe) for the order payment - calls the order.controller (takes in array list of strings of devices, and other necessary stuff for the orderLine row, method in db manager, loops over array list and keep creating them in order and orderLine (with all the information)-->
+                <% if (session.getAttribute("customer") != null && session.getAttribute("admin") == null && session.getAttribute("staff") == null) { %>
+                    <div class="button-wrapper">
+                    <a href="Order.jsp">
+                      <button type="button">Go to Current Order</button>
+                    </a>
+                  </div>
+                <% } %>
+            
             </form>
             <%
                 // This should really be implimented in a new Servlet or Model controller. 
                 //place holder for now to flesh out a product, pulled from test.
                 DBManager manager = (DBManager) session.getAttribute("manager");
                 ArrayList<Device> DeviceSearchResults = manager.findDevices(request.getParameter("deviceSearch"));
+                
 
                 // Output customer information in a table
                 out.println("<table border='1'>");
@@ -105,9 +137,9 @@
                             out.println("<input type='submit' name='submit' value='Update'>");
                             out.println("</form>");
                         }
-                        else if(session.getAttribute("customer") != null){
-                            out.println("<form action='DeviceServlet' method='POST'>");
-                            out.println("<input type='hidden' name='action' value='addToCard'>");
+                        else if(session.getAttribute("staff") == null && session.getAttribute("admin") == null){
+                            out.println("<form action='CartServlet' method='POST'>");
+                            out.println("<input type='hidden' name='action' value='addToCart'>");
                             out.println("<input type='hidden' name='deviceId' value='" + dev.getDeviceID() + "'>");
                             out.println("<label for='quantity" + dev.getDeviceID() + "'>Quantity</label>");
                             out.println("<input type='number' id='quantity_" + dev.getDeviceID() + "' name='quantity'>");

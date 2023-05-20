@@ -6,7 +6,7 @@
 package IOTB.model.beans;
 
 import java.time.LocalDate;
-
+//jsp pages - button calls a method in the controller which will process information to create an object specified in beans, this order info is passed into the dao by the controller too
 /**
  *
  * @author kyler
@@ -20,6 +20,17 @@ public class Order {
     private boolean orderComplete;
     private String staffID;
     private String paymentID;
+    
+    public Order(String orderID, String customerID, LocalDate orderDate, float orderTotalAmount, String orderStatus, boolean orderComplete, String staffID, String paymentID) {
+        this.orderID = orderID;
+        this.customerID = customerID;
+        this.orderDate = orderDate;
+        this.orderTotalAmount = orderTotalAmount;
+        this.orderStatus = orderStatus;
+        this.orderComplete = orderComplete;
+        this.staffID = staffID;
+        this.paymentID = paymentID;
+    }
 
     public String getOrderID() {
         return orderID;

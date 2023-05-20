@@ -1,6 +1,7 @@
 <%@page import="IOTB.model.beans.*"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="IOTB.model.dao.*"%>
+<%@page import="java.text.DecimalFormat"%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -67,13 +68,15 @@
                 } else {
                     OrderSearchResults = manager.findAllOrders(customer.getCustomerId());
                 }
+                
+                DecimalFormat df = new DecimalFormat("0.00");
 
                 out.println("<table border='1'>");
                 out.println("<tr><th>Order ID</th><th>Total Amount</th><th>Date</th></tr>");
                 for (Order order : OrderSearchResults) {
                     out.println("<tr>");
                     out.println("<td>" + order.getOrderID() + "</td>");
-                    out.println("<td>" + "$ " + order.getOrderTotalAmount() + "</td>");
+                    out.println("<td>" + "$ " + df.format(order.getOrderTotalAmount()) + "</td>");
                     out.println("<td>" + order.getOrderDate() + "</td>");
                     out.println("</tr>");
                 }

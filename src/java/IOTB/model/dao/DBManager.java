@@ -804,7 +804,7 @@ public class DBManager {
 
         return rowsAffected > 0;
     } catch (SQLException e) {
-        e.printStackTrace();
+        System.out.println("Deletion failed");
     }
 
     return false;

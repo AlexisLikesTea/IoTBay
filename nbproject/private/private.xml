@@ -3,11 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Alexis/Documents/IoTBay/src/java/IOTB/model/beans/Customer.java</file>
-            <file>file:/C:/Users/Alexis/Documents/IoTBay/src/java/IOTB/controller/Validator.java</file>
+            <file>file:/C:/Users/Alexis/Documents/IoTBay/src/java/IOTB/controller/DeleteCustomerServlet.java</file>
+            <file>file:/C:/Users/Alexis/Documents/IoTBay/web/DeletePayment.jsp</file>
+            <file>file:/C:/Users/Alexis/Documents/IoTBay/src/java/IOTB/controller/LoginServlet.java</file>
+            <file>file:/C:/Users/Alexis/Documents/IoTBay/src/java/IOTB/controller/editAccount.java</file>
             <file>file:/C:/Users/Alexis/Documents/IoTBay/src/java/IOTB/model/dao/DBManager.java</file>
-            <file>file:/C:/Users/Alexis/Documents/IoTBay/src/java/IOTB/controller/unRegisterController.java</file>
-            <file>file:/C:/Users/Alexis/Documents/IoTBay/web/PaymentDetails.jsp</file>
+            <file>file:/C:/Users/Alexis/Documents/IoTBay/src/java/IOTB/model/beans/Payment.java</file>
+            <file>file:/C:/Users/Alexis/Documents/IoTBay/web/Catalogue.jsp</file>
+            <file>file:/C:/Users/Alexis/Documents/IoTBay/web/WEB-INF/web.xml</file>
+            <file>file:/C:/Users/Alexis/Documents/IoTBay/web/paymentscentral.jsp</file>
+            <file>file:/C:/Users/Alexis/Documents/IoTBay/src/java/IOTB/controller/deletePayment.java</file>
             <file>file:/C:/Users/Alexis/Documents/IoTBay/src/java/IOTB/controller/PaymentManager.java</file>
         </group>
     </open-files>

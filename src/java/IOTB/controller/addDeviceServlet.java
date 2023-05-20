@@ -98,6 +98,13 @@ public class addDeviceServlet extends HttpServlet {
                         soh = Integer.parseInt(request.getParameter("soh"));
                         session.setAttribute("sohErr", "");
                     }
+                    if (name.isEmpty()){
+                        session.setAttribute("nameErr", "Devices must have a name");
+                        ValidForm = false;
+                    }else{
+                        stdPrice = Float.parseFloat(request.getParameter("stdPrice"));
+                        session.setAttribute("nameErr", "");
+                    }
                     if(ValidForm == true){
                         Device newDevice = new Device(
                                 deviceID,
@@ -123,22 +130,25 @@ public class addDeviceServlet extends HttpServlet {
                 }   break;
             case "Update":
                 {
+                    if(!request.getParameter("price").isEmpty()){
                     float newPrice = Float.parseFloat(request.getParameter("price"));
                     String deviceID = (String) request.getParameter("deviceId");
                     //need to add some validation for the price
                     try{
                         manager.updatePrice(deviceID,newPrice);
-                        request.getRequestDispatcher("Catalogue.jsp").include(request, response);
+                        request.getRequestDispatcher("deviceUpdated.jsp").include(request, response);
                     } catch (SQLException e) {
                         System.out.print(e);
-                    }           break;
+                    }}else{
+                        request.getRequestDispatcher("devUpdateFailed.jsp").include(request, response); //push to another page to force them to jump back to catalouge
+                    } break;
                 }
             case "Delete":
                 {
                     String deviceID = (String) request.getParameter("deviceId");
                     try{
                         manager.deleteDevice(deviceID);
-                        request.getRequestDispatcher("deviceAdded.jsp").include(request, response);
+                        request.getRequestDispatcher("deviceDeleted.jsp").include(request, response);
                     } catch (SQLException e) {
                         System.out.print(e);
                     }           break;

@@ -37,7 +37,8 @@
             
             String stdPriceErr = (String) session.getAttribute("stdPriceErr");
             String currentPriceErr = (String) session.getAttribute("currentPriceErr");
-            String sohErr = (String) session.getAttribute("currentPriceErr");
+            String sohErr = (String) session.getAttribute("sohErr");
+            String nameErr = (String) session.getAttribute("nameErr");
             
         %>
       
@@ -48,9 +49,7 @@
             
             <% if (session.getAttribute("staff") != null) { %>
             <a href="mainpage.jsp"> Home </a>
-            <a href='CustomerManager.jsp'> Manage Customers</a>
             <a  href ='Catalogue.jsp'> Manage Inventory </a>
-            <a href =''> Manage AccessLogs</a>
             <% } %>
             
             <% if (session.getAttribute("admin") != null) { %>
@@ -66,7 +65,6 @@
             <a  href ='Catalogue.jsp'>Catalogue</a>
             <% } %>
             <% if (session.getAttribute("staff") != null || session.getAttribute("customer") != null || session.getAttribute("admin") != null) { %>
-            <a class="active" href = 'edit.jsp'> my account </a>
             <a  href="logout.jsp"  >Logout</a>
             <% } %> 
         </div>
@@ -82,7 +80,7 @@
                 <table>
                     <tr>
                         <td><label for = "deviceName">Name:</label></td>
-                        <td><input type = "text" id = "name" name = "name" value=""/></td>
+                        <td><input type = "text" id = "name" name = "name" value=""/><h8> <%=(nameErr != null ? nameErr : "")%> </h8></td>
                     </tr>
                     <tr>
                         <td><label for = "deviceDescription">Description:</label></td>

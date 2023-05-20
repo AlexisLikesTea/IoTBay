@@ -209,22 +209,20 @@ public void deleteCustomer(String customerId) throws SQLException {
         //String query = "DELETE FROM ISDUSER.CUSTOMER_T WHERE CUSTOMERID=?";
         
             String[] queries= {
-                 "DELETE FROM OrderLine_T WHERE orderID IN (SELECT orderID FROM Order_T WHERE customerID = ?)",
-                "UPDATE Order_T SET customerID = NULL WHERE customerID = ?",
-                "UPDATE Payment_T SET customerID = NULL where customerID = ?", // this is a fucking massive security risk. anyway..
+                "DELETE FROM OrderLine_T WHERE orderID IN (SELECT orderID FROM Order_T WHERE customerID = ?)",
+                "UPDATE Order_T SET staffID = NULL WHERE customerID = ?",
+                "UPDATE Order_T SET paymentID = NULL WHERE customerID = ?",
+                "DELETE FROM Order_T WHERE customerID = ?",
+                "DELETE FROM Payment_T where customerID = ?", // this is the oneeeee.
                 "DELETE FROM AccessLog_T WHERE customerID = ?",
                 "DELETE FROM Customer_T WHERE customerID = ?",
             };
 
         for (String query : queries) {
              try (PreparedStatement statement = connect.prepareStatement(query)) {
-                statement.setString(1, customerId); // Replace with the actual customer ID
+                statement.setString(1, customerId); 
                 statement.executeUpdate();
-                //statement.close();
              }
-
-            //backup statement 
-            //st.executeUpdate("'DELETE FROM ISDUSER.CUSTOMER_T WHERE CUSTOMERID='" + customerId + "'");
         }
     }
 

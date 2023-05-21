@@ -59,7 +59,6 @@
             <th>Card Name</th>
             <th>Card Number</th>
             <th>CVC</th>
-            <th>Expiry Date</th>
             <th>Action</th>
         </tr>
         
@@ -69,7 +68,6 @@
                 <td><%= payment.getPaymentCardName() %></td>
                 <td><%= payment.getPaymentCardNumber() %></td>
                 <td><%= payment.getPaymentCardCVC() %></td>
-                <td><%= payment.getPaymentCardExpiryDate() != null ? payment.getPaymentCardExpiryDate().toString() : "" %></td>
                 <td>
                     <form action="deletePayment" method="POST">
                         <input type="hidden" name="action" value="delete">

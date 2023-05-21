@@ -67,7 +67,6 @@
                 <th>Card Name</th>
                 <th>Card Number</th>
                 <th>CVC</th>
-                <th>Expiry Date</th>
                 <th>Action</th>
             </tr>
              <h4> <%= (String) request.getAttribute("cvvError") != null ? request.getAttribute("cvvError") : ""%> </h4>
@@ -82,7 +81,6 @@
                         <td><input type="text" name="cvc" value="<%= payment.getPaymentCardCVC() %>" />
                         
                          </td>
-                        <td><input type="text" name="expiryDate" value="<%= payment.getPaymentCardExpiryDate() != null ? payment.getPaymentCardExpiryDate().toString() : "" %>" /></td>
                         <td>
                             <input type="hidden" name="action" value="update" />
                             <input type="hidden" name="paymentID" value="<%= payment.getPaymentID() %>" />

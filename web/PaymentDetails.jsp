@@ -49,10 +49,7 @@
                 <form action = "AccessLogController" method = "post">
                     <input type = "submit" value = "Access Logs">
                 </form>
-                <span>   |   </span>
-                <a> Payment Details  </a>
-                <a href='DeletePayment.jsp'>Delete A Card</a>
-                <a href='UpdatePayment.jsp'>Update A Card</a>
+                
             </div>
 
             <form action="PaymentManager" method = "POST">  

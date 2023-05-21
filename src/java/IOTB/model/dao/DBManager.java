@@ -824,7 +824,7 @@ public void deleteCustomer(String customerId) throws SQLException {
     }
 
     return payments;
-    
+   }
     public void addDevice(Device device) throws SQLException{
         String query = "INSERT INTO Device_T VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try(PreparedStatement statement = connect.prepareStatement(query)){
@@ -1123,7 +1123,7 @@ public void deleteCustomer(String customerId) throws SQLException {
     //OrderLine Section 
     
     //Payment Section
-}
+
    public boolean deletePayment(String paymentID) {
     String query = "DELETE FROM Payment_T WHERE paymentID = ?";
 
@@ -1160,3 +1160,4 @@ public void deleteCustomer(String customerId) throws SQLException {
 }
 
 }
+

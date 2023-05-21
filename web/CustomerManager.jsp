@@ -86,7 +86,9 @@
                     <table border='1'>
                     <tr><th>ID</th><th>Name</th><th>Email</th><th>Action</th></tr>
                     
-                     <%for(Customer cus: customers) { %>
+                     <%for(Customer cus: customers) { 
+                        if(!cus.getCustomerId().equals("12345678901234")){ // the default man!!!!
+                                %>
                         <td><%= cus.getCustomerId() %></td>
                         <td><%= cus.getFirstName() %> <%=cus.getLastName()%></td>
                          <td><%= cus.getEmail() %></td>
@@ -104,7 +106,8 @@
                               </form>
                         </td>
                      </tr>
-                    <%}%>
+                    <%}
+                    }%>
              
                 
             </div>
@@ -113,3 +116,4 @@
         </div>  
     </body>
 </html>
+

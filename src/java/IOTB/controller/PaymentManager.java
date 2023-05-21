@@ -166,7 +166,7 @@ public class PaymentManager extends HttpServlet {
         }
 
         if (!isValid) {
-            RequestDispatcher rd = request.getRequestDispatcher("/UpdatePayment.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("/PaymentDetails.jsp");
             rd.forward(request, response);
             return;
         }

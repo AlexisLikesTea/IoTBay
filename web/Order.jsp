@@ -100,14 +100,13 @@
                 out.println("</div>");
                 
                 out.println("<div style='display: flex; justify-content: space-between;'>");
-                out.println("<form action='PaymentServlet' method='POST'>");
-                out.println("<input type='hidden' name='action' value='makePayment'>");
-                out.println("<input type='submit' value='Checkout'>");
-                out.println("</form>");
-                out.println("<form style='text-align: right;' action='OrderHistoryController' method='POST'>");
-                out.println("<input type='hidden' name='action' value='orderHistory'>");
-                out.println("<input type='submit' value='Order History'>");
-                out.println("</form>");
+                
+                if(session.getAttribute("customer") != null ){
+                    out.println("<form style='text-align: right;' action='OrderHistoryController' method='POST'>");
+                    out.println("<input type='hidden' name='action' value='orderHistory'>");
+                    out.println("<input type='submit' value='Order History'>");
+                    out.println("</form>");
+                }
                 out.println("</div>");
 
             %> 

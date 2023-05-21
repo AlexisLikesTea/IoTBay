@@ -68,27 +68,29 @@
 
                 <table>
                     <tr>
-                        <td><label for = "state"> Name on card: </label></td>
-                        <td><input type = "text" id = "cardName" name = "cardName" placeholder ="Your name on the card"  value = "${(customer.state != "" ? customer.state : null)}"><h8> <%=(stateErr != null ? stateErr : "")%> </h8></td>
+                        <td><label for = "cardName"> Name on card: </label></td>
+                        <td><input type = "text" id = "cardName" name = "cardName" placeholder ="Your name on the card">
+                        <h8> <%= (String) request.getAttribute("cNameError") != null ? request.getAttribute("cNameError") : ""%> </h8>
+                    </td>
                     </tr>
                     <tr>
                         <td><label for="cardNum">Card Number: </label></td>
                         <td><input type="text" id="cardNum" name="cardNum" placeholder="Please add your card's number" value=""> 
                     <h8> <%= (String) request.getAttribute("cardNumError") != null ? request.getAttribute("cardNumError") : ""%> </h8>
-                        
+                    </td>
                     </tr>
                     <tr>
                         <td><label for = "CVC"> CVC: </label></td>
                         <td><input type = "int" id = "CVC" name = "CVC" placeholder ="Your cards CVV" value = ""> 
                     <h8> <%= (String) request.getAttribute("cvvError") != null ? request.getAttribute("cvvError") : ""%> </h8>
-                </td>    
-                </tr>
+                    </td>    
+                    </tr>
                     <tr>
                         <td><label for = "Expiry"> Expiry Date: </label></td>
                         <td><input type = "date" id = "Expiry" name = "Expiry" placeholder ="Your cards Expiry Date">
-                 <h8> <%= (String) request.getAttribute("expDateError") != null ? request.getAttribute("expDateError") : ""%> </h8>
-                </td>    
-                </tr>
+                    <h8> <%= (String) request.getAttribute("expDateError") != null ? request.getAttribute("expDateError") : ""%> </h8>
+                    </td>    
+                    </tr>
                     <tr>
                         <td>
                             <span>${requestScope.payment.paymentCardNumber}</span>

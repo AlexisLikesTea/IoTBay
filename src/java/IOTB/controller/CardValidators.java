@@ -15,23 +15,34 @@ import java.time.LocalDate;
 public class CardValidators {
 
     public boolean cvcValidator(String cvcInput) {
-        if (cvcInput == null || cvcInput.length() != 3 && cvcInput.matches("\\d+")) {
+        if (cvcInput == null || cvcInput.length() != 3 || cvcInput.matches("\\d+")) {
             return false;
         }
         return true;
     }
 
     public boolean cardNumValidator(String cardNum) {
-        if (cardNum.length() < 15 && !cardNum.matches("\\d+")) {
+        if (cardNum.length() < 15 || !cardNum.matches("\\d+")) {
+            return false;
+        }
+        return true;
+    }
+    
+    public boolean cardNameValidator(String cardName) {
+        if (cardName.isEmpty()) {
             return false;
         }
         return true;
     }
     
     public boolean cardDateValidator(LocalDate cardDate) {
-        if (cardDate == null) {
+        LocalDate currentDate = LocalDate.now();
+        if(cardDate.isBefore(currentDate)){
             return false;
         }
         return true;
+                 
+       
+       
     }
 }

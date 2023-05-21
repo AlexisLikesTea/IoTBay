@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -108,65 +109,99 @@ public class PaymentManager extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        LocalDate paymentCardExpiryDate = null;
+        int paymentCardCVC = 0;
+        
         HttpSession session = request.getSession();
         Validator validator = new Validator();
         DBManager manager = (DBManager) session.getAttribute("manager");
         CardValidators cardvalid = new CardValidators();
-        
+        String dateString = request.getParameter("Expiry");
         String paymentID = request.getParameter("paymentID");
         String paymentCardName = request.getParameter("cardName");
         long paymentCardNumber = Long.parseLong(request.getParameter("cardNum"));
-        int paymentCardCVC = Integer.parseInt(request.getParameter("CVC"));
-        LocalDate paymentCardExpiryDate = LocalDate.parse(request.getParameter("Expiry"));
-        Customer customer = (Customer) session.getAttribute("customer");
+            
+        boolean isValid = true;
         
-        if (!(cardvalid.cvcValidator(String.valueOf(paymentCardCVC)))) {
-            request.setAttribute("cvvError", "Invalid CVV. Please enter a 3-digit CVV.");
-            RequestDispatcher rd = request.getRequestDispatcher("/PaymentDetails.jsp");
-            rd.forward(request, response);
-            return;
-        }
-        if (!(cardvalid.cardNumValidator(String.valueOf(paymentCardNumber)))) {
-            request.setAttribute("cardNumError", "Invalid Card Number. Make sure you number is at least 16 digits.");
-            RequestDispatcher rd = request.getRequestDispatcher("/PaymentDetails.jsp");
-            rd.forward(request, response);
-            return;
-        }
-            if(paymentCardExpiryDate == null){
-                System.out.println("hehe");
-            } else {
-                System.out.println("haha");
-            }
-         if (paymentCardExpiryDate == null) {
-            request.setAttribute("expDateError", "Invalid EXP. Please enter a valid Expiry Date.");
-            RequestDispatcher rd = request.getRequestDispatcher("/PaymentDetails.jsp");
-            rd.forward(request, response);
-            return;
-        }
-       
+        // CVC validation
         
-        
-        String customerID = customer.getCustomerId();
-        Payment payment = new Payment(paymentID, paymentCardName, paymentCardNumber, paymentCardCVC, paymentCardExpiryDate);
-
-        processRequest(request, response);
         try {
-            manager.addPayment(paymentID, paymentCardName, paymentCardNumber, paymentCardCVC, paymentCardExpiryDate, customerID);
-        } catch (SQLException e) {
-            // Handle the exception here
-            System.out.println("An error occurred while adding the payment: " + e.getMessage());
+             paymentCardCVC = Integer.parseInt(request.getParameter("CVC"));
+              if (!(cardvalid.cvcValidator(String.valueOf(paymentCardCVC)))) {
+                request.setAttribute("cvvError", "Invalid CVV. Please enter a 3-digit CVV.");
+                isValid = false;
+            }
+        } catch (NumberFormatException  e) {
+            request.setAttribute("cvvError", "Invalid CVC. CVC cannot be empty'.");
+             isValid = false;
         }
+        
+        //Expiry Date validation
+        
+        try {
+             paymentCardExpiryDate = LocalDate.parse(request.getParameter("Expiry"));
+              if (!(cardvalid.cardDateValidator(paymentCardExpiryDate))){
+                    request.setAttribute("expDateError", "Invalid Date. Date cannot be before today!'.");
+                   isValid = false;;
+              }
+        } catch (DateTimeParseException e) {
+            request.setAttribute("expDateError", "Invalid date. Date cannot be empty'.");
+            isValid = false;
+        }
+        
+        
+        if (!(cardvalid.cardNameValidator(paymentCardName))) {
+            request.setAttribute("cNameError", "Invalid Name. Name cannot be empty");
+            isValid = false;
+        }
+        
+        
+        if (!isValid) {
+        RequestDispatcher rd = request.getRequestDispatcher("/PaymentDetails.jsp");
+        rd.forward(request, response);
+        return;
     }
+        
+            Customer customer = (Customer) session.getAttribute("customer");
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
+//            if (!(cardvalid.cvcValidator(String.valueOf(paymentCardCVC)))) {
+//                request.setAttribute("cvvError", "Invalid CVV. Please enter a 3-digit CVV.");
+//                RequestDispatcher rd = request.getRequestDispatcher("/PaymentDetails.jsp");
+//                rd.forward(request, response);
+//                return;
+//            }
+            if (!(cardvalid.cardNumValidator(String.valueOf(paymentCardNumber)))) {
+                request.setAttribute("cardNumError", "Invalid Card Number. Make sure you number is at least 16 digits.");
+                RequestDispatcher rd = request.getRequestDispatcher("/PaymentDetails.jsp");
+                rd.forward(request, response);
+                return;
+            }
+          
+            
+            String customerID = customer.getCustomerId();
+            Payment payment = new Payment(paymentID, paymentCardName, paymentCardNumber, paymentCardCVC, paymentCardExpiryDate);
+
+            processRequest(request, response);
+            try {
+                manager.addPayment(paymentID, paymentCardName, paymentCardNumber, paymentCardCVC, paymentCardExpiryDate, customerID);
+            } catch (SQLException e) {
+                // Handle the exception here
+                System.out.println("An error occurred while adding the payment: " + e.getMessage());
+            } catch (NullPointerException e){
+                System.out.println("Error with manager.addpayment");
+            }
+        }
+
+        /**
+         * Returns a short description of the servlet.
+         *
+         * @return a String containing servlet description
+         */
+        @Override
+        public String getServletInfo
+        
+            () {
         return "Short description";
-    }// </editor-fold>
+        }// </editor-fold>
 
-}
+    }

@@ -15,14 +15,15 @@ import java.time.LocalDate;
 public class CardValidators {
 
     public boolean cvcValidator(String cvcInput) {
-        if (cvcInput == null || cvcInput.length() != 3 || cvcInput.matches("\\d+")) {
+        if (cvcInput == null || cvcInput.length() != 3 ) {
             return false;
         }
         return true;
     }
 
-    public boolean cardNumValidator(String cardNum) {
-        if (cardNum.length() < 15 || !cardNum.matches("\\d+")) {
+    public boolean cardNumValidator(long cardNum) {
+        String cNumStr = String.valueOf(cardNum);
+        if (cNumStr.length() < 15) {
             return false;
         }
         return true;

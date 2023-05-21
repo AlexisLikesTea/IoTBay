@@ -13,6 +13,7 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Set;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -77,16 +78,56 @@ public class UpdatePaymentServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        CardValidators cardvalid = new CardValidators();
         HttpSession session = request.getSession();
         DBManager manager = (DBManager) session.getAttribute("manager");
         Customer customer = (Customer) session.getAttribute("customer");
+        
+        int paymentCardCVC = 0;
+        long paymentCardNumber = 0;
+      
+        String paymentID = request.getParameter("paymentID");
+        String paymentCardName = request.getParameter("cardName");
+        
+           boolean isValid = true;
+            //Validate cVC
+        try {
+            paymentCardCVC = Integer.parseInt(request.getParameter("cvc"));
+            if (!(cardvalid.cvcValidator(String.valueOf(paymentCardCVC)))) {
+                request.setAttribute("cvvError", "Invalid CVV. Please enter a 3-digit CVV.");
+                isValid = false;
+            }
+        } catch (NumberFormatException e) {
+            request.setAttribute("cvvError", "Invalid CVC. CVC cannot be empty.");
+            isValid = false;
+        }
+        
+        //Num validation
+         try {
+            paymentCardNumber = Long.parseLong(request.getParameter("cardNum"));;
+            if (!(cardvalid.cardNumValidator(paymentCardNumber))) {
+                request.setAttribute("cardNumError", "Invalid Card Number. Must be 16 numbers in length or more.");
+                isValid = false;;
+            }
+        } catch (NumberFormatException e) {
+            request.setAttribute("cardNumError", "Invalid card number. Card Number cannot be empty.");
+            isValid = false;
+        }
+         
+         if (!(cardvalid.cardNameValidator(paymentCardName))) {
+            request.setAttribute("cNameError", "Invalid Name. Name cannot be empty");
+            isValid = false;
+        }
+         
+          if (!isValid) {
+            RequestDispatcher rd = request.getRequestDispatcher("/UpdatePayment.jsp");
+            rd.forward(request, response);
+            return;
+        }
 
-            String paymentID = request.getParameter("paymentID");
-            String paymentCardName = request.getParameter("cardName");
-            long paymentCardNumber = Long.parseLong(request.getParameter("cardNumber"));
-            int paymentCardCVC = Integer.parseInt(request.getParameter("cvc"));
-            //LocalDate paymentCardExpiryDate = request.getParameter("expiryDate"));
-            String customerID = customer.getCustomerId();
+        //LocalDate paymentCardExpiryDate = request.getParameter("expiryDate"));
+        String customerID = customer.getCustomerId();
         manager.updatePayment(paymentID, paymentCardName, paymentCardNumber, paymentCardCVC, customerID);
         processRequest(request, response);
     }

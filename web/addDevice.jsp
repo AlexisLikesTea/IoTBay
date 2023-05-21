@@ -104,11 +104,11 @@
                     </tr>
                     <tr>
                         <td><label for = "deviceStandardPrice">Standard Price:</label></td>
-                        <td><input type = "text" id = "stdPrice" name = "stdPrice" value=""/><h8> <%=(stdPriceErr != null ? stdPriceErr : "")%> </h8></td>
+                        <td><input type="number" step="0.01" id = "stdPrice" name = "stdPrice" value=""/><h8> <%=(stdPriceErr != null ? stdPriceErr : "")%> </h8></td>
                     </tr>
                     <tr>
                         <td><label for = "deviceCurrentPrice">Current Price: </label></td>
-                        <td><input type = "text" id = "currentPrice" name = "currentPrice" value=""/><h8> <%=(currentPriceErr != null ? currentPriceErr : "")%> </h8></td>
+                        <td><input type="number" step="0.01" id = "currentPrice" name = "currentPrice" value=""/><h8> <%=(currentPriceErr != null ? currentPriceErr : "")%> </h8></td>
                     </tr>
                     <tr>
                         <td><label for = "deviceType">Type: </label></td>
@@ -117,7 +117,7 @@
                     </tr>
                     <tr>
                         <td><label for = "deviceSOH">Stock On Hand:</label></td>
-                        <td><input type = "text" id = "soh" name = "soh" value=""/><h8> <%=(sohErr != null ? sohErr : "")%> </h8></td>
+                        <td><input type="number" id = "soh" name = "soh" value=""/><h8> <%=(sohErr != null ? sohErr : "")%> </h8></td>
                     </tr>
                     <tr>
                         <td><label for = "deviceImage">Image (URL): </label></td>

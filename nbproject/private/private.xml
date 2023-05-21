@@ -3,11 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Jack/Downloads/UTS%20stuff/Second%20year/ISD/IoTBay/src/java/IOTB/controller/addDeviceServlet.java</file>
-            <file>file:/C:/Users/Jack/Downloads/UTS%20stuff/Second%20year/ISD/IoTBay/nbproject/build-impl.xml</file>
-            <file>file:/C:/Users/Jack/Downloads/UTS%20stuff/Second%20year/ISD/IoTBay/web/Catalogue.jsp</file>
-            <file>file:/C:/Users/Jack/Downloads/UTS%20stuff/Second%20year/ISD/IoTBay/src/java/IOTB/model/dao/DBManager.java</file>
-            <file>file:/C:/Users/Jack/Downloads/UTS%20stuff/Second%20year/ISD/IoTBay/web/addDevice.jsp</file>
+            <file>file:/C:/Users/Alexis/Documents/IoTBay/src/java/IOTB/controller/UpdatePaymentServlet.java</file>
+            <file>file:/C:/Users/Alexis/Documents/IoTBay/src/java/IOTB/model/beans/Payment.java</file>
+            <file>file:/C:/Users/Alexis/Documents/IoTBay/src/java/IOTB/model/dao/DBManager.java</file>
+            <file>file:/C:/Users/Alexis/Documents/IoTBay/web/PaymentDetails.jsp</file>
+            <file>file:/C:/Users/Alexis/Documents/IoTBay/web/UpdatePayment.jsp</file>
+            <file>file:/C:/Users/Alexis/Documents/IoTBay/src/java/IOTB/controller/deletePayment.java</file>
+            <file>file:/C:/Users/Alexis/Documents/IoTBay/src/java/IOTB/controller/PaymentManager.java</file>
         </group>
     </open-files>
 </project-private>

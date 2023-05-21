@@ -6,6 +6,7 @@ SOFTWARE REQUIREMENTS:
 - GlassFish 4.1
 
 OPENING PROJECT
+
 1. Unzip the file into a file location you can easily find in the file directory
 
 2. Open Netbeans 
@@ -19,6 +20,7 @@ OPENING PROJECT
 *Note: if prompted to resolve problems relating to finding junit and hamcrest jar files, resolve them by selecting the respective files in the main folder
 
 SET UP DATABASE
+
 6. Navigate to the Service tab in Netbeans and create a Java database called "IOTBAY" (the specified port should be 1527)
 
 7. Set the username to "isduser" and the password "admin"
@@ -26,4 +28,5 @@ SET UP DATABASE
 8. Connect to the database and execute the query found in the main folder "DatabaseLog.txt" (sample data can be found as an excel file SampleData.xlsx
 
 VIEWING THE WEBSITE
+
 9. Build, deploy and execute the project folder

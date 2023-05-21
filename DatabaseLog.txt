@@ -192,6 +192,7 @@ INSERT INTO Admin_T VALUES
 ('689067770587862','awimsettj@wordpress.com','mvaebPSQn');
 
 INSERT INTO Customer_T VALUES
+('12345678901234', 'default', 'man','1925-09-09','defaultman@naver.com','213-761-2257','4336 Moulton Trail', 'La Julia', '','10109','asdasd','asdasd'),
 ('38800000000000', 'Ekaterina', 'Semor','1925-09-09','esemor0@naver.com','213-761-2257','4336 Moulton Trail', 'La Julia', '','10109','esemor0','oQFPvYNDX'),
 ('998000000000000', 'Delora', 'Simcoe','1966-10-03','dsimcoe1@sfgate.com','591-488-3362','3 Glendale Lane', 'Az ZintÄn', '','','dsimcoe1','EfaXG1B6c'),
 ('435000000000000', 'Lanae', 'MacRitchie','1951-06-05','lmacritchie2@sphinn.com','869-983-0784','94 Swallow Pass', 'NÃ®mes', 'A9','30034','lmacritchie2','esAgUsmIKnS8'),
@@ -559,4 +560,3 @@ INSERT INTO AccessLog_T VALUES
 -- SELECT orderlineID, orderID, Device_T.deviceID, deviceName, orderlineDateAdded, orderlineQuantity FROM OrderLine_T INNER JOIN Device_T ON OrderLine_T.deviceID = Device_T.deviceID WHERE OrderLine_T.OrderID = '540042327950925';
 
 --SELECT OrderID, COUNT(OrderID) FROM OrderLine_T GROUP BY OrderID;
-

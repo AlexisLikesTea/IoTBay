@@ -34,11 +34,36 @@
         <title>Manage Payments</title>
     </head>
     <body>
+            
+    <div class="topbanner"></div>
+
+        <!-- This is the top nav bar code-->
+        <div class="topnav">
+            <a href="index.jsp"> Home </a>
+            <% if (session.getAttribute("staff") != null) { %>
+            <a href='CustomerManager.jsp'> Manage Customers</a>
+            <a  href ='Catalogue.jsp'> Manage Inventory </a>
+            <a href =''> Manage AccessLogs</a>
+            <% } %>
+            <%if (session.getAttribute("staff") == null) { %>
+            <a  href ='Catalogue.jsp'>Catalogue</a>
+            <% } %>
+            <% if (session.getAttribute("staff") != null || session.getAttribute("customer") != null) { %>
+            <a class="active" href = 'edit.jsp'> my account </a>
+            <a  href="logout.jsp"  >Logout</a>
+            <% }%> 
+        </div>
         <h1>Manage Payments</h1>
-        
+        <form action="PaymentDetails.jsp" method="post" target="_self">
+                    <input type="submit" value="Add a card">
+        </form>
+        <span>   |   </span>
+        <form action="DeletePayment.jsp" method="post" target="_self">
+                    <input type="submit" value="Delete a card">
+        </form>
         <table>
             <tr>
-                <th>Payment ID</th>
+<!--                <th>Payment ID</th>-->
                 <th>Card Name</th>
                 <th>Card Number</th>
                 <th>CVC</th>
@@ -50,7 +75,7 @@
              <h4> <%= (String) request.getAttribute("cardNumError") != null ? request.getAttribute("cardNumError") : ""%> </h4>
             <% for (Payment payment : payments) { %>
                 <tr>
-                    <td><%= payment.getPaymentID() %></td>
+<!--          //           <td><%= payment.getPaymentID() %></td>-->
                     <form action="UpdatePaymentServlet" method="POST">
                         <td><input type="text" name="cardName" value="<%= payment.getPaymentCardName() %>" /></td>
                         <td><input type="text" name="cardNum" value="<%= payment.getPaymentCardNumber() %>" /></td>

@@ -75,7 +75,7 @@
                     </tr>
                     <tr>
                         <td><label for="cardNum">Card Number: </label></td>
-                        <td><input type="text" id="cardNum" name="cardNum" placeholder="Please add your card's number" value=""> 
+                        <td><input type="number" id="cardNum" name="cardNum" placeholder="Please add your card's number" value=""> 
                     <h8> <%= (String) request.getAttribute("cardNumError") != null ? request.getAttribute("cardNumError") : ""%> </h8>
                     </td>
                     </tr>

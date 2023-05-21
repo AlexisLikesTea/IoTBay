@@ -1,7 +1,7 @@
 <%-- 
     Document   : Catalogue
     Created on : 06/05/2023, 1:29:21 PM
-    Author     : kyler
+    Author     : kyler & anish
 --%>
 
 <!--this is a test-->
@@ -78,6 +78,17 @@
             <a  href="logout.jsp"  >Logout</a>
             <% } %> 
         </div>
+        
+        <%
+            //solution to cart servlet
+           DBManager manager = (DBManager) session.getAttribute("manager"); 
+        if(session.getAttribute("staff") == null && session.getAttribute("customer") == null && session.getAttribute("admin") == null) {
+            session.setAttribute("defaultMan", manager.findCustomerID("12345678901234"));
+                    
+        } else {
+            session.setAttribute("defaultMan",null);
+        }
+        %>
 
         <!--This page and all others need to be updated to include all the new fields in the customer BEAN -->
 
@@ -88,7 +99,7 @@
                 <h4 style = "text-align: center">Browse the device catalogue</h4>
                 <input style ="width:60%; text-align:center; margin: 0 20% 10px 20%; height: 30px" id = "deviceSearch" type = "text" name = "deviceSearch" placeholder="Search for a device">
 <!--put a button here (maybe) for the order payment - calls the order.controller (takes in array list of strings of devices, and other necessary stuff for the orderLine row, method in db manager, loops over array list and keep creating them in order and orderLine (with all the information)-->
-                <% if (session.getAttribute("customer") != null && session.getAttribute("admin") == null && session.getAttribute("staff") == null) { %>
+<% if (session.getAttribute("customer") != null && session.getAttribute("admin") == null && session.getAttribute("staff") == null || session.getAttribute("defaultMan") != null) { %>
                     <div class="button-wrapper">
                     <a href="Order.jsp">
                       <button type="button">Go to Current Order</button>
@@ -100,7 +111,7 @@
             <%
                 // This should really be implimented in a new Servlet or Model controller. 
                 //place holder for now to flesh out a product, pulled from test.
-                DBManager manager = (DBManager) session.getAttribute("manager");
+                //DBManager manager = (DBManager) session.getAttribute("manager");
                 ArrayList<Device> DeviceSearchResults = manager.findDevices(request.getParameter("deviceSearch"));
                 
 

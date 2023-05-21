@@ -52,7 +52,7 @@ public class PaymentManager extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet PaymentMan2ager</title>");
+            out.println("<title>Servlet PaymentManager</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<a href=\"PaymentDetails.jsp\">Details</a>");
@@ -160,7 +160,7 @@ public class PaymentManager extends HttpServlet {
                 request.setAttribute("cardNumError", "Invalid Card Number. Must be 16 numbers in length or more.");
                 isValid = false;;
             }
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException  e) {
             request.setAttribute("cardNumError", "Invalid card number. Card Number cannot be empty.");
             isValid = false;
         }
@@ -189,9 +189,11 @@ public class PaymentManager extends HttpServlet {
         String customerID = customer.getCustomerId();
         Payment payment = new Payment(paymentID, paymentCardName, paymentCardNumber, paymentCardCVC, paymentCardExpiryDate);
 
-        processRequest(request, response);
+       //rocessRequest(request, response);
+        
         try {
             manager.addPayment(paymentID, paymentCardName, paymentCardNumber, paymentCardCVC, paymentCardExpiryDate, customerID);
+            response.sendRedirect("UpdatePayment.jsp");
         } catch (SQLException e) {
             // Handle the exception here
             System.out.println("An error occurred while adding the payment: " + e.getMessage());

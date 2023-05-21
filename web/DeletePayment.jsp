@@ -32,11 +32,30 @@
     <title>Delete Payment</title>
 </head>
 <body>
+    
+    <div class="topbanner"></div>
+
+        <!-- This is the top nav bar code-->
+        <div class="topnav">
+            <a href="index.jsp"> Home </a>
+            <% if (session.getAttribute("staff") != null) { %>
+            <a href='CustomerManager.jsp'> Manage Customers</a>
+            <a  href ='Catalogue.jsp'> Manage Inventory </a>
+            <a href =''> Manage AccessLogs</a>
+            <% } %>
+            <%if (session.getAttribute("staff") == null) { %>
+            <a  href ='Catalogue.jsp'>Catalogue</a>
+            <% } %>
+            <% if (session.getAttribute("staff") != null || session.getAttribute("customer") != null) { %>
+            <a class="active" href = 'edit.jsp'> my account </a>
+            <a  href="logout.jsp"  >Logout</a>
+            <% }%> 
+        </div>
     <h1>Delete Payment</h1>
     
     <table>
         <tr>
-            <th>Payment ID</th>
+<!--            <th>Payment ID</th>-->
             <th>Card Name</th>
             <th>Card Number</th>
             <th>CVC</th>
@@ -46,7 +65,7 @@
         
         <% for (Payment payment : payments) { %>
             <tr>
-                <td><%= payment.getPaymentID() %></td>
+<!--          //       <td><%= payment.getPaymentID() %></td>-->
                 <td><%= payment.getPaymentCardName() %></td>
                 <td><%= payment.getPaymentCardNumber() %></td>
                 <td><%= payment.getPaymentCardCVC() %></td>

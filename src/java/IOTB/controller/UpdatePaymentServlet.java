@@ -129,7 +129,7 @@ public class UpdatePaymentServlet extends HttpServlet {
         //LocalDate paymentCardExpiryDate = request.getParameter("expiryDate"));
         String customerID = customer.getCustomerId();
         manager.updatePayment(paymentID, paymentCardName, paymentCardNumber, paymentCardCVC, customerID);
-        processRequest(request, response);
+        response.sendRedirect("UpdatePayment.jsp");
     }
 
     /**

@@ -31,7 +31,6 @@
             <a href='StaffManager.jsp'> Manage Staff Member</a>
             <a href='CustomerManager.jsp'> Manage Customer</a>
             <a href ='Catalogue.jsp'> Manage Inventory</a>
-            <a href =''> Manage Access Logs</a>  
             <% } %> 
             
             <%if (session.getAttribute("staff") == null && session.getAttribute("admin") == null) { %>

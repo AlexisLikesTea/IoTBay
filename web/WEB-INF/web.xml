@@ -33,6 +33,14 @@
         <servlet-class>IOTB.controller.RegisterCustomerController</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>Debug</servlet-name>
+        <servlet-class>IOTB.controller.Debug</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PaymentManager</servlet-name>
+        <servlet-class>IOTB.controller.PaymentManager</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>RegisterStaffController</servlet-name>
         <servlet-class>IOTB.controller.RegisterStaffController</servlet-class>
     </servlet>
@@ -59,6 +67,14 @@
     <servlet>
         <servlet-name>OrderHistoryController</servlet-name>
         <servlet-class>IOTB.controller.OrderHistoryController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>deletePayment</servlet-name>
+        <servlet-class>IOTB.controller.deletePayment</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdatePaymentServlet</servlet-name>
+        <servlet-class>IOTB.controller.UpdatePaymentServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ConnServlet</servlet-name>
@@ -119,6 +135,22 @@
     <servlet-mapping>
         <servlet-name>OrderHistoryController</servlet-name>
         <url-pattern>/OrderHistoryController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Debug</servlet-name>
+        <url-pattern>/Debug</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PaymentManager</servlet-name>
+        <url-pattern>/PaymentManager</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>deletePayment</servlet-name>
+        <url-pattern>/deletePayment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdatePaymentServlet</servlet-name>
+        <url-pattern>/UpdatePaymentServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

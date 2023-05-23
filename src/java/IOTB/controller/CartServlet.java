@@ -62,8 +62,16 @@ public class CartServlet extends HttpServlet {
             } catch (SQLException ex) {
                 Logger.getLogger(CartServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
-            Customer customer = (Customer) session.getAttribute("customer");
             
+          
+            Customer customer = (Customer) session.getAttribute("customer"); // null 
+            
+            if(customer == null){
+                customer = (Customer) session.getAttribute("defaultMan");
+            }
+            
+            //sessionattribute defaultcust
+           
             int orderLineId;
                 do {
                     orderLineId = new Random().nextInt(999999);
